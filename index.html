@@ -1,67 +1,157 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" id="top">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="侯俊安的个人主页。人工智能专业在读，关注 Agent 应用和后端工程。">
+  <meta name="description" content="侯俊安的个人作品集。记录 GroundedAgent、合同预审平台实践，以及 Agent 应用和后端工程中的技术取舍。">
   <meta name="color-scheme" content="dark">
-  <title>侯俊安 · 个人主页</title>
+  <meta name="theme-color" content="#101614">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="侯俊安 · Agent 应用与后端开发">
+  <meta property="og:description" content="个人项目、实习实践与工程笔记。">
+  <meta property="og:url" content="https://sjhesjaj.github.io/">
+  <title>侯俊安 · Agent 应用与后端开发</title>
+  <link rel="canonical" href="https://sjhesjaj.github.io/">
+  <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <a class="skip" href="#main">跳到正文</a>
   <header class="shell top">
-    <a class="brand" href="#main"><span aria-hidden="true">H</span> 侯俊安</a>
+    <a class="brand" href="#top"><span aria-hidden="true">H</span> 侯俊安</a>
     <nav aria-label="主导航">
       <a href="#projects">项目</a>
+      <a href="#practice">实习实践</a>
+      <a href="#notes">工程笔记</a>
       <a href="#about">关于我</a>
-      <a href="https://github.com/sjhesjaj">GitHub</a>
     </nav>
   </header>
-  <main id="main" class="shell">
-    <section class="intro" aria-labelledby="name">
+
+  <main id="main" class="shell" tabindex="-1">
+    <section class="hero" aria-labelledby="name">
       <div>
-        <p class="eyebrow">东北农业大学 · 人工智能</p>
+        <p class="eyebrow">东北农业大学 · 人工智能 · 2028 届</p>
         <h1 id="name">侯俊安<span>.</span></h1>
-        <p class="intro-title">我在做 Agent 应用和后端开发。</p>
-        <p class="muted intro-copy">我关注模型如何调用业务工具，以及怎样把一次对话接进一条可验证的业务流程。</p>
-        <a class="button" href="#projects">查看项目 <span aria-hidden="true">↓</span></a>
+        <p class="hero-title">我在做 Agent 应用和后端开发。</p>
+        <p class="muted hero-copy">我关注模型如何调用业务工具，以及一项有副作用的操作如何经过校验、审批与重试，最终留下可核对的结果。</p>
+        <div class="actions">
+          <a class="button primary" href="#projects">查看代表项目 <span aria-hidden="true">↓</span></a>
+          <a class="button" href="https://github.com/sjhesjaj">GitHub <span aria-hidden="true">↗</span></a>
+        </div>
       </div>
-      <div class="flow">
-        <p class="flow-title"><span aria-hidden="true"></span> GroundedAgent · 售后流程示例</p>
-        <ol>
-          <li><b>01</b><div>收到售后问题<small>“这笔订单可以退货吗？”</small></div></li>
-          <li><b>02</b><div>查询订单和售后规则<small>把业务结果交给 Agent 判断</small></div></li>
-          <li><b>03</b><div>生成工单草稿<small>留下可供人工确认的处理建议</small></div></li>
+      <aside class="flow" aria-label="GroundedAgent 退货示例">
+        <div class="flow-header">
+          <span class="flow-dot" aria-hidden="true"></span>
+          <span>GroundedAgent</span>
+          <span class="flow-label">退货示例</span>
+        </div>
+        <ol class="flow-steps">
+          <li><div><strong>查询订单</strong><span>读取顾客可访问的订单状态</span></div></li>
+          <li><div><strong>校验退货申请</strong><span>确认商品来自本轮查询，按业务规则判定</span></div></li>
+          <li><div><strong>等待人工审批</strong><span>由操作员批准或拒绝</span></div></li>
+          <li><div><strong>复核并执行</strong><span>重新读取状态，幂等写入并返回回执</span></div></li>
         </ol>
+      </aside>
+    </section>
+
+    <section id="projects" class="section" aria-labelledby="projects-heading">
+      <h2 id="projects-heading">代表项目</h2>
+      <article class="feature" aria-labelledby="grounded-title">
+        <div class="feature-copy">
+          <h3 id="grounded-title">GroundedAgent</h3>
+          <p class="feature-subtitle">面向电商售后的客服 Agent</p>
+          <p class="muted">顾客可以查询订单、物流和售后规则，也可以发起退换货。模型提出动作，后端校验参数来源，用确定性规则决定是否放行。退货需人工审批，批准后重新检查业务状态再写入。</p>
+          <ul class="tags" aria-label="项目技术">
+            <li>Python</li><li>FastAPI</li><li>LangGraph</li><li>Vue 3</li>
+          </ul>
+          <div class="actions">
+            <a class="text-link" href="https://github.com/sjhesjaj/GroundedAgent">查看源码 <span aria-hidden="true">↗</span></a>
+            <a class="text-link" href="https://github.com/sjhesjaj/GroundedAgent#verified-results">评测记录 <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <figure class="demo">
+          <a href="assets/groundedagent-demo.webp" aria-label="查看大图：GroundedAgent 待审批界面">
+            <img src="assets/groundedagent-demo.webp" width="2160" height="1710"
+                 alt="GroundedAgent 演示界面中，顾客提出退货，规则判定需要人工审批，界面显示批准和拒绝按钮。">
+          </a>
+          <figcaption>本地演示 · 退货申请进入待审批状态</figcaption>
+        </figure>
+        <dl class="metrics" aria-label="项目验证结果">
+          <div>
+            <dt>端到端任务通过</dt>
+            <dd>21<span>/25</span><small>Stage 6 封存测试集</small></dd>
+          </div>
+          <div>
+            <dt>满足安全约束的用例</dt>
+            <dd>25<span>/25</span><small>每条用例均满足六项硬性约束</small></dd>
+          </div>
+          <div>
+            <dt>进程崩溃场景</dt>
+            <dd>9<small>M2 重启恢复离线测试</small></dd>
+          </div>
+        </dl>
+      </article>
+    </section>
+
+    <section id="practice" class="section" aria-labelledby="practice-heading">
+      <h2 id="practice-heading">实习实践</h2>
+      <article class="practice" aria-labelledby="contract-title">
+        <div class="practice-intro">
+          <h3 id="contract-title">合同预审平台</h3>
+          <p class="muted">围绕 AI 审查与法务复核，参与复现意见流转问题、验证效果看板，并设计如何复用已确认的法务经验。</p>
+        </div>
+        <div class="practice-items">
+          <section>
+            <h4>复核时保留待确认的风险</h4>
+            <p>用样例复现模型漏回意见时旧风险被误关闭的问题，提出为「未判定」和「确认无风险」设置独立状态，让经办人知道哪些意见仍需复核。</p>
+          </section>
+          <section>
+            <h4>用有效裁决核对误报和漏报</h4>
+            <p>参与效果看板的样例验证。统计以生效裁决为依据，用模拟合同核对误报、漏报、撤回后的统计变化和角色访问权限。</p>
+          </section>
+          <section>
+            <h4>将法务处理经验整理成规则候选</h4>
+            <p>参与设计从修订差异和法务意见提炼规则候选的流程，并把法务确认和历史样例回放设为发布前的检查步骤。</p>
+          </section>
+        </div>
+      </article>
+    </section>
+
+    <section id="notes" class="section" aria-labelledby="notes-heading">
+      <h2 id="notes-heading">工程笔记</h2>
+      <div class="notes">
+        <details>
+          <summary><span class="note-topic">状态恢复</span><span class="note-title">进程在写入后崩溃，如何避免重复建单？</span><span class="note-toggle" aria-hidden="true"></span></summary>
+          <div class="note-body">
+            <p>提交动作前先保存待执行状态。最难处理的是业务已经写入、会话检查点还没更新时进程退出。重启后从检查点恢复，用同一个幂等键再次调用写入网关，由网关返回第一次的执行结果。验证时在提交点中断真实子进程，再连续恢复两次，检查业务记录和恢复结果。</p>
+            <a class="text-link" href="https://github.com/sjhesjaj/GroundedAgent/blob/main/docs/v2/m2-restart-demo.md">重启复现步骤 <span aria-hidden="true">↗</span></a>
+          </div>
+        </details>
+        <details>
+          <summary><span class="note-topic">动作校验</span><span class="note-title">模型猜中了订单号，这次操作该放行吗？</span><span class="note-toggle" aria-hidden="true"></span></summary>
+          <div class="note-body">
+            <p>开发集里有模型跳过订单查询、直接猜中业务编号的情况。写入前校验订单与商品是否来自本轮的真实查询；缺少依据就拦截。在三轮开发集对照中，每轮平均放行的无依据动作从 3.33 个降为 0，端到端通过数从 37/40 降为 36/40。把两项一起看，才能衡量规则的收益和代价。</p>
+            <a class="text-link" href="https://github.com/sjhesjaj/GroundedAgent/blob/main/docs/v2/m1-a2-grounding-eval.md">开发集对照记录 <span aria-hidden="true">↗</span></a>
+          </div>
+        </details>
       </div>
     </section>
-    <section id="projects" aria-labelledby="projects-heading">
-      <div class="section-head"><h2 id="projects-heading">项目与实践</h2></div>
-      <div class="projects">
-        <article>
-          <p class="category">个人项目</p>
-          <h3>GroundedAgent</h3>
-          <p>面向电商售后的 Agent。通过工具查询订单、检索售后规则，再生成供人工确认的工单草稿。用 PostgreSQL 保存业务状态，并围绕人工审批、幂等执行和可验证评测完善流程。</p>
-          <a class="project-link" href="https://github.com/sjhesjaj/GroundedAgent">查看项目源码 ↗</a>
-          <ul class="tags" aria-label="技术与主题"><li>Python</li><li>PostgreSQL</li><li>工具调用</li></ul>
-        </article>
-        <article>
-          <p class="category">实习实践</p>
-          <h3>合同预审平台</h3>
-          <p>参与合同预审平台的开发。为便于回看 AI 审查中的误报和漏报，参与实现基于法务有效裁决的统计看板，并用模拟合同验证统计口径和访问权限。</p>
-          <ul class="tags" aria-label="技术与主题"><li>合同预审</li><li>审批工作流</li><li>数据看板</li></ul>
-        </article>
-      </div>
-    </section>
-    <section id="about" class="about" aria-labelledby="about-heading">
+
+    <section id="about" class="section about" aria-labelledby="about-heading">
       <h2 id="about-heading">关于我</h2>
       <div>
-        <p>我在东北农业大学读人工智能，预计 2028 年毕业。平时用 Python 和 FastAPI 写后端，也有 Java、Spring Boot 和 Vue 3 的开发经历。</p>
-        <p class="muted">目前关注 Agent 应用、AI 基础设施和后端工程，也在练习把本地项目部署成可持续运行的服务。</p>
+        <p>我在东北农业大学读人工智能，预计 2028 年毕业。目前关注 Agent 应用、AI 基础设施和后端工程。</p>
+        <p class="muted">主要使用 Python 和 FastAPI，也有 Java、Spring Boot 和 Vue 3 的开发经历。</p>
       </div>
     </section>
   </main>
-  <footer class="shell footer"><span>侯俊安 · 个人主页</span><a href="#main">回到顶部 ↑</a></footer>
+
+  <footer class="shell footer">
+    <span>侯俊安</span>
+    <div>
+      <a href="https://github.com/sjhesjaj">GitHub ↗</a>
+      <a href="#top">回到顶部 ↑</a>
+    </div>
+  </footer>
 </body>
 </html>
