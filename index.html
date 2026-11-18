@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="侯俊安的个人主页。人工智能专业在读，关注 Agent 应用和后端工程。">
+  <meta name="color-scheme" content="dark">
+  <title>侯俊安 · 个人主页</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="shell top">
+    <a class="brand" href="#main"><span aria-hidden="true">H</span> 侯俊安</a>
+    <nav aria-label="主导航">
+      <a href="#projects">项目</a>
+      <a href="#about">关于我</a>
+      <a href="https://github.com/sjhesjaj">GitHub</a>
+    </nav>
+  </header>
+  <main id="main" class="shell">
+    <section class="intro" aria-labelledby="name">
+      <div>
+        <p class="eyebrow">东北农业大学 · 人工智能</p>
+        <h1 id="name">侯俊安<span>.</span></h1>
+        <p class="intro-title">我在做 Agent 应用和后端开发。</p>
+        <p class="muted intro-copy">我关注模型如何调用业务工具，以及怎样把一次对话接进一条可验证的业务流程。</p>
+        <a class="button" href="#projects">查看项目 <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="flow">
+        <p class="flow-title"><span aria-hidden="true"></span> GroundedAgent · 售后流程示例</p>
+        <ol>
+          <li><b>01</b><div>收到售后问题<small>“这笔订单可以退货吗？”</small></div></li>
+          <li><b>02</b><div>查询订单和售后规则<small>把业务结果交给 Agent 判断</small></div></li>
+          <li><b>03</b><div>生成工单草稿<small>留下可供人工确认的处理建议</small></div></li>
+        </ol>
+      </div>
+    </section>
+    <section id="projects" aria-labelledby="projects-heading">
+      <div class="section-head"><h2 id="projects-heading">项目与实践</h2></div>
+      <div class="projects">
+        <article>
+          <p class="category">个人项目</p>
+          <h3>GroundedAgent</h3>
+          <p>面向电商售后的 Agent。通过工具查询订单、检索售后规则，再生成供人工确认的工单草稿。用 PostgreSQL 保存业务状态，并围绕人工审批、幂等执行和可验证评测完善流程。</p>
+          <a class="project-link" href="https://github.com/sjhesjaj/GroundedAgent">查看项目源码 ↗</a>
+          <ul class="tags" aria-label="技术与主题"><li>Python</li><li>PostgreSQL</li><li>工具调用</li></ul>
+        </article>
+        <article>
+          <p class="category">实习实践</p>
+          <h3>合同预审平台</h3>
+          <p>参与合同预审平台的开发。为便于回看 AI 审查中的误报和漏报，参与实现基于法务有效裁决的统计看板，并用模拟合同验证统计口径和访问权限。</p>
+          <ul class="tags" aria-label="技术与主题"><li>合同预审</li><li>审批工作流</li><li>数据看板</li></ul>
+        </article>
+      </div>
+    </section>
+    <section id="about" class="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">关于我</h2>
+      <div>
+        <p>我在东北农业大学读人工智能，预计 2028 年毕业。平时用 Python 和 FastAPI 写后端，也有 Java、Spring Boot 和 Vue 3 的开发经历。</p>
+        <p class="muted">目前关注 Agent 应用、AI 基础设施和后端工程，也在练习把本地项目部署成可持续运行的服务。</p>
+      </div>
+    </section>
+  </main>
+  <footer class="shell footer"><span>侯俊安 · 个人主页</span><a href="#main">回到顶部 ↑</a></footer>
+</body>
+</html>

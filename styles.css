@@ -1,0 +1,64 @@
+:root {
+  color-scheme: dark;
+  --bg: #101514;
+  --surface: #161e1b;
+  --line: #2d3a33;
+  --ink: #f0f4ef;
+  --muted: #a9b8af;
+  --green: #b7ee9b;
+  font-family: Inter, "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+a { color: inherit; text-decoration: none; }
+a:focus-visible { outline: 2px solid var(--green); outline-offset: 5px; }
+p, h1, h2, h3 { margin: 0; }
+.shell { width: min(1080px, calc(100% - 64px)); margin-inline: auto; }
+.skip { position: fixed; top: 12px; left: 12px; z-index: 1; transform: translateY(-150%); padding: 8px 12px; background: var(--surface); }
+.skip:focus { transform: none; }
+.top, .footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.top { min-height: 80px; border-bottom: 1px solid var(--line); }
+.brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; }
+.brand span { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid #4e674d; border-radius: 8px; color: var(--green); font-family: "IBM Plex Mono", monospace; }
+nav { display: flex; gap: 24px; }
+nav a, .footer { font-size: 14px; color: var(--muted); }
+nav a:hover, .footer a:hover { color: var(--green); }
+.intro { display: grid; grid-template-columns: 1.13fr 1fr; gap: clamp(28px, 6vw, 88px); align-items: center; padding: clamp(62px, 9vw, 132px) 0; }
+.eyebrow, .category { color: var(--green); font-size: 13px; letter-spacing: .08em; }
+h1 { margin: 12px 0 16px; font-size: clamp(58px, 8vw, 102px); line-height: 1.06; letter-spacing: -.09em; }
+h1 span { color: var(--green); margin-left: .13em; }
+.intro-title { font-weight: 650; font-size: clamp(18px, 2.25vw, 26px); }
+.muted { color: var(--muted); }
+.intro-copy { max-width: 31em; margin-top: 14px; line-height: 1.85; }
+.button { display: inline-flex; gap: 22px; align-items: center; margin-top: 28px; padding: 11px 17px; background: var(--green); color: #182418; font-weight: 700; border-radius: 7px; }
+.button:hover { background: #d4ffc1; }
+.flow { border: 1px solid #35493c; border-radius: 15px; overflow: hidden; background: radial-gradient(ellipse at top right, #314a31, transparent 74%), var(--surface); }
+.flow-title { padding: 18px 22px; color: #d3e2d5; border-bottom: 1px solid #35493c; font-size: 13px; }
+.flow-title span { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--green); margin-right: 8px; }
+.flow ol { list-style: none; padding: 12px 22px; margin: 0; }
+.flow li { padding: 16px 0; display: flex; gap: 17px; }
+.flow li + li { border-top: 1px solid var(--line); }
+.flow b { font: 13px/1.65 "IBM Plex Mono", Consolas, monospace; color: var(--green); }
+.flow small { display: block; margin-top: 5px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+.section-head { border-top: 1px solid var(--line); padding: 30px 0 21px; }
+h2 { font-size: 26px; letter-spacing: -.025em; }
+.projects { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+article { display: flex; flex-direction: column; align-items: flex-start; padding: clamp(20px, 3vw, 30px); background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+article h3 { margin: 10px 0; font-size: 24px; }
+article p:not(.category), .about p { color: var(--muted); line-height: 1.85; }
+.tags { margin: auto 0 0; padding: 20px 0 0; list-style: none; display: flex; flex-wrap: wrap; gap: 7px; }
+.tags li { padding: 4px 8px; border: 1px solid #3b4d41; border-radius: 5px; font-size: 12px; color: #c8d8ce; }
+.project-link { margin-top: 13px; color: var(--green); font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
+.about { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; border-top: 1px solid var(--line); margin-top: 63px; padding: 36px 0 54px; }
+.about p + p { margin-top: 10px; }
+.footer { border-top: 1px solid var(--line); min-height: 74px; }
+@media (max-width: 700px) {
+  .shell { width: calc(100% - 36px); }
+  .top { min-height: 64px; }
+  nav { gap: 14px; }
+  .intro, .projects, .about { grid-template-columns: 1fr; }
+  .intro { padding: 56px 0; gap: 32px; }
+  .about { margin-top: 42px; }
+}
