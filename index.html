@@ -3,93 +3,202 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="侯俊安，东北农业大学人工智能 2028 届，做 Agent 应用与后端开发。">
+  <meta name="description" content="侯俊安，东北农业大学人工智能 2024 级，做 Agent 应用与后端开发，正在找实习。">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#f6f6f7">
+  <meta name="theme-color" content="#fbfbfa">
   <meta property="og:type" content="profile">
   <meta property="og:title" content="侯俊安 · Agent 应用与后端开发">
-  <meta property="og:description" content="东北农业大学人工智能 2028 届，正在找 Agent / 后端实习。">
+  <meta property="og:description" content="东北农业大学人工智能 2024 级，正在找 Agent / 后端实习。">
   <meta property="og:url" content="https://sjhesjaj.github.io/">
   <title>侯俊安 · Agent 应用与后端开发</title>
   <link rel="canonical" href="https://sjhesjaj.github.io/">
   <link rel="icon" href="favicon.ico" sizes="any">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="home.css">
+  <script>document.documentElement.classList.add('js')</script>
 </head>
-<body class="home">
-  <main class="home-wrap">
-    <section class="idcard" aria-labelledby="name">
-      <div class="id-top">
-        <img class="avatar" src="assets/portrait.webp" width="360" height="480" alt="侯俊安的照片">
-        <div class="id-main">
-          <h1 id="name">侯俊安</h1>
-          <p class="role">Agent 应用 / 后端开发</p>
-          <p class="school">东北农业大学 · 人工智能 · <span>2028 届</span></p>
-        </div>
-      </div>
-      <p class="status"><i aria-hidden="true"></i>正在找 Agent / 后端方向的实习</p>
-      <p class="bio">我关注模型如何调用业务工具，以及一项有副作用的操作如何经过校验、审批与重试，最终留下可核对的结果。</p>
-      <div class="id-links">
-        <a class="button primary" href="mailto:h000_1014@qq.com">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z M4 7l8 6 8-6" /></svg>h000_1014@qq.com
-        </a>
-        <a class="button" href="https://github.com/sjhesjaj">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.5-4-2-6-2.5m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" /></svg>sjhesjaj
-        </a>
-      </div>
-    </section>
+<body>
+  <header class="bar">
+    <div class="wrap">
+      <a class="logo" href="#top"><span aria-hidden="true">H</span>侯俊安</a>
+      <nav aria-label="主导航">
+        <a href="#about">关于</a>
+        <a href="#projects">项目</a>
+        <a href="#journey" class="opt">经历</a>
+        <a href="#notes" class="opt">笔记</a>
+        <a href="#contact">联系</a>
+      </nav>
+    </div>
+  </header>
 
-    <section class="block" aria-labelledby="exp-h">
-      <h2 id="exp-h">经历</h2>
-      <ul class="rows">
-        <li>
-          <span class="when">2026.09 – 11</span>
-          <div>
-            <strong>AI 应用开发实习 · 合同预审平台</strong>
-            <p>复现 AI 审查意见被误关闭的问题并设计独立的待确认状态；参与效果看板的误报 / 漏报验证；设计从法务意见提炼规则候选的流程。</p>
-          </div>
-        </li>
-        <li>
-          <span class="when">2024 – 2028</span>
-          <div>
-            <strong>东北农业大学 · 人工智能 本科</strong>
-            <p>CET-6</p>
-          </div>
-        </li>
-      </ul>
-    </section>
-
-    <section class="block" aria-labelledby="proj-h">
-      <h2 id="proj-h">项目</h2>
-      <a class="row-link" href="projects/groundedagent.html">
+  <main id="top">
+    <!-- 首屏 -->
+    <section class="hero">
+      <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="wrap hero-grid">
         <div>
-          <strong>GroundedAgent</strong>
-          <p>面向电商售后的客服 Agent：模型提出动作，后端校验来源、规则决定放行，退货需人工审批。</p>
-          <p class="facts"><span>封存集 21/25 通过</span><span>安全约束 25/25</span><span>9 个崩溃恢复场景</span></p>
+          <span class="status reveal"><i></i>正在找 Agent / 后端实习 · 可实习 6 个月</span>
+          <p class="hello reveal" style="--d:.05s">你好，我是</p>
+          <h1 class="reveal" style="--d:.1s">侯俊安</h1>
+          <p class="rotator reveal" style="--d:.15s">
+            <span>我在</span>
+            <span class="slot" aria-live="polite"><span class="on">做 Agent 应用</span><span>写后端服务</span><span>给模型的动作加护栏</span><span>写工程笔记</span></span>
+          </p>
+          <p class="intro reveal" style="--d:.2s">东北农业大学人工智能专业 2024 级，现在读大三。我关心一个具体的问题：<b>模型提出的一个动作，系统凭什么相信它</b>。参数从哪里来、谁来审批、进程崩溃了怎么恢复，我希望每个答案都能被验证。</p>
+          <div class="cta reveal" style="--d:.25s">
+            <a class="btn dark" href="#projects">看看我做了什么</a>
+            <a class="btn" href="mailto:h000_1014@qq.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z M4 7l8 6 8-6"/></svg>发邮件</a>
+            <a class="btn" href="https://github.com/sjhesjaj"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.5-4-2-6-2.5m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>GitHub</a>
+          </div>
         </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
+        <div class="photo reveal" style="--d:.15s">
+          <div class="photo-card" data-tilt>
+            <img src="assets/portrait.webp" width="360" height="480" alt="侯俊安的照片">
+          </div>
+          <span class="sticker s1">📍 哈尔滨<small>东北农业大学 · 大三</small></span>
+          <span class="sticker s2">🛡️ GroundedAgent<small>封存集 21/25 · 安全 25/25</small></span>
+        </div>
+      </div>
+      <a class="scroll-hint" href="#about" aria-label="向下滚动"><span>向下看看</span><i></i></a>
     </section>
 
-    <section class="block" aria-labelledby="notes-h">
-      <h2 id="notes-h">工程笔记</h2>
-      <a class="row-link" href="notes/state-recovery.html">
-        <div><strong>进程在写入后崩溃，如何避免重复建单？</strong><p>状态恢复 · 约 6 分钟</p></div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="row-link" href="notes/action-grounding.html">
-        <div><strong>模型猜中了订单号，这次操作该放行吗？</strong><p>动作校验 · 约 6 分钟</p></div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
+    <!-- 关于 -->
+    <section id="about" class="sec">
+      <div class="wrap">
+        <p class="kicker reveal">01 · 关于我</p>
+        <h2 class="reveal">一个想让 Agent “靠得住”的学生</h2>
+        <div class="about">
+          <div class="story reveal">
+            <p>这一年我做了三个项目：一个工单 Agent、一个考试周抢座的预约系统、一个能真正执行退换货的售后客服 Agent。它们看起来方向不同，回答的其实是同一个问题：<b>有副作用的操作，怎样做到不重复、不越权、出错了能恢复</b>。</p>
+            <p>我更愿意把时间花在“证明它对”上，而不只是让 Demo 跑通：写下预期再跑对照、把测试集封存起来只开一次、在每个提交点真的去杀进程。没通过的用例，我也会写出来。</p>
+            <p>主要用 Python、FastAPI 和 LangGraph，也写 Java、Spring Boot 和 Vue 3。2026 年秋天在一家公司做 AI 应用开发实习，参与合同预审平台。</p>
+          </div>
+          <dl class="facts reveal" style="--d:.1s">
+            <div><dt>学校</dt><dd>东北农业大学（211 / 双一流）</dd></div>
+            <div><dt>专业</dt><dd>人工智能 · 本科 2024 级</dd></div>
+            <div><dt>毕业</dt><dd>2028 年 6 月</dd></div>
+            <div><dt>坐标</dt><dd>哈尔滨</dd></div>
+            <div><dt>在找</dt><dd>Agent 应用 / 后端实习，可实习 6 个月</dd></div>
+            <div><dt>英语</dt><dd>CET-6</dd></div>
+          </dl>
+        </div>
+      </div>
     </section>
 
-    <section class="block" aria-labelledby="skill-h">
-      <h2 id="skill-h">技术栈</h2>
-      <ul class="chips">
-        <li>Python</li><li>FastAPI</li><li>LangGraph</li><li>SQLite / PostgreSQL</li><li>Java</li><li>Spring Boot</li><li>Vue 3</li>
-      </ul>
+    <!-- 原则 -->
+    <section class="sec" style="padding-top:0">
+      <div class="wrap">
+        <p class="kicker reveal">02 · 我做事的方式</p>
+        <h2 class="reveal">几条我给自己定的规矩</h2>
+        <div class="rules">
+          <article class="rule reveal"><h3>数字必须能对上</h3><p>报告里的每个数字都要能在仓库里找到出处，测试项数、提交数这种“小事”也一样。</p></article>
+          <article class="rule reveal" style="--d:.08s"><h3>在会失败的条件下验证</h3><p>说“崩溃后能恢复”，就真的在每个提交点杀掉进程，再恢复两次比对结果。</p></article>
+          <article class="rule reveal" style="--d:.16s"><h3>不预告没完成的结果</h3><p>“应该会通过”和“已经通过”是两回事。CI 没跑完，就说没跑完。</p></article>
+          <article class="rule reveal" style="--d:.24s"><h3>往前修正，不改写历史</h3><p>结论错了用新的提交撤回，版本号写错就另发一版，不去覆盖已经发布的东西。</p></article>
+        </div>
+      </div>
     </section>
 
-    <footer class="home-foot">© 2026 侯俊安</footer>
+    <!-- 项目 -->
+    <section id="projects" class="sec" style="padding-top:0">
+      <div class="wrap">
+        <p class="kicker reveal">03 · 项目</p>
+        <h2 class="reveal">我做过的东西</h2>
+        <p class="sec-lead reveal">点开卡片可以看到更多细节：做了什么、怎么验证的、还有哪些没做到。</p>
+        <div class="projects">
+          <button class="pcard wide reveal" type="button" data-project="grounded" aria-haspopup="dialog">
+            <div class="media"><img src="assets/groundedagent-demo.webp" width="2160" height="1710" loading="lazy" alt="GroundedAgent 待审批界面截图"></div>
+            <div class="body">
+              <div class="meta"><span>代表项目 · 2026.07 至今</span><span>Python</span></div>
+              <h3>GroundedAgent</h3>
+              <p>面向电商售后的客服 Agent。模型只提出动作，后端校验参数来源、用确定性规则决定放行；退货要人工审批，崩溃后能恢复且不重复写入。</p>
+              <div class="stat-row">
+                <div><b data-count="21">21</b><span>/25 封存集通过</span></div>
+                <div><b data-count="25">25</b><span>/25 安全约束</span></div>
+                <div><b data-count="9">9</b><span>个崩溃场景</span></div>
+              </div>
+              <ul class="tags"><li>FastAPI</li><li>LangGraph</li><li>DeepSeek</li><li>Vue 3</li></ul>
+              <span class="more">查看详情 <i>→</i></span>
+            </div>
+          </button>
+          <button class="pcard reveal" type="button" data-project="library" aria-haspopup="dialog">
+            <div class="media"><img src="assets/lib-student-seat-overview.png" width="1600" height="1300" loading="lazy" alt="校园图书馆座位总览界面截图"></div>
+            <div class="body">
+              <div class="meta"><span>2026.08</span><span>Java</span></div>
+              <h3>校园智慧图书馆</h3>
+              <p>考试周抢座的预约系统。16 个线程同时抢同一个座位只有一个成功，客户端重试不会重复下单。</p>
+              <ul class="tags"><li>Spring Boot</li><li>Vue 3</li><li>MySQL</li><li>Flyway</li></ul>
+              <span class="more">查看详情 <i>→</i></span>
+            </div>
+          </button>
+          <button class="pcard reveal" type="button" data-project="ticket" aria-haspopup="dialog" style="--d:.08s">
+            <div class="media code" aria-hidden="true"><span class="c"># 支付成功，但订单仍是待支付</span><span>classify  <span class="ok">payment_mismatch</span></span><span>tools     get_order · list_payments</span><span>guard     <span class="y">REQUIRE_APPROVAL</span></span><span>interrupt → 人工批准 → resume</span><span>verify    args_hash · version · ttl</span><span>repair    <span class="ok">PAID</span>  (exactly once)</span></div>
+            <div class="body">
+              <div class="meta"><span>2026.07</span><span>Python</span></div>
+              <h3>Agent 工单平台</h3>
+              <p>只自动处理一种工单：支付成功但订单仍待支付。模型只负责分类，查询、审批和写操作都由确定性代码控制。</p>
+              <ul class="tags"><li>FastAPI</li><li>LangGraph</li><li>Celery</li><li>Ollama</li></ul>
+              <span class="more">查看详情 <i>→</i></span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 经历 -->
+    <section id="journey" class="sec" style="padding-top:0">
+      <div class="wrap">
+        <p class="kicker reveal">04 · 一路走来</p>
+        <h2 class="reveal">时间线</h2>
+        <div class="timeline">
+          <span class="fill" aria-hidden="true"></span>
+          <div class="tl reveal"><time>2026.11</time><h3>开始写工程笔记，重做了这个主页</h3><p>把项目里最难的两个问题写成完整的推导，放在下面的笔记里。</p></div>
+          <div class="tl reveal"><time>2026.10 – 11</time><h3>GroundedAgent V2：封存评测、崩溃恢复、售后知识库</h3><p>封存测试集只开封一次，端到端 21/25、六项安全约束 25/25；接入 LangGraph 持久化，9 个真实杀进程场景下不重复写入。</p></div>
+          <div class="tl reveal"><time>2026.09 – 11</time><h3>AI 应用开发实习 · 合同预审平台</h3><p>复现 AI 审查意见被误关闭的问题并设计独立的待确认状态；参与效果看板的误报 / 漏报验证；设计从法务意见提炼规则候选的流程。</p></div>
+          <div class="tl reveal"><time>2026.08</time><h3>校园智慧图书馆</h3><p>第一次认真对待并发：数据库唯一约束 + 幂等键，16 线程抢同一座位只有一个成功。</p></div>
+          <div class="tl reveal"><time>2026.07</time><h3>开始做 Agent：工单平台和 GroundedAgent</h3><p>从“让模型直接改数据”转向“模型只提议、代码来放行”，这是后面所有项目的出发点。</p></div>
+          <div class="tl reveal"><time>2024.09</time><h3>进入东北农业大学，人工智能专业</h3><p>写下第一行 Python。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 笔记 -->
+    <section id="notes" class="sec" style="padding-top:0">
+      <div class="wrap">
+        <p class="kicker reveal">05 · 工程笔记</p>
+        <h2 class="reveal">写下来的思考</h2>
+        <div class="notes">
+          <a class="note reveal" href="notes/state-recovery.html">
+            <div><small>状态恢复 · 约 6 分钟</small><strong>进程在写入后崩溃，如何避免重复建单？</strong><p>in-flight marker + 幂等键，只重跑网关；9 个提交点真实杀进程验证。</p></div>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="note reveal" href="notes/action-grounding.html" style="--d:.08s">
+            <div><small>动作校验 · 约 6 分钟</small><strong>模型猜中了订单号，这次操作该放行吗？</strong><p>无依据动作 3.33 → 0，代价是端到端 37 → 36。</p></div>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 联系 -->
+    <section id="contact" class="wrap">
+      <div class="contact reveal">
+        <h2>一起聊聊？</h2>
+        <p>如果你在找 Agent 应用或后端方向的实习生，或者只是想聊聊怎么让 Agent 更可靠，欢迎给我发邮件。</p>
+        <div class="cta">
+          <a class="btn light" href="mailto:h000_1014@qq.com">h000_1014@qq.com</a>
+          <button class="btn" type="button" data-copy="h000_1014@qq.com">复制邮箱<span class="copy-ok" aria-live="polite"></span></button>
+          <a class="btn" href="https://github.com/sjhesjaj">GitHub ↗</a>
+        </div>
+      </div>
+      <footer class="foot"><span>© 2026 侯俊安</span><a href="#top">回到顶部 ↑</a></footer>
+    </section>
   </main>
+
+  <dialog class="sheet" aria-labelledby="sheet-title">
+    <button class="sheet-close" type="button" aria-label="关闭">✕</button>
+    <div class="sheet-inner"></div>
+  </dialog>
+
+  <script src="home.js" defer></script>
 </body>
 </html>
