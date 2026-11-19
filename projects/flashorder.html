@@ -21,10 +21,10 @@
   <main id="main" class="wide" tabindex="-1">
 
     <header class="page-head p-head">
-      <p class="label"><a href="./">Projects</a> <i>/</i> 高并发订单系统</p>
+      <p class="crumb"><a href="./">Projects</a><span aria-hidden="true">/</span>高并发订单系统</p>
       <h1>FlashOrder</h1>
       <p class="intro">正在规划的高并发订单系统，重点研究库存扣减、超卖防护、幂等、消息队列与性能优化。</p>
-      <div class="p-meta"><span class="status planned">Planned</span><time>规划中</time><ul class="tags"><li>Java</li><li>Spring Boot</li><li>Redis（计划）</li><li>消息队列（计划）</li></ul></div>
+      <div class="p-meta"><span class="status planned">Planned</span><time>规划中</time><ul class="tags"><li>Java</li><li>Spring Boot</li></ul></div>
       
     </header>
     <nav class="ptoc" aria-label="本页目录"><ol class="wide"><li><a href="#overview"><span>01</span>Overview</a></li><li><a href="#motivation"><span>02</span>Motivation</a></li><li><a href="#challenges"><span>03</span>Challenges</a></li><li><a href="#architecture"><span>04</span>Architecture</a></li><li><a href="#decisions"><span>05</span>Engineering Decisions</a></li><li><a href="#validation"><span>06</span>Validation</a></li><li><a href="#lessons"><span>07</span>Lessons</a></li></ol></nav>
@@ -36,7 +36,7 @@
     <section class="psec" id="motivation" aria-labelledby="motivation-h">
       <header><span class="n">02</span><h2 id="motivation-h">Motivation</h2><p>为什么要做</p></header>
       <div class="pbody"><p>图书馆项目里，并发问题被“一个座位、一个时段”框住了，数据库唯一约束就能兜底。真实的下单场景难得多：库存是一个会被大量请求同时扣减的数字，流量也远超数据库能直接承受的量级。</p>
-      <p>我想知道：从“一个座位不超卖”，到“流量洪峰下库存不超卖”，中间到底多了什么。</p></div>
+      <p>FlashOrder 想研究的就是这些更难的部分：库存扣减、超卖防护、幂等、消息队列与性能优化。</p></div>
     </section>
     <section class="psec" id="challenges" aria-labelledby="challenges-h">
       <header><span class="n">03</span><h2 id="challenges-h">Challenges</h2><p>遇到了什么困难</p></header>
@@ -45,7 +45,7 @@
     <section class="psec" id="architecture" aria-labelledby="architecture-h">
       <header><span class="n">04</span><h2 id="architecture-h">Architecture</h2><p>系统怎么设计</p></header>
       <div class="pbody"><p class="caveat">还没有定稿。</p>
-      <p>目前的设想：Java + Spring Boot，Redis 预扣库存，消息队列异步落单，数据库做最终一致。每一个选择都会先在 <a href="../lab/">Lab</a> 里做对照实验，再决定要不要进入主线。</p></div>
+      <p>技术栈初定 Java + Spring Boot。库存扣减、消息队列这些关键选择，会先在 <a href="../lab/">Lab</a> 里做对照实验，再决定要不要进入主线。</p></div>
     </section>
     <section class="psec" id="decisions" aria-labelledby="decisions-h">
       <header><span class="n">05</span><h2 id="decisions-h">Engineering Decisions</h2><p>为什么这样设计</p></header>

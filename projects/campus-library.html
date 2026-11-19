@@ -21,7 +21,7 @@
   <main id="main" class="wide" tabindex="-1">
 
     <header class="page-head p-head">
-      <p class="label"><a href="./">Projects</a> <i>/</i> 校园智慧图书馆 · 座位预约</p>
+      <p class="crumb"><a href="./">Projects</a><span aria-hidden="true">/</span>校园智慧图书馆 · 座位预约</p>
       <h1>Campus Library</h1>
       <p class="intro">校园座位预约系统，探索并发竞争、事务与数据库一致性。</p>
       <div class="p-meta"><span class="status completed">Completed</span><time>2026.08</time><ul class="tags"><li>Java 17</li><li>Spring Boot</li><li>Vue 3</li><li>TypeScript</li><li>H2 / MySQL</li><li>Flyway</li><li>OIDC / JWT</li></ul></div>
@@ -39,8 +39,8 @@
     </section>
     <section class="psec" id="motivation" aria-labelledby="motivation-h">
       <header><span class="n">02</span><h2 id="motivation-h">Motivation</h2><p>为什么要做</p></header>
-      <div class="pbody"><p>预约看起来是最普通的增删改查。可一到考试周，大量学生会在同一时刻抢同一批座位——这时候“先查有没有空位，再插入一条预约”就不再成立。</p>
-      <p>我想在一个足够纯粹的后端场景里，把<b>并发正确性</b>真正做对一次。</p></div>
+      <div class="pbody"><p>最开始，这只是一个很普通的需求：学生查询座位、选择时间、提交预约，之后可以取消或者签到。</p>
+      <p>但考试周集中抢座时，如果两个人同时预约同一个座位，应用程序可能同时检查到“座位可用”，然后分别创建预约。“先检查，再插入”解决不了这个问题。</p></div>
     </section>
     <section class="psec" id="challenges" aria-labelledby="challenges-h">
       <header><span class="n">03</span><h2 id="challenges-h">Challenges</h2><p>遇到了什么困难</p></header>
@@ -60,7 +60,7 @@
     <section class="psec" id="validation" aria-labelledby="validation-h">
       <header><span class="n">06</span><h2 id="validation-h">Validation</h2><p>如何验证</p></header>
       <div class="pbody"><div class="nums"><div><b>16 → 1</b><span>16 个线程抢同一个座位，只有一个成功</span></div><div><b>14 天</b><span>可预约范围，每天三个时段</span></div></div>
-      <p>集成测试用 Testcontainers 跑真实数据库，端到端流程用 Playwright 覆盖学生预约和馆员操作。</p></div>
+      <p>关键的数据库语义用 Testcontainers 在真实 MySQL 8.4 上验证，核心流程用 Playwright 跑端到端测试。没有 Docker 时这些用例会被跳过，所以 CI 里专门有一步检查它们真的执行了：<b>跳过不等于通过</b>。</p></div>
     </section>
     <section class="psec" id="lessons" aria-labelledby="lessons-h">
       <header><span class="n">07</span><h2 id="lessons-h">Lessons</h2><p>我学到了什么</p></header>

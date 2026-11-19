@@ -24,23 +24,16 @@
       <p class="label"><i>03</i> Lab</p>
       <h1>我正在探索<em>什么</em></h1>
       <p class="intro">不是正式的项目，也不是文章，而是一个持续实验的地方。每个实验都按同样的格式记录：<b>假设 → 实验 → 观察 → 结论</b>。这里允许实验失败，也允许实验还没做完。</p>
-      <div class="head-meta"><span>6 个实验</span><span>1 个计划中</span></div>
+      <div class="head-meta"><span>4 个已完成 · 1 个计划中</span></div>
     </header>
     <section class="block" aria-label="实验列表">
       <div class="filters" data-filters="#labs" role="group" aria-label="按类型筛选">
-        <button type="button" data-f="all" aria-pressed="true">全部<span>6</span></button>
-        <button type="button" data-f="backend-experiments" aria-pressed="false">Backend Experiments<span>3</span></button>
+        <button type="button" data-f="all" aria-pressed="true">全部<span>5</span></button>
         <button type="button" data-f="agent-experiments" aria-pressed="false">Agent Experiments<span>1</span></button>
+        <button type="button" data-f="backend-experiments" aria-pressed="false">Backend Experiments<span>3</span></button>
         <button type="button" data-f="model-evaluation" aria-pressed="false">Model Evaluation<span>1</span></button>
-        <button type="button" data-f="small-builds" aria-pressed="false">Small Builds<span>1</span></button>
       </div>
       <div class="lab" id="labs">
-        <article class="exp rv planned" id="redis-oversell" data-item="backend-experiments">
-          <div class="exp-head"><span class="kind">Backend Experiments</span><span class="status planned">Planned</span><time>计划中 · 为 FlashOrder 准备</time></div>
-          <h3>Redis 分布式锁，能不能防住超卖？</h3>
-          <dl class="exp-steps"><div><dt>Hypothesis · 假设</dt><dd>用 Redis 分布式锁串行化库存扣减，可以避免超卖。</dd></div><div><dt>Experiment · 实验</dt><dd>1000 个并发请求争抢 100 件库存，分别对比数据库条件更新、Redis 锁和 Redis 原子扣减。</dd></div><div class="pending"><dt>Observation · 观察</dt><dd>还没有</dd></div><div class="pending"><dt>Conclusion · 结论</dt><dd>还没有</dd></div></dl>
-          <div class="exp-foot"><span>还没跑。做完会把异常和结论一起写在这里，失败也算。</span><a href="../projects/flashorder.html">FlashOrder 项目页 →</a></div>
-        </article>
         <article class="exp rv" id="grounding-ab" data-item="agent-experiments">
           <div class="exp-head"><span class="kind">Agent Experiments</span><span class="status completed">Completed</span><time>2026.10 · GroundedAgent</time></div>
           <h3>先读再写：能不能消灭“无依据动作”？</h3>
@@ -65,11 +58,11 @@
           <dl class="exp-steps"><div><dt>Hypothesis · 假设</dt><dd>只靠数据库唯一约束（座位 + 时段、学生 + 时段），就能挡住并发超卖。</dd></div><div><dt>Experiment · 实验</dt><dd>16 个线程同时预约同一个座位的同一时段；客户端用相同幂等键重放请求。</dd></div><div><dt>Observation · 观察</dt><dd><b>16 → 1</b>：只有一个成功；重放返回同一条预约，不会重复创建。</dd></div><div><dt>Conclusion · 结论</dt><dd>应用层的“先查再写”有竞争窗口，数据库约束才是最后一道防线。</dd></div></dl>
           <div class="exp-foot"><a href="../stories/sixteen-seats.html">故事 03 →</a><a href="../projects/campus-library.html">Campus Library →</a></div>
         </article>
-        <article class="exp rv" id="trace-replay" data-item="small-builds">
-          <div class="exp-head"><span class="kind">Small Builds</span><span class="status completed">Completed</span><time>2026.11</time></div>
-          <h3>一个动作回放器</h3>
-          <dl class="exp-steps"><div><dt>Hypothesis · 假设</dt><dd>把“一个动作经过了哪些检查”做成可以一步步点开的回放，比一段文字更容易讲清楚。</dd></div><div><dt>Experiment · 实验</dt><dd>按项目文档里的设计和测试场景，整理出三个场景：正常退货、跳过读取、写入后崩溃。</dd></div><div><dt>Observation · 观察</dt><dd>可以在项目页里逐步播放，每一步标出放行、拦截或崩溃。</dd></div><div><dt>Conclusion · 结论</dt><dd>它是示意回放，不是原始日志；这一点写在了回放旁边。</dd></div></dl>
-          <div class="exp-foot"><a href="../projects/groundedagent.html#architecture">打开回放 →</a></div>
+        <article class="exp rv planned" id="redis-oversell" data-item="backend-experiments">
+          <div class="exp-head"><span class="kind">Backend Experiments</span><span class="status planned">Planned</span><time>计划中 · 为 FlashOrder 准备</time></div>
+          <h3>Redis 分布式锁，能不能防住超卖？</h3>
+          <dl class="exp-steps"><div><dt>Hypothesis · 假设</dt><dd>用 Redis 分布式锁串行化库存扣减，可以避免超卖。</dd></div><div><dt>Experiment · 实验</dt><dd>1000 个并发请求争抢 100 件库存，分别对比数据库条件更新、Redis 锁和 Redis 原子扣减。</dd></div><div class="pending"><dt>Observation · 观察</dt><dd>还没有</dd></div><div class="pending"><dt>Conclusion · 结论</dt><dd>还没有</dd></div></dl>
+          <div class="exp-foot"><span>还没跑。做完会把异常和结论一起写在这里，失败也算。</span><a href="../projects/flashorder.html">FlashOrder 项目页 →</a></div>
         </article>
       </div>
     </section>

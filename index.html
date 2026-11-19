@@ -23,7 +23,7 @@
     <section class="hero-x" aria-labelledby="hero-title">
       <div class="who ln" style="--d:0s">
         <img src="assets/portrait.webp" width="88" height="88" alt="侯俊安的照片">
-        <div class="name"><b>侯俊安</b><span class="label">Independent Developer</span></div>
+        <b>侯俊安</b>
         <span class="now"><i aria-hidden="true"></i>Now · 杭州 · AI 应用开发实习中</span>
       </div>
       <h1 id="hero-title">
@@ -36,23 +36,11 @@
         <a class="button primary" href="projects/">Explore Projects <span class="arrow">→</span></a>
         <a class="button" href="writing/">Read Writing</a>
       </div>
-      <nav class="pillars ln" style="--d:.6s" aria-label="四个板块">
-        <a class="pillar" href="projects/"><b>Building</b><span>项目、产品、作品</span><small>Projects</small></a>
-        <a class="pillar" href="lab/"><b>Exploring</b><span>实验、Demo、技术尝试</span><small>Lab</small></a>
-        <a class="pillar" href="writing/"><b>Thinking</b><span>技术文章、观点、复盘</span><small>Writing</small></a>
-        <a class="pillar" href="journal/"><b>Living</b><span>成长、生活、日常记录</span><small>Journal</small></a>
-      </nav>
-    </section>
-
-    <section class="block" aria-labelledby="do-title">
-      <div class="block-head rv"><div><p class="label"><i>01</i> What I Do</p><h2 id="do-title">我在这里做三件事</h2></div></div>
-      <div class="trio">
-        <div class="rv"><span class="n">Build</span><h3>Projects &amp; Products</h3><p>把想法做成能运行、能验证的软件。</p>
-          <ul><li><a href="projects/groundedagent.html"><span>GroundedAgent</span><span class="arrow">→</span></a></li><li><a href="projects/campus-library.html"><span>Campus Library</span><span class="arrow">→</span></a></li><li><a href="projects/agent-ticket.html"><span>Agent Ticket Platform</span><span class="arrow">→</span></a></li></ul></div>
-        <div class="rv" style="--d:.08s"><span class="n">Explore</span><h3>Technology &amp; Experiments</h3><p>带着假设做实验，失败的结果也留下来。</p>
-          <ul><li><a href="lab/#grounding-ab"><span>先读再写：能不能消灭“无依据动作”？</span><span class="arrow">→</span></a></li><li><a href="lab/#kill-process"><span>在每一个提交点杀掉进程</span><span class="arrow">→</span></a></li><li><a href="lab/#sealed-holdout"><span>一份只开封一次的测试集</span><span class="arrow">→</span></a></li></ul></div>
-        <div class="rv" style="--d:.16s"><span class="n">Reflect</span><h3>Ideas &amp; Life</h3><p>复盘做过的事，也记录代码之外的生活。</p>
-          <ul><li><a href="writing/"><span>Writing · 8 篇</span><span class="arrow">→</span></a></li><li><a href="journal/"><span>Journal · 成长与生活</span><span class="arrow">→</span></a></li><li><a href="about/"><span>About · 我是谁</span><span class="arrow">→</span></a></li></ul></div>
+      <div class="pillars ln" style="--d:.6s" role="group" aria-labelledby="do-title">
+        <p class="label pillars-label" id="do-title"><i>01</i> What I Do</p>
+        <a class="pillar" href="projects/"><b>Build</b><span>Projects &amp; Products · 把想法做成能运行、能验证的软件</span><small>Projects →</small></a>
+        <a class="pillar" href="lab/"><b>Explore</b><span>Technology &amp; Experiments · 带着假设做实验，失败的结果也留下</span><small>Lab →</small></a>
+        <a class="pillar" href="writing/"><b>Reflect</b><span>Ideas &amp; Life · 复盘做过的事，也记录代码之外的生活</span><small>Writing · Journal →</small></a>
       </div>
     </section>
 
@@ -69,7 +57,7 @@
         <div class="f-media"><img src="assets/groundedagent-demo.webp" width="2160" height="1710" loading="lazy" alt="GroundedAgent 待审批界面截图"></div>
       </a>
       <div class="rows">
-        <a class="row rv" style="--d:0s" href="projects/enterprise-ai.html"><time>2026.11 —</time><div><h3>Enterprise AI Practice</h3><p>企业合同管理与 AI 工作流实践，记录跨系统集成、法务知识沉淀和质量评估。</p></div><div class="side"><span class="status progress">In Progress</span><span class="arrow">→</span></div></a>
+        <a class="row rv" style="--d:0s" href="projects/enterprise-ai.html"><time>2026.11 起</time><div><h3>Enterprise AI Practice</h3><p>企业合同管理与 AI 工作流实践，记录跨系统集成、法务知识沉淀和质量评估。</p></div><div class="side"><span class="status progress">In Progress</span><span class="arrow">→</span></div></a>
         <a class="row rv" style="--d:0.06s" href="projects/campus-library.html"><time>2026.08</time><div><h3>Campus Library</h3><p>校园座位预约系统，探索并发竞争、事务与数据库一致性。</p></div><div class="side"><span class="status completed">Completed</span><span class="arrow">→</span></div></a>
         <a class="row rv" style="--d:0.12s" href="projects/flashorder.html"><time>规划中</time><div><h3>FlashOrder</h3><p>正在规划的高并发订单系统，重点研究库存扣减、超卖防护、幂等、消息队列与性能优化。</p></div><div class="side"><span class="status planned">Planned</span><span class="arrow">→</span></div></a>
       </div>
@@ -91,7 +79,7 @@
       </div>
       <div>
         <div class="block-head rv"><div><p class="label"><i>05</i> Recent Journal</p><h2>最近的日子</h2></div><a class="more" href="journal/">View all <span class="arrow">→</span></a></div>
-        <div class="mini rv"><a href="journal/"><time>2026.11</time><strong>从哈尔滨到杭州：第一次进入企业研发环境</strong><span>Milestone</span></a><a href="journal/"><time>2026.10</time><strong>一个人把 GroundedAgent 做到 V2</strong><span>Dev Log</span></a><a href="journal/"><time>2026.07</time><strong>从 Demo 到工程</strong><span>Milestone</span></a></div>
+        <div class="mini rv"><a href="journal/#hangzhou"><time>2026.11</time><strong>从哈尔滨到杭州：第一次进入企业研发环境</strong><span>Milestone</span></a><a href="journal/#groundedagent-v2"><time>2026.10</time><strong>一个人把 GroundedAgent 做到 V2</strong><span>Dev Log</span></a><a href="journal/#demo-to-engineering"><time>2026.07</time><strong>从 Demo 到工程</strong><span>Milestone</span></a></div>
       </div>
     </section>
 

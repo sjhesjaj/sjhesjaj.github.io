@@ -21,7 +21,7 @@
   <main id="main" class="wide" tabindex="-1">
 
     <header class="page-head p-head">
-      <p class="label"><a href="./">Projects</a> <i>/</i> 企业合同管理与 AI 工作流（实习）</p>
+      <p class="crumb"><a href="./">Projects</a><span aria-hidden="true">/</span>企业合同管理与 AI 工作流（实习）</p>
       <h1>Enterprise AI Practice</h1>
       <p class="intro">企业合同管理与 AI 工作流实践，记录跨系统集成、法务知识沉淀和质量评估。</p>
       <div class="p-meta"><span class="status progress">In Progress</span><time>2026.11 — 至今</time><ul class="tags"><li>React</li><li>TypeScript</li><li>Spring Boot</li><li>JPA</li><li>OA 集成</li></ul></div>
@@ -47,7 +47,8 @@
       <div class="pbody"><p>只展示概念流程；具体接口、模板和内部数据均不公开。</p>
       <ol class="flow"><li>合同发起</li><li class="arr" aria-hidden="true">→</li><li class="hl">AI 审核</li><li class="arr" aria-hidden="true">→</li><li>法务复核</li><li class="arr" aria-hidden="true">→</li><li>外部审批</li></ol>
       <p>法务经验沉淀，从正常的审核和定稿行为中收集反馈：</p>
-      <ol class="flow"><li>采集</li><li class="arr" aria-hidden="true">→</li><li>归因</li><li class="arr" aria-hidden="true">→</li><li>案例</li><li class="arr" aria-hidden="true">→</li><li>规则候选</li><li class="arr" aria-hidden="true">→</li><li>历史回放</li><li class="arr" aria-hidden="true">→</li><li class="hl">人工确认</li></ol></div>
+      <ol class="flow"><li>采集</li><li class="arr" aria-hidden="true">→</li><li>归因</li><li class="arr" aria-hidden="true">→</li><li>案例</li><li class="arr" aria-hidden="true">→</li><li>规则候选</li><li class="arr" aria-hidden="true">→</li><li>历史回放</li><li class="arr" aria-hidden="true">→</li><li class="hl">人工确认</li></ol>
+      <p>AI 审核结果分成三种状态：<b>有效结论</b>、<b>明确无风险</b>、<b>未判定</b>。</p></div>
     </section>
     <section class="psec" id="decisions" aria-labelledby="decisions-h">
       <header><span class="n">05</span><h2 id="decisions-h">Engineering Decisions</h2><p>为什么这样设计</p></header>
@@ -55,8 +56,7 @@
     </section>
     <section class="psec" id="validation" aria-labelledby="validation-h">
       <header><span class="n">06</span><h2 id="validation-h">Validation</h2><p>如何验证</p></header>
-      <div class="pbody"><div class="nums"><div><b>3 种</b><span>审核状态：有效结论 / 明确无风险 / 未判定</span></div><div><b>6 个</b><span>阶段：采集 → 归因 → 案例 → 候选 → 回放 → 确认</span></div></div>
-      <p>效果看板以生效裁决为依据，用模拟合同核对误报、漏报、撤回后的统计变化和角色访问权限。</p>
+      <div class="pbody"><p>效果看板以生效裁决为依据，用模拟合同核对误报、漏报、撤回后的统计变化和角色访问权限。</p>
       <p class="caveat">完整的审批和附件链路仍在验证中，这里不报告还没有完成的结果。</p></div>
     </section>
     <section class="psec" id="lessons" aria-labelledby="lessons-h">

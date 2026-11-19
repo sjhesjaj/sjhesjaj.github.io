@@ -21,7 +21,7 @@
   <main id="main" class="wide" tabindex="-1">
 
     <header class="page-head p-head">
-      <p class="label"><a href="./">Projects</a> <i>/</i> 面向后端可靠性的工单 Agent</p>
+      <p class="crumb"><a href="./">Projects</a><span aria-hidden="true">/</span>面向后端可靠性的工单 Agent</p>
       <h1>Agent Ticket Platform</h1>
       <p class="intro">只自动处理一个闭环的工单 Agent：不可变审批、暂停恢复与可靠投递。</p>
       <div class="p-meta"><span class="status completed">Completed</span><time>2026.07</time><ul class="tags"><li>FastAPI</li><li>SQLAlchemy</li><li>Alembic</li><li>LangGraph</li><li>Celery</li><li>Redis</li><li>PostgreSQL</li><li>Ollama</li></ul></div>
@@ -35,7 +35,7 @@
     </section>
     <section class="psec" id="motivation" aria-labelledby="motivation-h">
       <header><span class="n">02</span><h2 id="motivation-h">Motivation</h2><p>为什么要做</p></header>
-      <div class="pbody"><p>这是我开始做“能执行动作”的 Agent 时的一个项目。我刻意把范围收得很窄：只处理一种工单，但把审批、暂停恢复、可靠投递这些后端问题做完整。</p>
+      <div class="pbody"><p>这是我开始做“能执行动作”的 Agent 时的项目。它只自动处理一种工单，但审批、暂停恢复和可靠投递都做了实现和测试。</p>
       <p>也是从这里开始，我从“让模型直接改数据”，转向“<b>模型只提议、代码来放行</b>”。</p></div>
     </section>
     <section class="psec" id="challenges" aria-labelledby="challenges-h">
@@ -58,7 +58,7 @@
     </section>
     <section class="psec" id="lessons" aria-labelledby="lessons-h">
       <header><span class="n">07</span><h2 id="lessons-h">Lessons</h2><p>我学到了什么</p></header>
-      <div class="pbody"><div class="lesson-x"><p>把模型的权限收到最小，剩下的交给可以被测试的代码。</p></div>
+      <div class="pbody"><div class="lesson-x"><p>模型只提议，代码来放行。</p></div>
       <p>同一时期开始的 <a href="groundedagent.html">GroundedAgent</a> 把这条思路推得更远：不只是限制模型能改什么，还要证明它凭什么这样改。</p></div>
     </section>
     <nav class="next-proj" aria-label="其他项目"><a href="campus-library.html"><small>← Previous</small><b>Campus Library</b></a><a class="r" href="flashorder.html"><small>Next →</small><b>FlashOrder</b></a></nav>

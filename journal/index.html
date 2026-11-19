@@ -27,24 +27,26 @@
     </header>
     <section class="block" aria-label="日志">
       <div class="filters" data-filters="#journal" role="group" aria-label="按类型筛选">
-        <button type="button" data-f="all" aria-pressed="true">全部<span>8</span></button>
+        <button type="button" data-f="all" aria-pressed="true">全部<span>7</span></button>
         <button type="button" data-f="milestone" aria-pressed="false">Milestone<span>3</span></button>
         <button type="button" data-f="reflection" aria-pressed="false">Reflection<span>1</span></button>
         <button type="button" data-f="dev-log" aria-pressed="false">Dev Log<span>2</span></button>
         <button type="button" data-f="learning" aria-pressed="false">Learning<span>1</span></button>
-        <button type="button" data-f="life" aria-pressed="false">Life<span>1</span></button>
       </div>
       <div class="journal" id="journal">
-        <article class="entry rv" data-item="life"><time>Always<small>Life</small></time><div><h3>代码之外</h3><p>写代码之外，我喜欢打篮球、做力量训练，偶尔去不同的城市走走。我不希望生活只剩下工作和技术。保持好奇心、接触不同的人和事，同样是成长的一部分。</p>
-          <div class="life-row"><div><span aria-hidden="true">🏀</span><b>篮球</b><small>球场上见</small></div><div><span aria-hidden="true">🏋️</span><b>力量训练</b><small>写代码之外的另一种练习</small></div><div><span aria-hidden="true">🧭</span><b>旅行</b><small>去不同的城市走走</small></div><div><span aria-hidden="true">🌆</span><b>哈尔滨 → 杭州</b><small>2026 年秋天</small></div></div></div></article>
-        <article class="entry rv" data-item="milestone"><time>2026.11<small>Milestone</small></time><div><h3>从哈尔滨到杭州：第一次进入企业研发环境</h3><p>11 月 2 日，开始在杭州做 AI 应用开发实习。第一次接触真实的审批流程、外部系统和业务约束。个人项目里，我只需要说服自己；在团队里，我需要拿出别人也能复核的证据。</p><a class="go" href="../stories/school-to-work.html">读完整的故事 <span class="arrow">→</span></a></div></article>
-        <article class="entry rv quote" data-item="reflection"><time>2026.11<small>Reflection</small></time><div><h3>一个持续更新的想法</h3><p>我不认为自己已经找到了所有问题的答案。现在更感兴趣的是：如何让 AI 真正进入业务系统，如何让复杂系统在失败时仍然可靠，以及如何用工程方法证明一个系统真的在变好。</p></div></article>
-        <article class="entry rv" data-item="dev-log"><time>2026.10<small>Dev Log</small></time><div><h3>一个人把 GroundedAgent 做到 V2</h3><p>封存测试集只开封一次，端到端 21/25、六项安全约束 25/25；9 个真实杀进程的场景下不重复写入。最难的不是写代码，而是忍住不在开封之后再调一次参。</p><a class="go" href="../projects/groundedagent.html">项目页 <span class="arrow">→</span></a></div></article>
-        <article class="entry rv" data-item="dev-log"><time>2026.08<small>Dev Log</small></time><div><h3>第一次认真对待并发</h3><p>做校园图书馆的座位预约：数据库唯一约束 + 幂等键，16 个线程抢同一个座位，只有一个成功。</p><a class="go" href="../stories/sixteen-seats.html">故事 03 <span class="arrow">→</span></a></div></article>
-        <article class="entry rv" data-item="milestone"><time>2026.07<small>Milestone</small></time><div><h3>从 Demo 到工程</h3><p>开始做能执行动作的 Agent。从“让模型直接改数据”，转向“模型只提议、代码来放行”，开始研究幂等、事务、审批和故障恢复。</p></div></article>
-        <article class="entry rv" data-item="learning"><time>2024 — 26<small>Learning</small></time><div><h3>从知识库和 RAG 开始</h3><p>最早做的是企业知识库问答，关心的是模型能不能找到正确的资料、给出准确的回答。</p></div></article>
-        <article class="entry rv" data-item="milestone"><time>2024.09<small>Milestone</small></time><div><h3>进入东北农业大学，人工智能专业</h3><p>在哈尔滨开始大学生活。</p></div></article>
+        <article class="entry rv" id="hangzhou" data-item="milestone"><time>2026.11<small>Milestone</small></time><div><h3>从哈尔滨到杭州：第一次进入企业研发环境</h3><p>11 月 2 日，开始在杭州做 AI 应用开发实习。第一次接触真实的审批流程、外部系统和业务约束。个人项目里，我只需要说服自己；在团队里，我需要拿出别人也能复核的证据。</p><a class="go" href="../stories/school-to-work.html">读完整的故事 <span class="arrow">→</span></a></div></article>
+        <article class="entry rv quote" id="thought" data-item="reflection"><time>2026.11<small>Reflection</small></time><div><h3>一个持续更新的想法</h3><p>我不认为自己已经找到了所有问题的答案。现在更感兴趣的是：如何让 AI 真正进入业务系统，如何让复杂系统在失败时仍然可靠，以及如何用工程方法证明一个系统真的在变好。</p></div></article>
+        <article class="entry rv" id="groundedagent-v2" data-item="dev-log"><time>2026.10<small>Dev Log</small></time><div><h3>一个人把 GroundedAgent 做到 V2</h3><p>封存测试集只开封一次，端到端 21/25、六项安全约束 25/25；9 个真实杀进程的场景下不重复写入。测试集由隔离的上下文编写、封存，开封之后没有再调参。</p><a class="go" href="../projects/groundedagent.html">项目页 <span class="arrow">→</span></a></div></article>
+        <article class="entry rv" id="concurrency" data-item="dev-log"><time>2026.08<small>Dev Log</small></time><div><h3>第一次认真对待并发</h3><p>做校园图书馆的座位预约：数据库唯一约束 + 幂等键，16 个线程抢同一个座位，只有一个成功。</p><a class="go" href="../stories/sixteen-seats.html">16 个人同时抢一张座位 <span class="arrow">→</span></a></div></article>
+        <article class="entry rv" id="demo-to-engineering" data-item="milestone"><time>2026.07<small>Milestone</small></time><div><h3>从 Demo 到工程</h3><p>开始做能执行动作的 Agent。从“让模型直接改数据”，转向“模型只提议、代码来放行”，开始研究幂等、事务、审批和故障恢复。</p></div></article>
+        <article class="entry rv" id="rag" data-item="learning"><time>2024 — 26<small>Learning</small></time><div><h3>从知识库和 RAG 开始</h3><p>最早做的是企业知识库问答，关心的是模型能不能找到正确的资料、给出准确的回答。</p></div></article>
+        <article class="entry rv" id="university" data-item="milestone"><time>2024.09<small>Milestone</small></time><div><h3>进入东北农业大学，人工智能专业</h3><p>在哈尔滨开始大学生活。</p></div></article>
       </div>
+    </section>
+    <section class="block" id="life" aria-labelledby="life-h">
+      <div class="block-head rv"><div><p class="label">Beyond Code</p><h2 id="life-h">代码之外</h2></div></div>
+      <p class="life-text rv">写代码之外，我喜欢打篮球、做力量训练，偶尔去不同的城市走走。我不希望生活只剩下工作和技术。保持好奇心、接触不同的人和事，同样是成长的一部分。</p>
+      <div class="life-row rv"><div><span aria-hidden="true">🏀</span><b>篮球</b><small>球场上见</small></div><div><span aria-hidden="true">🏋️</span><b>力量训练</b><small>写代码之外的另一种练习</small></div><div><span aria-hidden="true">🧭</span><b>旅行</b><small>去不同的城市走走</small></div><div><span aria-hidden="true">🌆</span><b>哈尔滨 → 杭州</b><small>2026 年秋天</small></div></div>
     </section>
   </main>
 
