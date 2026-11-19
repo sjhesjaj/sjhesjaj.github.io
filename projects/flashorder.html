@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN" id="top">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="正在规划的高并发订单系统，重点研究库存扣减、超卖防护、幂等、消息队列与性能优化。">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#fbfaf7">
+  <title>FlashOrder · 侯俊安</title>
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="stylesheet" href="../styles.css">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <div class="topbar"><header class="wide top">
+    <a class="brand" href="../"><span aria-hidden="true">H</span>侯俊安<small>Independent Developer</small></a>
+    <nav class="site-nav" aria-label="主导航"><a href="../projects/" aria-current="page">Projects</a><a href="../writing/">Writing</a><a href="../lab/">Lab</a><a href="../journal/">Journal</a><a href="../about/">About</a></nav>
+  </header></div>
+
+  <main id="main" class="wide" tabindex="-1">
+
+    <header class="page-head p-head">
+      <p class="label"><a href="./">Projects</a> <i>/</i> 高并发订单系统</p>
+      <h1>FlashOrder</h1>
+      <p class="intro">正在规划的高并发订单系统，重点研究库存扣减、超卖防护、幂等、消息队列与性能优化。</p>
+      <div class="p-meta"><span class="status planned">Planned</span><time>规划中</time><ul class="tags"><li>Java</li><li>Spring Boot</li><li>Redis（计划）</li><li>消息队列（计划）</li></ul></div>
+      
+    </header>
+    <nav class="ptoc" aria-label="本页目录"><ol class="wide"><li><a href="#overview"><span>01</span>Overview</a></li><li><a href="#motivation"><span>02</span>Motivation</a></li><li><a href="#challenges"><span>03</span>Challenges</a></li><li><a href="#architecture"><span>04</span>Architecture</a></li><li><a href="#decisions"><span>05</span>Engineering Decisions</a></li><li><a href="#validation"><span>06</span>Validation</a></li><li><a href="#lessons"><span>07</span>Lessons</a></li></ol></nav>
+    <section class="psec" id="overview" aria-labelledby="overview-h">
+      <header><span class="n">01</span><h2 id="overview-h">Overview</h2><p>这个项目是什么</p></header>
+      <div class="pbody"><p class="lead-x">一个正在规划的高并发订单系统。</p>
+      <p>还没有开始写代码。这一页先记录我想回答的问题；做完一个阶段，就更新一个阶段。</p></div>
+    </section>
+    <section class="psec" id="motivation" aria-labelledby="motivation-h">
+      <header><span class="n">02</span><h2 id="motivation-h">Motivation</h2><p>为什么要做</p></header>
+      <div class="pbody"><p>图书馆项目里，并发问题被“一个座位、一个时段”框住了，数据库唯一约束就能兜底。真实的下单场景难得多：库存是一个会被大量请求同时扣减的数字，流量也远超数据库能直接承受的量级。</p>
+      <p>我想知道：从“一个座位不超卖”，到“流量洪峰下库存不超卖”，中间到底多了什么。</p></div>
+    </section>
+    <section class="psec" id="challenges" aria-labelledby="challenges-h">
+      <header><span class="n">03</span><h2 id="challenges-h">Challenges</h2><p>遇到了什么困难</p></header>
+      <div class="pbody"><ul class="qa"><li><b>库存扣减放在哪里？</b><span>数据库行锁、条件更新、Redis 原子操作，各自的边界在哪里。</span></li><li><b>怎么防超卖，也防少卖？</b><span>扣多了是事故，扣少了也是损失。</span></li><li><b>重复请求与幂等</b><span>用户连点、网关重试，一笔订单只能创建一次。</span></li><li><b>消息队列削峰之后，状态怎么保持一致？</b><span>异步落单意味着中间状态会存在一段时间。</span></li><li><b>怎么测出真实的性能上限？</b><span>压测的数字要能复现，也要说明是在什么条件下测的。</span></li></ul></div>
+    </section>
+    <section class="psec" id="architecture" aria-labelledby="architecture-h">
+      <header><span class="n">04</span><h2 id="architecture-h">Architecture</h2><p>系统怎么设计</p></header>
+      <div class="pbody"><p class="caveat">还没有定稿。</p>
+      <p>目前的设想：Java + Spring Boot，Redis 预扣库存，消息队列异步落单，数据库做最终一致。每一个选择都会先在 <a href="../lab/">Lab</a> 里做对照实验，再决定要不要进入主线。</p></div>
+    </section>
+    <section class="psec" id="decisions" aria-labelledby="decisions-h">
+      <header><span class="n">05</span><h2 id="decisions-h">Engineering Decisions</h2><p>为什么这样设计</p></header>
+      <div class="pbody"><p class="muted">暂无。做出来之后写在这里，连同被放弃的方案一起。</p></div>
+    </section>
+    <section class="psec" id="validation" aria-labelledby="validation-h">
+      <header><span class="n">06</span><h2 id="validation-h">Validation</h2><p>如何验证</p></header>
+      <div class="pbody"><p>第一个计划中的实验：<b>1000 个并发请求争抢 100 件库存</b>，对比数据库条件更新、Redis 锁和 Redis 原子扣减。</p>
+      <p><a href="../lab/#redis-oversell">Lab · Redis 分布式锁，能不能防住超卖？ →</a></p></div>
+    </section>
+    <section class="psec" id="lessons" aria-labelledby="lessons-h">
+      <header><span class="n">07</span><h2 id="lessons-h">Lessons</h2><p>我学到了什么</p></header>
+      <div class="pbody"><p class="muted">做完再写。</p></div>
+    </section>
+    <nav class="next-proj" aria-label="其他项目"><a href="agent-ticket.html"><small>← Previous</small><b>Agent Ticket Platform</b></a><a class="r" href="./"><small>Back →</small><b>All projects</b></a></nav>
+  </main>
+
+  <footer class="wide footer">
+    <span>© 2026 侯俊安 · Build things. Explore ideas. Keep learning.</span>
+    <div><a href="../about/">About</a><a href="mailto:h000_1014@qq.com">Email</a><a href="https://github.com/sjhesjaj">GitHub ↗</a></div>
+  </footer>
+  <script src="../site.js" defer></script>
+</body>
+</html>

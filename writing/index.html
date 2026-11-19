@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN" id="top">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="侯俊安的文章：AI & Agents、软件工程、架构设计、技术观点和产品思考。">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#fbfaf7">
+  <title>Writing · 侯俊安</title>
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="stylesheet" href="../styles.css">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <div class="topbar"><header class="wide top">
+    <a class="brand" href="../"><span aria-hidden="true">H</span>侯俊安<small>Independent Developer</small></a>
+    <nav class="site-nav" aria-label="主导航"><a href="../projects/">Projects</a><a href="../writing/" aria-current="page">Writing</a><a href="../lab/">Lab</a><a href="../journal/">Journal</a><a href="../about/">About</a></nav>
+  </header></div>
+
+  <main id="main" class="wide" tabindex="-1">
+
+    <header class="page-head">
+      <p class="label"><i>02</i> Writing</p>
+      <h1>我思考过<em>什么</em></h1>
+      <p class="intro">经过整理的长文：技术复盘、工程笔记和观点。不全是教程，更多是我在做东西的过程中想明白的事——包括想错的地方。</p>
+      <div class="head-meta"><span>8 篇</span><span>按时间倒序</span><span>每篇一个主分类 + 2～5 个标签</span></div>
+    </header>
+    <section class="block" aria-label="文章列表">
+      <div class="filters" data-filters="#posts" role="group" aria-label="按分类筛选">
+        <button type="button" data-f="all" aria-pressed="true">全部<span>8</span></button>
+        <button type="button" data-f="ai-agents" aria-pressed="false">AI & Agents<span>3</span></button>
+        <button type="button" data-f="software-engineering" aria-pressed="false">Software Engineering<span>3</span></button>
+        <button type="button" data-f="architecture-design" aria-pressed="false">Architecture & Design<span>1</span></button>
+        <button type="button" data-f="product-business" aria-pressed="false">Product & Business<span>1</span></button>
+      </div>
+      <div class="posts" id="posts">
+        <a class="post" href="../stories/legal-experience.html" data-item="product-business"><time>2026.11</time><div><h3>让法务的经验成为下一次审查的依据</h3><p>AI 审完一份合同，法务改了条款、合同定稿。这些经验，能不能被下一份合同用上？</p><ul class="tags"><li>Enterprise AI</li><li>Workflow</li><li>Evaluation</li></ul></div><span class="cat"><b>故事 07</b>Product & Business</span></a>
+        <a class="post" href="../stories/no-verdict.html" data-item="ai-agents"><time>2026.11</time><div><h3>没有结论，不等于没有风险</h3><p>模型这一轮什么都没说出来，系统却把它理解成了“已经检查过，没有问题”。</p><ul class="tags"><li>LLM</li><li>Reliability</li><li>Evaluation</li></ul></div><span class="cat"><b>故事 06</b>AI & Agents</span></a>
+        <a class="post" href="../stories/real-systems.html" data-item="architecture-design"><time>2026.11</time><div><h3>真实系统不会按照你的设计稿工作</h3><p>一个看起来只是“把表单搬过来”的集成需求，让我第一次看到企业软件的复杂。</p><ul class="tags"><li>Integration</li><li>Architecture</li><li>Workflow</li></ul></div><span class="cat"><b>故事 05</b>Architecture & Design</span></a>
+        <a class="post" href="../notes/state-recovery.html" data-item="software-engineering"><time>2026.10</time><div><h3>进程在写入后崩溃，如何避免重复建单？</h3><p>提交协议、恢复表和 9 个真实杀进程的崩溃场景：怎么关上这个窗口，又怎么证明它真的关上了。</p><ul class="tags"><li>LangGraph</li><li>Idempotency</li><li>Reliability</li></ul></div><span class="cat"><b>工程笔记</b>Software Engineering</span></a>
+        <a class="post" href="../notes/action-grounding.html" data-item="ai-agents"><time>2026.10</time><div><h3>模型猜中了订单号，这次操作该放行吗？</h3><p>动作校验的规则、对照实验和逐条代价：为什么不放行，怎么拦，拦截的代价是多少。</p><ul class="tags"><li>Agent</li><li>Tool Calling</li><li>Testing</li></ul></div><span class="cat"><b>工程笔记</b>AI & Agents</span></a>
+        <a class="post" href="../stories/after-crash.html" data-item="software-engineering"><time>2026.10</time><div><h3>如果进程在写入之后崩溃，会发生什么？</h3><p>退货申请已经写进数据库，系统正准备更新会话记录，进程突然退出了。</p><ul class="tags"><li>Reliability</li><li>Idempotency</li></ul></div><span class="cat"><b>故事 02</b>Software Engineering</span></a>
+        <a class="post" href="../stories/guessed-order.html" data-item="ai-agents"><time>2026.10</time><div><h3>模型猜对了订单号，我还是拒绝了它</h3><p>在一次评测里，模型没查订单就猜对了商品编号，最终结果也是对的。我还是决定拦下它。</p><ul class="tags"><li>Agent</li><li>Reliability</li></ul></div><span class="cat"><b>故事 01</b>AI & Agents</span></a>
+        <a class="post" href="../stories/sixteen-seats.html" data-item="software-engineering"><time>2026.08</time><div><h3>16 个人同时抢一张座位</h3><p>一个看起来很普通的预约需求，到了考试周集中抢座时，问题就来了。</p><ul class="tags"><li>Concurrency</li><li>Database</li><li>Java</li></ul></div><span class="cat"><b>故事 03</b>Software Engineering</span></a>
+      </div>
+    </section>
+    <section class="block" aria-labelledby="cat-h">
+      <div class="block-head"><div><p class="label">Categories</p><h2 id="cat-h">五个分类</h2></div></div>
+      <div class="taxonomy"><div><b>AI & Agents</b><span>Agent、RAG、模型、工具调用</span><small>3 篇</small></div><div><b>Software Engineering</b><span>后端、数据库、并发、系统设计</span><small>3 篇</small></div><div><b>Architecture & Design</b><span>架构设计、工程取舍</span><small>1 篇</small></div><div><b>Technology & Ideas</b><span>科技趋势、技术观点、读书思考</span><small>还没有，会有的</small></div><div><b>Product & Business</b><span>产品设计、商业模式、AI 应用</span><small>1 篇</small></div></div>
+    </section>
+  </main>
+
+  <footer class="wide footer">
+    <span>© 2026 侯俊安 · Build things. Explore ideas. Keep learning.</span>
+    <div><a href="../about/">About</a><a href="mailto:h000_1014@qq.com">Email</a><a href="https://github.com/sjhesjaj">GitHub ↗</a></div>
+  </footer>
+  <script src="../site.js" defer></script>
+</body>
+</html>

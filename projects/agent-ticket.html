@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN" id="top">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="只自动处理一个闭环的工单 Agent：不可变审批、暂停恢复与可靠投递。">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#fbfaf7">
+  <title>Agent Ticket Platform · 侯俊安</title>
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="stylesheet" href="../styles.css">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <div class="topbar"><header class="wide top">
+    <a class="brand" href="../"><span aria-hidden="true">H</span>侯俊安<small>Independent Developer</small></a>
+    <nav class="site-nav" aria-label="主导航"><a href="../projects/" aria-current="page">Projects</a><a href="../writing/">Writing</a><a href="../lab/">Lab</a><a href="../journal/">Journal</a><a href="../about/">About</a></nav>
+  </header></div>
+
+  <main id="main" class="wide" tabindex="-1">
+
+    <header class="page-head p-head">
+      <p class="label"><a href="./">Projects</a> <i>/</i> 面向后端可靠性的工单 Agent</p>
+      <h1>Agent Ticket Platform</h1>
+      <p class="intro">只自动处理一个闭环的工单 Agent：不可变审批、暂停恢复与可靠投递。</p>
+      <div class="p-meta"><span class="status completed">Completed</span><time>2026.07</time><ul class="tags"><li>FastAPI</li><li>SQLAlchemy</li><li>Alembic</li><li>LangGraph</li><li>Celery</li><li>Redis</li><li>PostgreSQL</li><li>Ollama</li></ul></div>
+      <div class="actions"><a class="button primary" href="https://github.com/sjhesjaj/agent-ticket-platform">查看源码 ↗</a></div>
+    </header>
+    <nav class="ptoc" aria-label="本页目录"><ol class="wide"><li><a href="#overview"><span>01</span>Overview</a></li><li><a href="#motivation"><span>02</span>Motivation</a></li><li><a href="#challenges"><span>03</span>Challenges</a></li><li><a href="#architecture"><span>04</span>Architecture</a></li><li><a href="#decisions"><span>05</span>Engineering Decisions</a></li><li><a href="#validation"><span>06</span>Validation</a></li><li><a href="#lessons"><span>07</span>Lessons</a></li></ol></nav>
+    <section class="psec" id="overview" aria-labelledby="overview-h">
+      <header><span class="n">01</span><h2 id="overview-h">Overview</h2><p>这个项目是什么</p></header>
+      <div class="pbody"><p class="lead-x">一个面向后端可靠性的工单 Agent。</p>
+      <p>当前只自动处理一个闭环：<b>支付记录已经成功，但订单仍是待支付</b>。Ollama 负责结构化分类，其余全部由确定性代码控制。</p></div>
+    </section>
+    <section class="psec" id="motivation" aria-labelledby="motivation-h">
+      <header><span class="n">02</span><h2 id="motivation-h">Motivation</h2><p>为什么要做</p></header>
+      <div class="pbody"><p>这是我开始做“能执行动作”的 Agent 时的一个项目。我刻意把范围收得很窄：只处理一种工单，但把审批、暂停恢复、可靠投递这些后端问题做完整。</p>
+      <p>也是从这里开始，我从“让模型直接改数据”，转向“<b>模型只提议、代码来放行</b>”。</p></div>
+    </section>
+    <section class="psec" id="challenges" aria-labelledby="challenges-h">
+      <header><span class="n">03</span><h2 id="challenges-h">Challenges</h2><p>遇到了什么困难</p></header>
+      <div class="pbody"><ul class="qa"><li><b>模型能不能决定改哪个订单？</b><span>如果订单号来自模型输出，一次幻觉就能改到别人的订单。</span></li><li><b>批准之后，参数或订单被改了</b><span>审批记录如果只记“同意”，就无法保证执行的就是被批准的那个动作。</span></li><li><b>等待人工审批时，流程怎么办？</b><span>审批可能要等很久，流程需要能暂停，也需要能在之后可靠地恢复。</span></li><li><b>Worker 崩溃后重投</b><span>任务提交后 Worker 崩溃、消息被重新投递，订单不能被修改两次。</span></li></ul></div>
+    </section>
+    <section class="psec" id="architecture" aria-labelledby="architecture-h">
+      <header><span class="n">04</span><h2 id="architecture-h">Architecture</h2><p>系统怎么设计</p></header>
+      <div class="pbody"><ol class="flow"><li>创建工单</li><li class="arr" aria-hidden="true">→</li><li>Agent 分类</li><li class="arr" aria-hidden="true">→</li><li>查询订单和支付记录</li><li class="arr" aria-hidden="true">→</li><li class="hl">Policy Guard</li><li class="arr" aria-hidden="true">→</li><li>不可变审批 · interrupt</li><li class="arr" aria-hidden="true">→</li><li>人工批准 · resume</li><li class="arr" aria-hidden="true">→</li><li class="hl">校验后修改为 PAID</li></ol>
+      <p>LangGraph interrupt / Command(resume) 等待人工审批，支持 SQLite 和 PostgreSQL checkpointer；Transactional Outbox + Celery / Redis 负责投递，late ack、协作式取消。</p></div>
+    </section>
+    <section class="psec" id="decisions" aria-labelledby="decisions-h">
+      <header><span class="n">05</span><h2 id="decisions-h">Engineering Decisions</h2><p>为什么这样设计</p></header>
+      <div class="pbody"><ul class="decisions"><li><b>订单号永远取自工单绑定字段</b><span>模型只决定分类，它的输出覆盖不了订单号；权限最小化。</span></li><li><b>审批绑定工具名、规范化参数哈希、订单版本和过期时间</b><span>任何一项不符都不执行，批准的就是将要执行的。</span></li><li><b>Transactional Outbox + late ack</b><span>提交后 Worker 崩溃重投，不会重复修改订单。</span></li><li><b>没有退款工具，也不宣称支持自动退款</b><span>没做的能力就不写。</span></li></ul></div>
+    </section>
+    <section class="psec" id="validation" aria-labelledby="validation-h">
+      <header><span class="n">06</span><h2 id="validation-h">Validation</h2><p>如何验证</p></header>
+      <div class="pbody"><div class="nums"><div><b>90</b><span>条确定性回归评估</span></div><div><b>0%</b><span>未授权写入 / 重复副作用</span></div></div>
+      <p class="caveat">90 条评估集只代表确定性回归，不是模型质量报告。</p></div>
+    </section>
+    <section class="psec" id="lessons" aria-labelledby="lessons-h">
+      <header><span class="n">07</span><h2 id="lessons-h">Lessons</h2><p>我学到了什么</p></header>
+      <div class="pbody"><div class="lesson-x"><p>把模型的权限收到最小，剩下的交给可以被测试的代码。</p></div>
+      <p>同一时期开始的 <a href="groundedagent.html">GroundedAgent</a> 把这条思路推得更远：不只是限制模型能改什么，还要证明它凭什么这样改。</p></div>
+    </section>
+    <nav class="next-proj" aria-label="其他项目"><a href="campus-library.html"><small>← Previous</small><b>Campus Library</b></a><a class="r" href="flashorder.html"><small>Next →</small><b>FlashOrder</b></a></nav>
+  </main>
+
+  <footer class="wide footer">
+    <span>© 2026 侯俊安 · Build things. Explore ideas. Keep learning.</span>
+    <div><a href="../about/">About</a><a href="mailto:h000_1014@qq.com">Email</a><a href="https://github.com/sjhesjaj">GitHub ↗</a></div>
+  </footer>
+  <script src="../site.js" defer></script>
+</body>
+</html>

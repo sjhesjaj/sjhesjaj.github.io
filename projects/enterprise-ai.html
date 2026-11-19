@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN" id="top">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="企业合同管理与 AI 工作流实践，记录跨系统集成、法务知识沉淀和质量评估。">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#fbfaf7">
+  <title>Enterprise AI Practice · 侯俊安</title>
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="stylesheet" href="../styles.css">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <div class="topbar"><header class="wide top">
+    <a class="brand" href="../"><span aria-hidden="true">H</span>侯俊安<small>Independent Developer</small></a>
+    <nav class="site-nav" aria-label="主导航"><a href="../projects/" aria-current="page">Projects</a><a href="../writing/">Writing</a><a href="../lab/">Lab</a><a href="../journal/">Journal</a><a href="../about/">About</a></nav>
+  </header></div>
+
+  <main id="main" class="wide" tabindex="-1">
+
+    <header class="page-head p-head">
+      <p class="label"><a href="./">Projects</a> <i>/</i> 企业合同管理与 AI 工作流（实习）</p>
+      <h1>Enterprise AI Practice</h1>
+      <p class="intro">企业合同管理与 AI 工作流实践，记录跨系统集成、法务知识沉淀和质量评估。</p>
+      <div class="p-meta"><span class="status progress">In Progress</span><time>2026.11 — 至今</time><ul class="tags"><li>React</li><li>TypeScript</li><li>Spring Boot</li><li>JPA</li><li>OA 集成</li></ul></div>
+      
+    </header>
+    <nav class="ptoc" aria-label="本页目录"><ol class="wide"><li><a href="#overview"><span>01</span>Overview</a></li><li><a href="#motivation"><span>02</span>Motivation</a></li><li><a href="#challenges"><span>03</span>Challenges</a></li><li><a href="#architecture"><span>04</span>Architecture</a></li><li><a href="#decisions"><span>05</span>Engineering Decisions</a></li><li><a href="#validation"><span>06</span>Validation</a></li><li><a href="#lessons"><span>07</span>Lessons</a></li></ol></nav>
+    <section class="psec" id="overview" aria-labelledby="overview-h">
+      <header><span class="n">01</span><h2 id="overview-h">Overview</h2><p>这个项目是什么</p></header>
+      <div class="pbody"><p class="caveat">这是我在实习团队中参与的工作。这里只写我自己负责的分析、方案和验证；具体实现有团队成员和 AI 编码助手的参与。公司、客户和内部资料均已脱敏，不涉及合同内容、内部模板、接口凭证和代码。</p><p class="lead-x">在杭州实习时参与的企业 AI 合同管理平台。</p>
+      <p>平台覆盖合同发起、AI 审核、法务复核和外部审批。我主要关注三件事：AI 审核结果怎么被正确地解释，跨系统集成的边界在哪里，以及法务的经验能不能沉淀成下一次审查的依据。</p></div>
+    </section>
+    <section class="psec" id="motivation" aria-labelledby="motivation-h">
+      <header><span class="n">02</span><h2 id="motivation-h">Motivation</h2><p>为什么要做</p></header>
+      <div class="pbody"><p>这是我第一次走进企业软件的研发环境，第一次面对真实的审批流程、外部系统和业务约束。</p>
+      <p>个人项目里，我只需要说服自己；在团队里，我需要拿出<b>别人也能复核的证据</b>。我想知道，在个人项目里学到的那些关于可靠性的想法，放进真实业务之后还成不成立。</p></div>
+    </section>
+    <section class="psec" id="challenges" aria-labelledby="challenges-h">
+      <header><span class="n">03</span><h2 id="challenges-h">Challenges</h2><p>遇到了什么困难</p></header>
+      <div class="pbody"><ul class="qa"><li><b>模型没有给出结论，系统却当成了“没有风险”</b><span>复查时模型这一轮没有形成结论，旧的风险意见却被关闭了。</span></li><li><b>集成需求不是“把表单搬过来”</b><span>两个系统页面看起来一样，字段、状态、权限和失败行为却可能完全不同。</span></li><li><b>法务的修改，能不能被下一份合同用上？</b><span>经验如果直接变成规则，一条错误的规则就会污染之后所有的审查。</span></li><li><b>怎么证明效果在变好？</b><span>统计口径要以生效的裁决为准，还要经得起撤回、角色权限这些边界情况。</span></li></ul></div>
+    </section>
+    <section class="psec" id="architecture" aria-labelledby="architecture-h">
+      <header><span class="n">04</span><h2 id="architecture-h">Architecture</h2><p>系统怎么设计</p></header>
+      <div class="pbody"><p>只展示概念流程；具体接口、模板和内部数据均不公开。</p>
+      <ol class="flow"><li>合同发起</li><li class="arr" aria-hidden="true">→</li><li class="hl">AI 审核</li><li class="arr" aria-hidden="true">→</li><li>法务复核</li><li class="arr" aria-hidden="true">→</li><li>外部审批</li></ol>
+      <p>法务经验沉淀，从正常的审核和定稿行为中收集反馈：</p>
+      <ol class="flow"><li>采集</li><li class="arr" aria-hidden="true">→</li><li>归因</li><li class="arr" aria-hidden="true">→</li><li>案例</li><li class="arr" aria-hidden="true">→</li><li>规则候选</li><li class="arr" aria-hidden="true">→</li><li>历史回放</li><li class="arr" aria-hidden="true">→</li><li class="hl">人工确认</li></ol></div>
+    </section>
+    <section class="psec" id="decisions" aria-labelledby="decisions-h">
+      <header><span class="n">05</span><h2 id="decisions-h">Engineering Decisions</h2><p>为什么这样设计</p></header>
+      <div class="pbody"><ul class="decisions"><li><b>区分“未判定”和“确认无风险”</b><span>没有结论不等于没有风险；两者需要独立的状态，不能共用一个“通过”。</span></li><li><b>先读已发布模板、做真实接口对照实验，而不是照截图复刻</b><span>真正的集成，是让不同系统对字段、状态、权限和失败行为达成一致。</span></li><li><b>预算和采购校验前移到送审前，外部查询失败一律不放行</b><span>失败时放行，等于把不确定性交给下游。</span></li><li><b>规则候选必须经过历史回放和人工确认才能启用</b><span>避免错误规则污染系统；最终由人来治理。</span></li></ul></div>
+    </section>
+    <section class="psec" id="validation" aria-labelledby="validation-h">
+      <header><span class="n">06</span><h2 id="validation-h">Validation</h2><p>如何验证</p></header>
+      <div class="pbody"><div class="nums"><div><b>3 种</b><span>审核状态：有效结论 / 明确无风险 / 未判定</span></div><div><b>6 个</b><span>阶段：采集 → 归因 → 案例 → 候选 → 回放 → 确认</span></div></div>
+      <p>效果看板以生效裁决为依据，用模拟合同核对误报、漏报、撤回后的统计变化和角色访问权限。</p>
+      <p class="caveat">完整的审批和附件链路仍在验证中，这里不报告还没有完成的结果。</p></div>
+    </section>
+    <section class="psec" id="lessons" aria-labelledby="lessons-h">
+      <header><span class="n">07</span><h2 id="lessons-h">Lessons</h2><p>我学到了什么</p></header>
+      <div class="pbody"><div class="lesson-x"><p>我想建立的不是一个会自动修改自己的模型，而是一套能追溯来源、验证效果、由人来治理的组织知识系统。</p>
+      <ul><li>AI 系统还有一种很隐蔽的错误：不是模型给出了错误答案，而是系统错误地解释了模型没有给出的答案。</li></ul></div>
+      <p>继续读：<a href="../stories/school-to-work.html">从校园到真实业务</a> · <a href="../stories/real-systems.html">真实系统不会按照你的设计稿工作</a> · <a href="../stories/no-verdict.html">没有结论，不等于没有风险</a> · <a href="../stories/legal-experience.html">让法务的经验成为下一次审查的依据</a></p></div>
+    </section>
+    <nav class="next-proj" aria-label="其他项目"><a href="groundedagent.html"><small>← Previous</small><b>GroundedAgent</b></a><a class="r" href="campus-library.html"><small>Next →</small><b>Campus Library</b></a></nav>
+  </main>
+
+  <footer class="wide footer">
+    <span>© 2026 侯俊安 · Build things. Explore ideas. Keep learning.</span>
+    <div><a href="../about/">About</a><a href="mailto:h000_1014@qq.com">Email</a><a href="https://github.com/sjhesjaj">GitHub ↗</a></div>
+  </footer>
+  <script src="../site.js" defer></script>
+</body>
+</html>
