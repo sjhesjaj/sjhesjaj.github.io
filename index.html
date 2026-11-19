@@ -1,207 +1,95 @@
 <!doctype html>
-<html lang="zh-CN" id="top">
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="侯俊安的个人作品集。记录 GroundedAgent、合同预审平台实践，以及 Agent 应用和后端工程中的技术取舍。">
+  <meta name="description" content="侯俊安，东北农业大学人工智能 2028 届，做 Agent 应用与后端开发。">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#ffffff">
-  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#f6f6f7">
+  <meta property="og:type" content="profile">
   <meta property="og:title" content="侯俊安 · Agent 应用与后端开发">
-  <meta property="og:description" content="个人项目、实习实践与工程笔记。">
+  <meta property="og:description" content="东北农业大学人工智能 2028 届，正在找 Agent / 后端实习。">
   <meta property="og:url" content="https://sjhesjaj.github.io/">
   <title>侯俊安 · Agent 应用与后端开发</title>
   <link rel="canonical" href="https://sjhesjaj.github.io/">
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <a class="skip" href="#main">跳到正文</a>
-  <div class="topbar">
-    <header class="shell top">
-      <a class="brand" href="#top"><span aria-hidden="true">H</span>侯俊安</a>
-      <nav aria-label="主导航">
-        <a href="#projects">项目</a>
-        <a href="#trace" class="opt">回放</a>
-        <a href="#practice" class="opt">实习</a>
-        <a href="#notes">笔记</a>
-        <a href="#contact">联系</a>
-      </nav>
-    </header>
-  </div>
-
-  <main id="main" class="shell" tabindex="-1">
-    <section class="hero" aria-labelledby="hero-heading">
-      <span class="pill">
-        <img src="assets/portrait.webp" width="360" height="480" alt="侯俊安的照片">
-        <b>Open</b>正在找 Agent / 后端实习
-      </span>
-      <h1 id="hero-heading">构建可校验的 Agent。<span>模型提出动作，后端决定放行。</span></h1>
-      <p class="lead">我是侯俊安，东北农业大学人工智能专业 2028 届。我关注模型如何调用业务工具，以及一项有副作用的操作如何经过校验、审批与重试，最终留下可核对的结果。</p>
-      <div class="actions">
-        <a class="button primary" href="#projects">查看项目</a>
-        <a class="button" href="https://github.com/sjhesjaj">GitHub <span aria-hidden="true">↗</span></a>
-        <a class="button" href="#contact">联系我</a>
-      </div>
-      <div class="hero-meta">
-        <span>方向 <b>Agent 应用 · 后端工程</b></span>
-        <span>常用 <b>Python · FastAPI · LangGraph</b></span>
-        <span>也用过 <b>Java · Spring Boot · Vue 3</b></span>
-      </div>
-    </section>
-
-    <section id="projects" class="section" aria-labelledby="projects-heading">
-      <div class="section-head">
-        <h2 id="projects-heading">代表项目</h2>
-        <p>一个能真正执行退换货的客服 Agent。重点不在“能回答”，而在“写入之前怎么证明它该被放行”。</p>
-      </div>
-      <article class="card feature" aria-labelledby="grounded-title">
-        <div class="feature-copy">
-          <p class="tag">featured / after-sales agent</p>
-          <h3 id="grounded-title">GroundedAgent</h3>
-          <p class="feature-subtitle">面向电商售后的客服 Agent</p>
-          <p class="muted">顾客可以查询订单、物流和售后规则，也可以发起退换货。模型提出动作，后端校验参数来源，用确定性规则决定是否放行。退货需人工审批，批准后重新检查业务状态再写入。</p>
-          <ul class="chips" aria-label="项目技术">
-            <li>Python</li><li>FastAPI</li><li>LangGraph</li><li>Vue 3</li><li>SQLite</li>
-          </ul>
-          <div class="actions">
-            <a class="text-link" href="https://github.com/sjhesjaj/GroundedAgent">查看源码 ↗</a>
-            <a class="text-link" href="https://github.com/sjhesjaj/GroundedAgent#verified-results">评测记录 ↗</a>
-          </div>
+<body class="home">
+  <main class="home-wrap">
+    <section class="idcard" aria-labelledby="name">
+      <div class="id-top">
+        <img class="avatar" src="assets/portrait.webp" width="360" height="480" alt="侯俊安的照片">
+        <div class="id-main">
+          <h1 id="name">侯俊安</h1>
+          <p class="role">Agent 应用 / 后端开发</p>
+          <p class="school">东北农业大学 · 人工智能 · <span>2028 届</span></p>
         </div>
-        <div class="terminal" aria-label="一次被拦下的动作示例">
-          <div class="c"># 一次被拦下的动作</div>
-          <div>→ propose   create_return(order, item)</div>
-          <div><span class="ok">✓</span> contract  closed schema ok</div>
-          <div><span class="no">✗</span> grounding missing_order_observation</div>
-          <div class="c">  gateway   not called · 0 writes</div>
-          <div>← reply     请确认订单号，我先查询核对</div>
-          <div class="c">&nbsp;</div>
-          <div class="c"># 一次被放行的退货</div>
-          <div><span class="ok">✓</span> grounding same observation · sha256 ok</div>
-          <div><span class="ok">✓</span> guard     REQUIRE_APPROVAL</div>
-          <div><span class="ok">✓</span> operator  APPROVE → recheck → EXECUTED</div>
-        </div>
-        <figure class="shot">
-          <a class="browser" href="assets/groundedagent-demo.webp" aria-label="查看大图：GroundedAgent 待审批界面">
-            <div class="browser-bar"><i></i><i></i><i></i><span>localhost · GroundedAgent</span></div>
-            <img src="assets/groundedagent-demo.webp" width="2160" height="1710" loading="lazy"
-                 alt="GroundedAgent 演示界面中，顾客提出退货，规则判定需要人工审批，界面显示批准和拒绝按钮。">
-          </a>
-          <figcaption>本地演示：退货申请进入待审批状态，操作员可以批准或拒绝。</figcaption>
-        </figure>
-        <dl class="metrics" aria-label="项目验证结果">
-          <div><dd>21<span>/25</span></dd><dt>端到端通过<br>Stage 6 封存测试集</dt></div>
-          <div><dd>25<span>/25</span></dd><dt>满足六项<br>硬性安全约束</dt></div>
-          <div><dd>9</dd><dt>真实杀进程的<br>崩溃恢复场景</dt></div>
-        </dl>
-        <details class="failures">
-          <summary>没通过的 4 条是什么？</summary>
-          <div class="failures-body">
-            <p>holdout 由隔离的上下文编写并封存，栈冻结后只开封一次，开封后没有任何调参。4 个失败都属于模型行为，没有一条突破安全边界：</p>
-            <ul>
-              <li><strong>3 条：没读订单就直接提交动作</strong>（s6h-001 / 004 / 020）。明细号按编号规律猜对了，最终数据库状态仍然正确，只在“必需能力”一项记为失败。这正是后来加 <a class="text-link" href="notes/action-grounding.html">grounding gate</a> 的原因。</li>
-              <li><strong>1 条：追问过度</strong>（s6h-012）。模型先用 schema 示例里的编号探查，再同时追问订单号和商品明细，对话没能推进。</li>
-            </ul>
-            <p class="muted">样本小（DEV 40 条、holdout 25 条，各一轮，单一模型），不能当作统计结论，也不代表生产可用。</p>
-          </div>
-        </details>
-      </article>
-    </section>
-
-    <section id="trace" class="section" aria-labelledby="trace-heading">
-      <div class="section-head">
-        <h2 id="trace-heading">一个动作是怎么被放行或拦下的</h2>
-        <p>按项目文档里的设计和测试场景整理的示意回放，不是原始日志。选一个场景，逐步看它经过了哪些检查。</p>
       </div>
-      <div class="card trace" data-trace>
-        <div class="trace-tabs" role="tablist" aria-label="回放场景"></div>
-        <ol class="trace-pipe" aria-label="写入路径"></ol>
-        <div class="trace-log" aria-live="polite"></div>
-        <div class="trace-controls">
-          <button type="button" class="button primary" data-act="next">下一步 →</button>
-          <button type="button" class="button" data-act="all">全部展开</button>
-          <button type="button" class="button" data-act="reset">重来</button>
-          <span class="trace-count"></span>
-        </div>
-        <noscript><p class="muted">回放需要 JavaScript。可以直接阅读下方的工程笔记。</p></noscript>
-      </div>
-    </section>
-
-    <section id="practice" class="section" aria-labelledby="practice-heading">
-      <div class="section-head">
-        <h2 id="practice-heading">实习实践 · 合同预审平台</h2>
-        <p>围绕 AI 审查与法务复核，参与复现意见流转问题、验证效果看板，并设计如何复用已确认的法务经验。</p>
-      </div>
-      <div class="practice">
-        <article class="card practice-item">
-          <p class="tag">状态设计</p>
-          <h3>复核时保留待确认的风险</h3>
-          <p>用样例复现模型漏回意见时旧风险被误关闭的问题，提出为「未判定」和「确认无风险」设置独立状态，让经办人知道哪些意见仍需复核。</p>
-        </article>
-        <article class="card practice-item">
-          <p class="tag">效果验证</p>
-          <h3>用有效裁决核对误报和漏报</h3>
-          <p>参与效果看板的样例验证。统计以生效裁决为依据，用模拟合同核对误报、漏报、撤回后的统计变化和角色访问权限。</p>
-        </article>
-        <article class="card practice-item">
-          <p class="tag">经验沉淀</p>
-          <h3>将法务处理经验整理成规则候选</h3>
-          <p>参与设计从修订差异和法务意见提炼规则候选的流程，并把法务确认和历史样例回放设为发布前的检查步骤。</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="notes" class="section" aria-labelledby="notes-heading">
-      <div class="section-head">
-        <h2 id="notes-heading">工程笔记</h2>
-        <p>把项目里最难的两个问题写成完整的推导：问题、被排除的做法、方案、怎么验证、还有哪些边界。</p>
-      </div>
-      <div class="note-cards">
-        <a class="note-card" href="notes/state-recovery.html">
-          <span class="tag">状态恢复 · 约 6 分钟</span>
-          <strong>进程在写入后崩溃，如何避免重复建单？</strong>
-          <span class="muted">业务已写入、会话还没记录时进程退出。用 in-flight marker 和幂等键只重跑网关，并在 9 个提交点真实杀进程验证。</span>
-          <span class="text-link">阅读全文 →</span>
+      <p class="status"><i aria-hidden="true"></i>正在找 Agent / 后端方向的实习</p>
+      <p class="bio">我关注模型如何调用业务工具，以及一项有副作用的操作如何经过校验、审批与重试，最终留下可核对的结果。</p>
+      <div class="id-links">
+        <a class="button primary" href="mailto:h000_1014@qq.com">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z M4 7l8 6 8-6" /></svg>h000_1014@qq.com
         </a>
-        <a class="note-card" href="notes/action-grounding.html">
-          <span class="tag">动作校验 · 约 6 分钟</span>
-          <strong>模型猜中了订单号，这次操作该放行吗？</strong>
-          <span class="muted">无依据动作 3.33 → 0，端到端 37 → 36。逐条拆开代价，以及 gate 仍然挡不住的那一类。</span>
-          <span class="text-link">阅读全文 →</span>
+        <a class="button" href="https://github.com/sjhesjaj">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.5-4-2-6-2.5m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" /></svg>sjhesjaj
         </a>
       </div>
     </section>
 
-    <section id="about" class="section" aria-labelledby="about-heading">
-      <div class="section-head">
-        <h2 id="about-heading">关于我</h2>
-      </div>
-      <div class="about">
-        <div class="card about-text">
-          <p>我在东北农业大学读人工智能，预计 2028 年毕业。目前关注 Agent 应用、AI 基础设施和后端工程。</p>
-          <p>主要使用 Python 和 FastAPI，也有 Java、Spring Boot 和 Vue 3 的开发经历。比起让 Demo 跑通，我更在意写下预期、跑对照、把失败也摆出来。</p>
-        </div>
-        <div id="contact" class="card contact">
-          <h3>联系我</h3>
-          <p>正在找 Agent 应用 / 后端方向的实习，欢迎邮件联系，需要完整简历也可以发邮件索取。</p>
-          <p class="mono contact-mail">h000_1014@qq.com</p>
-          <div class="actions">
-            <a class="button primary" href="mailto:h000_1014@qq.com">发邮件</a>
-            <a class="button" href="https://github.com/sjhesjaj">GitHub ↗</a>
+    <section class="block" aria-labelledby="exp-h">
+      <h2 id="exp-h">经历</h2>
+      <ul class="rows">
+        <li>
+          <span class="when">2026.09 – 11</span>
+          <div>
+            <strong>AI 应用开发实习 · 合同预审平台</strong>
+            <p>复现 AI 审查意见被误关闭的问题并设计独立的待确认状态；参与效果看板的误报 / 漏报验证；设计从法务意见提炼规则候选的流程。</p>
           </div>
-        </div>
-      </div>
+        </li>
+        <li>
+          <span class="when">2024 – 2028</span>
+          <div>
+            <strong>东北农业大学 · 人工智能 本科</strong>
+            <p>CET-6</p>
+          </div>
+        </li>
+      </ul>
     </section>
+
+    <section class="block" aria-labelledby="proj-h">
+      <h2 id="proj-h">项目</h2>
+      <a class="row-link" href="projects/groundedagent.html">
+        <div>
+          <strong>GroundedAgent</strong>
+          <p>面向电商售后的客服 Agent：模型提出动作，后端校验来源、规则决定放行，退货需人工审批。</p>
+          <p class="facts"><span>封存集 21/25 通过</span><span>安全约束 25/25</span><span>9 个崩溃恢复场景</span></p>
+        </div>
+        <span class="go" aria-hidden="true">→</span>
+      </a>
+    </section>
+
+    <section class="block" aria-labelledby="notes-h">
+      <h2 id="notes-h">工程笔记</h2>
+      <a class="row-link" href="notes/state-recovery.html">
+        <div><strong>进程在写入后崩溃，如何避免重复建单？</strong><p>状态恢复 · 约 6 分钟</p></div>
+        <span class="go" aria-hidden="true">→</span>
+      </a>
+      <a class="row-link" href="notes/action-grounding.html">
+        <div><strong>模型猜中了订单号，这次操作该放行吗？</strong><p>动作校验 · 约 6 分钟</p></div>
+        <span class="go" aria-hidden="true">→</span>
+      </a>
+    </section>
+
+    <section class="block" aria-labelledby="skill-h">
+      <h2 id="skill-h">技术栈</h2>
+      <ul class="chips">
+        <li>Python</li><li>FastAPI</li><li>LangGraph</li><li>SQLite / PostgreSQL</li><li>Java</li><li>Spring Boot</li><li>Vue 3</li>
+      </ul>
+    </section>
+
+    <footer class="home-foot">© 2026 侯俊安</footer>
   </main>
-
-  <footer class="shell footer">
-    <span>© 2026 侯俊安</span>
-    <div>
-      <a href="https://github.com/sjhesjaj">GitHub ↗</a>
-      <a href="#top">回到顶部 ↑</a>
-    </div>
-  </footer>
-  <script src="trace.js" defer></script>
 </body>
 </html>
