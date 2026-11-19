@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AI 审完一份合同，法务改了条款、合同定稿。这些经验，能不能被下一份合同用上？">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#ffffff">
+  <title>让法务的经验成为下一次审查的依据 · 侯俊安</title>
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <div class="topbar"><header class="shell top">
+    <a class="brand" href="../"><span aria-hidden="true">H</span>侯俊安</a>
+    <nav aria-label="主导航">
+      <a href="../#stories">全部故事</a>
+      <a href="../">主页</a>
+    </nav>
+  </header></div>
+
+  <main id="main" class="shell article" tabindex="-1">
+    <header class="article-head">
+      <p class="eyebrow">故事 07 · 进入真实业务 · 2026.11 · 实习</p>
+      <h1>让法务的经验成为下一次审查的依据</h1>
+      <p class="lede">AI 审完一份合同，法务改了条款、合同定稿。这些经验，能不能被下一份合同用上？</p>
+    </header>
+    <div class="prose story">
+<p>传统的 AI 审核更像一次性任务：模型审查合同、给出风险意见，法务修改，合同结束。下一次审查时，系统未必知道上一次法务为什么那样改。</p>
+<p>我希望改变这种情况。思路是从法务正常的审核和定稿行为里收集反馈，而不是让法务额外填写大量标注表单。</p>
+<p>定稿时，系统对比最初送审的版本和最终版本，把文本变化和 AI 审核意见、法务退回记录关联起来。经过归因的修改可以进入案例库；以后相似合同再出现类似条款时，系统可以检索历史案例，作为这次审查的参考。</p>
+<h2>修改了，不代表 AI 错了</h2>
+<p>这里有一个很容易被忽略的问题：<strong>合同发生了修改，不代表 AI 一定犯了错。</strong>有的修改是在修正法律风险，有的只是商务条件变了，还有的只是文字润色。</p>
+<p>所以我没有让每次修改都自动变成规则，而是把经验沉淀拆成几个阶段：反馈采集、归因、案例复用、规则候选、历史回放、人工确认。只有来自足够多份不同合同的同类证据，才进入规则候选；正式启用一条规则，还要经过审核和验证。</p>
+<h2>一个差点漏掉风险的做法</h2>
+<p>在样例测试里我还发现：如果简单地把某次误报的理由直接附加到规则上，可能连本来应该报出的风险也一起过滤掉。</p>
+<p>所以我调整了判断顺序：先执行原有规则的判断，再单独核对历史理由是否适用于这一份合同。小样本对照里，这样做保留了原规则的判断能力，也暴露出仍然存在的漏报。</p>
+<p>我认为把漏报摆出来，比只给一个好看的准确率更有价值。</p>
+      <aside class="lesson"><span>这件事教会我</span><p>我想建立的不是一个会自动修改自己的模型，而是一套能追溯来源、验证效果、由人来治理的组织知识系统。</p></aside>
+      <p class="intern-note">这是我在实习团队中参与的工作。文中只写我自己负责的分析、方案和验证；具体实现有团队成员和 AI 编码助手的参与。公司、客户和内部资料均已脱敏。</p>
+      <div class="related"><span>相关故事</span><a href="no-verdict.html">没有结论，不等于没有风险 →</a></div>
+    </div>
+    <nav class="story-nav" aria-label="上一篇 / 下一篇">
+      <a href="no-verdict.html"><span>← 上一篇</span>没有结论，不等于没有风险</a>
+      <a class="next" href="../#stories"><span>回到</span>全部故事</a>
+    </nav>
+  </main>
+
+  <footer class="shell footer">
+    <span>© 2026 侯俊安</span>
+    <div><a href="../">返回主页</a><a href="https://github.com/sjhesjaj">GitHub ↗</a></div>
+  </footer>
+</body>
+</html>

@@ -226,3 +226,48 @@ footer.foot { display: flex; justify-content: space-between; gap: 16px; padding:
   .js .reveal { opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
 }
+
+/* ---------- 故事卡片 ---------- */
+.chapter { margin-top: 44px; }
+.chapter-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding-bottom: 14px; margin-bottom: 16px; border-bottom: 1px solid var(--line); }
+.chapter-head span { color: var(--blue); font: 600 12px var(--mono); }
+.chapter-head h3 { font-size: 22px; letter-spacing: -.02em; }
+.chapter-head small { margin-left: auto; color: var(--muted); font-size: 13px; }
+.story-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.story-grid.four { grid-template-columns: repeat(2, 1fr); }
+.scard { position: relative; display: flex; flex-direction: column; gap: 10px; min-height: 200px; padding: 24px; border: 1px solid var(--line); border-radius: 20px; background: var(--card); overflow: hidden; transition: transform .3s cubic-bezier(.2, .8, .2, 1), box-shadow .3s, border-color .3s; }
+.scard::before { content: ""; position: absolute; inset: auto -40% -60% auto; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(#dbe6ff, transparent 70%); opacity: 0; transition: opacity .4s, transform .6s; }
+.scard:hover { transform: translateY(-5px); border-color: #d4d9e6; box-shadow: 0 22px 40px -26px #1e293b66; }
+.scard:hover::before { opacity: 1; transform: translate(-30px, -30px); }
+.scard > * { position: relative; }
+.sno { color: var(--faint); font: 700 28px/1 var(--mono); letter-spacing: -.04em; transition: color .3s; }
+.scard:hover .sno { color: var(--blue); }
+.scard strong { font-size: 18px; line-height: 1.5; letter-spacing: -.01em; }
+.scard p { color: var(--muted); font-size: 14px; line-height: 1.75; }
+.stag { margin-top: auto; align-self: flex-start; padding: 3px 9px; border-radius: 7px; background: var(--chip); color: var(--body); font: 12px var(--mono); }
+
+/* ---------- 生活 ---------- */
+.life { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(24px, 5vw, 56px); margin-top: 36px; align-items: center; }
+.life-text p { color: var(--body); font-size: 17px; line-height: 1.95; }
+.life-text p + p { margin-top: 16px; }
+.life-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ltile { display: grid; gap: 4px; padding: 20px; border: 1px solid var(--line); border-radius: 20px; background: var(--card); transition: transform .3s; }
+.ltile:hover { transform: rotate(-1.5deg) scale(1.03); }
+.ltile span { font-size: 30px; line-height: 1.2; }
+.ltile b { margin-top: 6px; font-size: 16px; }
+.ltile small { color: var(--muted); font-size: 13px; }
+
+/* ---------- 想法 ---------- */
+.thought { max-width: 760px; margin: 0 auto 8px; padding: clamp(40px, 7vw, 72px) 0 32px; text-align: center; }
+.thought-text { margin-top: 16px; color: var(--body); font-size: clamp(17px, 2vw, 20px); line-height: 2; font-weight: 450; }
+
+@media (max-width: 900px) {
+  .story-grid { grid-template-columns: 1fr 1fr; }
+  .life { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .story-grid, .story-grid.four { grid-template-columns: 1fr; }
+  .scard { min-height: 0; padding: 20px; }
+  .chapter-head small { margin-left: 0; width: 100%; }
+  .thought { text-align: left; }
+}

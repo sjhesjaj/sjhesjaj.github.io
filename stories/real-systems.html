@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="一个看起来只是“把表单搬过来”的集成需求，让我第一次看到企业软件的复杂。">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#ffffff">
+  <title>真实系统不会按照你的设计稿工作 · 侯俊安</title>
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <div class="topbar"><header class="shell top">
+    <a class="brand" href="../"><span aria-hidden="true">H</span>侯俊安</a>
+    <nav aria-label="主导航">
+      <a href="../#stories">全部故事</a>
+      <a href="../">主页</a>
+    </nav>
+  </header></div>
+
+  <main id="main" class="shell article" tabindex="-1">
+    <header class="article-head">
+      <p class="eyebrow">故事 05 · 进入真实业务 · 2026.11 · 实习</p>
+      <h1>真实系统不会按照你的设计稿工作</h1>
+      <p class="lede">一个看起来只是“把表单搬过来”的集成需求，让我第一次看到企业软件的复杂。</p>
+    </header>
+    <div class="prose story">
+<p>刚参与企业合同平台时，我接到一个跨系统集成的需求：平台负责合同发起和 AI 审核，后续审批仍然走外部的 OA 系统，项目、预算和采购这些业务数据则来自另一套主数据系统。</p>
+<p>一开始看起来只是把原来的表单搬过来。真正动手时我发现，<strong>页面上的字段并不等于接口真正接受的字段</strong>：设计草稿、已发布的模板、真实的审批实例和连接器的行为之间，都可能存在差异。</p>
+<h2>不猜，去读和试</h2>
+<p>我没有只照着页面截图复刻，而是通过接口读取已发布的模板，对照字段类型、选项值和组件结构，再做真实的接口实验。</p>
+<p>其中一次对照实验发现，两种审批模板在相同条件下表现不同：一种无法通过现有接口发起，另一种可以成功。这说明继续猜字段格式不是好办法，需要重新确认外部系统的能力边界。</p>
+<h2>失败也要有默认行为</h2>
+<p>另一个问题来自预算校验：某些外部连接器可能在审批人真正处理之前就触发数据写入。所以我建议把预算和采购相关的校验前移到送审之前，并且把“外部查询失败”当作<strong>不能放行</strong>，而不是默认校验通过。</p>
+<p>这部分工作还有完整审批和附件链路需要继续验证，还没有全部做完。</p>
+      <aside class="lesson"><span>这件事教会我</span><p>真正的集成不是让两个页面看起来一样，而是让不同系统对字段、状态、权限和失败行为达成一致。</p></aside>
+      <p class="intern-note">这是我在实习团队中参与的工作。文中只写我自己负责的分析、方案和验证；具体实现有团队成员和 AI 编码助手的参与。公司、客户和内部资料均已脱敏。</p>
+      <div class="related"><span>相关故事</span><a href="school-to-work.html">从校园到真实业务 →</a></div>
+    </div>
+    <nav class="story-nav" aria-label="上一篇 / 下一篇">
+      <a href="school-to-work.html"><span>← 上一篇</span>从校园到真实业务</a>
+      <a class="next" href="no-verdict.html"><span>下一篇 →</span>没有结论，不等于没有风险</a>
+    </nav>
+  </main>
+
+  <footer class="shell footer">
+    <span>© 2026 侯俊安</span>
+    <div><a href="../">返回主页</a><a href="https://github.com/sjhesjaj">GitHub ↗</a></div>
+  </footer>
+</body>
+</html>

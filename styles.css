@@ -316,3 +316,20 @@ body.home { background: #f6f6f7; }
 }
 .project-head + .section { border-top: 0; padding-top: 32px; }
 .school span { white-space: nowrap; }
+
+/* ---------- 故事页 ---------- */
+.story > p:first-child { font-size: 17px; }
+.lesson { margin: 36px 0 8px; padding: 22px 24px; border-radius: 16px; background: linear-gradient(135deg, #eef3ff, #f4f9f1); }
+.lesson span { color: var(--blue); font: 600 12px var(--mono); }
+.lesson p { margin: 8px 0 0; color: var(--ink); font-size: 18px; font-weight: 650; line-height: 1.7; }
+.deep { margin-top: 24px !important; }
+.intern-note { margin-top: 24px !important; padding: 12px 16px; border: 1px dashed var(--line-strong); border-radius: 10px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+.related { display: grid; gap: 6px; margin-top: 28px; }
+.related span { color: var(--muted); font-size: 13px; }
+.related a { color: var(--blue); font-weight: 600; font-size: 15px; }
+.story-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 24px 0 56px; border-top: 1px solid var(--line); }
+.story-nav a { display: grid; gap: 4px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; font-weight: 600; font-size: 15px; line-height: 1.5; transition: border-color .15s; }
+.story-nav a:hover { border-color: var(--blue); }
+.story-nav a span { color: var(--muted); font-size: 12px; font-weight: 500; }
+.story-nav .next { text-align: right; }
+@media (max-width: 620px) { .story-nav { grid-template-columns: 1fr; } .story-nav .next { text-align: left; } }

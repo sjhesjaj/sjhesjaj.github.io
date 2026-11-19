@@ -18,7 +18,7 @@
       stats: [['21/25', '封存集端到端通过'], ['25/25', '六项硬性安全约束'], ['9', '真实杀进程的崩溃场景'], ['2515', '后端离线测试，零失败']],
       note: '样本小（DEV 40 条、holdout 25 条，各一轮，单一模型），不能当作统计结论，也不代表生产可用。',
       tags: ['Python', 'FastAPI', 'LangGraph', 'DeepSeek Function Calling', 'BM25 + bge-m3', 'SQLite', 'Vue 3'],
-      links: [['项目详情页 · 动作回放', 'projects/groundedagent.html', true], ['源码 ↗', 'https://github.com/sjhesjaj/GroundedAgent'], ['笔记：动作校验', 'notes/action-grounding.html']],
+      links: [['项目详情页 · 动作回放', 'projects/groundedagent.html', true], ['源码 ↗', 'https://github.com/sjhesjaj/GroundedAgent'], ['故事 01', 'stories/guessed-order.html'], ['故事 02', 'stories/after-crash.html']],
     },
     library: {
       meta: '2026.08 · Java',
@@ -34,7 +34,7 @@
       ],
       stats: [['16 → 1', '线程抢同一座位，只有一个成功'], ['14 天', '可预约范围，三个时段']],
       tags: ['Java 17', 'Spring Boot', 'Vue 3', 'TypeScript', 'H2 / MySQL', 'Flyway', 'OIDC / JWT'],
-      links: [['源码 ↗', 'https://github.com/sjhesjaj/campus-library-system', true]],
+      links: [['源码 ↗', 'https://github.com/sjhesjaj/campus-library-system', true], ['故事 03：16 个人同时抢一张座位', 'stories/sixteen-seats.html']],
     },
     ticket: {
       meta: '2026.07 · Python',
@@ -51,6 +51,22 @@
       stats: [['90', '条确定性回归评估'], ['0%', '未授权写入 / 重复副作用']],
       tags: ['FastAPI', 'SQLAlchemy', 'Alembic', 'LangGraph', 'Celery', 'Redis', 'PostgreSQL', 'Ollama'],
       links: [['源码 ↗', 'https://github.com/sjhesjaj/agent-ticket-platform', true]],
+    },
+    contract: {
+      meta: '实习 · 2026.11 至今 · 团队项目',
+      title: '企业 AI 合同平台',
+      media: '<div class="media code"><span class="c"># 法务经验沉淀（方案）</span><span>送审版 ↔ 定稿版  diff</span><span>关联 AI 意见、法务退回记录</span><span>归因：法律风险 / 商务变化 / 文字润色</span><span>案例库：相似条款可检索</span><span>多份合同同类证据 → 规则候选</span><span>历史回放 + 人工确认 → 才能启用</span></div>',
+      lede: '在杭州实习参与的 AI 合同管理平台，覆盖合同发起、AI 审核、法务复核和外部审批。下面只写我自己负责的分析、方案和验证。',
+      points: [
+        '<b>“没有结论”不等于“没有风险”。</b>复现了复查时模型未形成结论、旧风险意见却被关闭的问题，提出区分“未判定”和“确认无风险”的独立状态。',
+        '<b>跨系统集成的能力边界。</b>不照页面截图复刻，而是读取已发布模板、做真实接口对照实验；把预算和采购校验前移到送审前，外部查询失败一律不放行。',
+        '<b>法务经验沉淀。</b>从正常的审核和定稿行为中收集反馈，经过归因、案例复用、规则候选、历史回放和人工确认，避免错误规则污染系统。',
+        '<b>效果看板验证。</b>以生效裁决为依据，用模拟合同核对误报、漏报、撤回后的统计变化和角色访问权限。',
+      ],
+      stats: [['6', '个阶段：采集 → 归因 → 案例 → 候选 → 回放 → 确认'], ['3 种', '审核状态：有效结论 / 明确无风险 / 未判定']],
+      note: '团队项目，具体实现有团队成员和 AI 编码助手的参与；公司、客户和内部资料均已脱敏。完整审批和附件链路仍在验证中。',
+      tags: ['React', 'TypeScript', 'Spring Boot', 'JPA', 'OA 集成'],
+      links: [['故事：没有结论，不等于没有风险', 'stories/no-verdict.html', true], ['故事：法务经验沉淀', 'stories/legal-experience.html'], ['故事：真实系统', 'stories/real-systems.html']],
     },
   };
 

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="在一次评测里，模型没查订单就猜对了商品编号，最终结果也是对的。我还是决定拦下它。">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#ffffff">
+  <title>模型猜对了订单号，我还是拒绝了它 · 侯俊安</title>
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <div class="topbar"><header class="shell top">
+    <a class="brand" href="../"><span aria-hidden="true">H</span>侯俊安</a>
+    <nav aria-label="主导航">
+      <a href="../#stories">全部故事</a>
+      <a href="../">主页</a>
+    </nav>
+  </header></div>
+
+  <main id="main" class="shell article" tabindex="-1">
+    <header class="article-head">
+      <p class="eyebrow">故事 01 · 从 Demo 到工程 · 2026.10 · GroundedAgent</p>
+      <h1>模型猜对了订单号，我还是拒绝了它</h1>
+      <p class="lede">在一次评测里，模型没查订单就猜对了商品编号，最终结果也是对的。我还是决定拦下它。</p>
+    </header>
+    <div class="prose story">
+<p>在开发电商售后 Agent 时，我遇到过一个很有意思的问题。</p>
+<p>有一次评测中，模型没有先查询订单，而是根据订单编号的规律，直接猜出了正确的商品明细 ID，并提交了退货申请。最后数据库里的状态甚至是正确的。</p>
+<p>如果只看最终结果，这似乎是一次成功的操作。但我不太放心。</p>
+<p>系统无法证明模型为什么选择了这个订单。它这次猜对了，下次也可能猜错；错误的参数一旦进入写入网关，就可能影响另一个真实商品。</p>
+<p>原来的规则已经能检查用户身份、订单状态和业务权限，但还不能证明<strong>动作参数来自本轮的真实查询</strong>。</p>
+<h2>加一道 Grounding Gate</h2>
+<p>于是我在写入网关前增加了一道检查：模型提出的订单和商品必须来自本轮可信查询，关联关系必须正确，服务端还要用查到的记录重新构建参数并逐项比对。证据不足就拒绝执行，而不是帮模型“修正”参数。</p>
+<h2>收益和代价都要写出来</h2>
+<p>在对应的开发集对照实验中，无依据动作从每轮平均 3.33 次降到 0，误拒为 0。</p>
+<p>但端到端通过数也从 37/40 降到了 36/40：有一条本来应该建出来的转人工工单，因为模型没查订单而被拦下了。</p>
+<p>我没有把这部分代价藏起来。放行“猜中的”提交，就等于接受“猜错的”提交也会走到写入那一步。</p>
+      <aside class="lesson"><span>这件事教会我</span><p>Agent 的正确，不只是最终结果正确，还包括它是否通过可信的依据抵达这个结果。</p></aside>
+      <p class="deep"><a class="button" href="../notes/action-grounding.html">技术推导：动作校验的规则、对照实验和逐条代价 →</a></p>
+      <div class="related"><span>相关故事</span><a href="after-crash.html">如果进程在写入之后崩溃，会发生什么？ →</a></div>
+    </div>
+    <nav class="story-nav" aria-label="上一篇 / 下一篇">
+      <span></span>
+      <a class="next" href="after-crash.html"><span>下一篇 →</span>如果进程在写入之后崩溃，会发生什么？</a>
+    </nav>
+  </main>
+
+  <footer class="shell footer">
+    <span>© 2026 侯俊安</span>
+    <div><a href="../">返回主页</a><a href="https://github.com/sjhesjaj">GitHub ↗</a></div>
+  </footer>
+</body>
+</html>

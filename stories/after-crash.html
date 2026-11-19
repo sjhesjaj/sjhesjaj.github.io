@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="退货申请已经写进数据库，系统正准备更新会话记录，进程突然退出了。">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#ffffff">
+  <title>如果进程在写入之后崩溃，会发生什么？ · 侯俊安</title>
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <div class="topbar"><header class="shell top">
+    <a class="brand" href="../"><span aria-hidden="true">H</span>侯俊安</a>
+    <nav aria-label="主导航">
+      <a href="../#stories">全部故事</a>
+      <a href="../">主页</a>
+    </nav>
+  </header></div>
+
+  <main id="main" class="shell article" tabindex="-1">
+    <header class="article-head">
+      <p class="eyebrow">故事 02 · 从 Demo 到工程 · 2026.10 · GroundedAgent</p>
+      <h1>如果进程在写入之后崩溃，会发生什么？</h1>
+      <p class="lede">退货申请已经写进数据库，系统正准备更新会话记录，进程突然退出了。</p>
+    </header>
+    <div class="prose story">
+<p>这是我在 GroundedAgent 里花了不少时间解决的问题。</p>
+<p>想象一个场景：用户申请退货，系统完成校验，写入网关已经成功创建了退货申请。就在系统准备更新会话记录时，进程突然退出。</p>
+<p>服务重启、恢复会话之后，系统应该怎么办？</p>
+<p>最简单的做法是让模型重新读一遍上下文，再决定是否执行。但这很危险：模型可能提出不同的动作，也可能把已经成功的操作再提交一次。</p>
+<p>只依赖 LangGraph 的 checkpoint 也不够，因为会话状态和业务数据库并不在同一个事务里。</p>
+<h2>一个明确的提交协议</h2>
+<ul>
+  <li>用 <strong>head</strong> 记录已经提交的会话状态；</li>
+  <li>用 <strong>in-flight marker</strong> 记录“可能已经产生业务写入、但会话还没记账”的动作；</li>
+  <li>写入之前先把 marker 落盘，并为这次业务操作生成稳定的幂等键；</li>
+  <li>恢复时只重新执行写入网关，<strong>不重新调用模型</strong>。</li>
+</ul>
+<h2>真的去杀进程</h2>
+<p>为了验证这个设计，我没有只写一个模拟异常的单元测试，而是在真实子进程里注入崩溃点、直接终止进程，再启动服务恢复数据。</p>
+<p>一共覆盖 9 种崩溃场景，每种连续恢复两次，两次结果完全一致。反过来把 marker 恢复关掉，其中 3 个场景就会失败，说明测试确实依赖这套机制，而不是碰巧通过。</p>
+      <aside class="lesson"><span>这件事教会我</span><p>真正可靠的系统，不应该假设每一步都能顺利完成，而应该提前设计好每一步失败之后会发生什么。</p></aside>
+      <p class="deep"><a class="button" href="../notes/state-recovery.html">技术推导：提交协议、恢复表和 9 个崩溃场景 →</a></p>
+      <div class="related"><span>相关故事</span><a href="guessed-order.html">模型猜对了订单号，我还是拒绝了它 →</a></div>
+    </div>
+    <nav class="story-nav" aria-label="上一篇 / 下一篇">
+      <a href="guessed-order.html"><span>← 上一篇</span>模型猜对了订单号，我还是拒绝了它</a>
+      <a class="next" href="sixteen-seats.html"><span>下一篇 →</span>16 个人同时抢一张座位</a>
+    </nav>
+  </main>
+
+  <footer class="shell footer">
+    <span>© 2026 侯俊安</span>
+    <div><a href="../">返回主页</a><a href="https://github.com/sjhesjaj">GitHub ↗</a></div>
+  </footer>
+</body>
+</html>

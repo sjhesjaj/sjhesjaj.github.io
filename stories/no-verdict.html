@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="模型这一轮什么都没说出来，系统却把它理解成了“已经检查过，没有问题”。">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#ffffff">
+  <title>没有结论，不等于没有风险 · 侯俊安</title>
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <div class="topbar"><header class="shell top">
+    <a class="brand" href="../"><span aria-hidden="true">H</span>侯俊安</a>
+    <nav aria-label="主导航">
+      <a href="../#stories">全部故事</a>
+      <a href="../">主页</a>
+    </nav>
+  </header></div>
+
+  <main id="main" class="shell article" tabindex="-1">
+    <header class="article-head">
+      <p class="eyebrow">故事 06 · 进入真实业务 · 2026.11 · 实习</p>
+      <h1>没有结论，不等于没有风险</h1>
+      <p class="lede">模型这一轮什么都没说出来，系统却把它理解成了“已经检查过，没有问题”。</p>
+    </header>
+    <div class="prose story">
+<p>上一轮审查已经发现了一项风险。到了下一轮复查，模型的输出不完整，没有形成有效结论。</p>
+<p>但原有的逻辑可能把“没有发现新问题”理解成“已经检查过，而且没有风险”，进而关闭了上一轮仍然有效的意见。</p>
+<p>这其实是两件完全不同的事情：<strong>没有形成结论，不代表已经确认没有风险。</strong></p>
+<h2>从状态语义上解决</h2>
+<p>我在本地复现了这个问题，然后从状态语义的角度分析：系统需要明确区分三种情况——</p>
+<ul>
+  <li>有效结论：这一轮确实审查了，并给出了判断；</li>
+  <li>明确无风险：这一轮审查后确认没有问题；</li>
+  <li>未能完成检查：这一轮没有形成可用的结论。</li>
+</ul>
+<p>旧意见能不能关闭，应该看是哪一种情况，而不是只看本轮有没有生成问题记录。我提出为“未判定”和“确认无风险”设置独立的状态，让经办人知道哪些意见仍然需要复核。</p>
+      <aside class="lesson"><span>这件事教会我</span><p>AI 系统还有一种很隐蔽的错误：不是模型给出了错误答案，而是系统错误地解释了模型没有给出的答案。</p></aside>
+      <p class="intern-note">这是我在实习团队中参与的工作。文中只写我自己负责的分析、方案和验证；具体实现有团队成员和 AI 编码助手的参与。公司、客户和内部资料均已脱敏。</p>
+      <div class="related"><span>相关故事</span><a href="legal-experience.html">让法务的经验成为下一次审查的依据 →</a></div>
+    </div>
+    <nav class="story-nav" aria-label="上一篇 / 下一篇">
+      <a href="real-systems.html"><span>← 上一篇</span>真实系统不会按照你的设计稿工作</a>
+      <a class="next" href="legal-experience.html"><span>下一篇 →</span>让法务的经验成为下一次审查的依据</a>
+    </nav>
+  </main>
+
+  <footer class="shell footer">
+    <span>© 2026 侯俊安</span>
+    <div><a href="../">返回主页</a><a href="https://github.com/sjhesjaj">GitHub ↗</a></div>
+  </footer>
+</body>
+</html>
