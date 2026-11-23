@@ -6,22 +6,22 @@
   <meta name="description" content="侯俊安的实验室：Agent 实验、后端并发实验、模型评测和小型 Demo，按假设、实验、观察、结论记录。">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#ffffff">
-  <title>Lab · 侯俊安</title>
+  <title>实验 · 侯俊安</title>
   <link rel="icon" href="../favicon.ico" sizes="any">
-  <link rel="stylesheet" href="../styles.css?v=f3c618c7">
+  <link rel="stylesheet" href="../styles.css?v=df2e05af">
   <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
   <a class="skip" href="#main">跳到正文</a>
   <div class="topbar"><header class="wide top">
-    <a class="brand" href="../"><span aria-hidden="true">H</span>侯俊安<small>Independent Developer</small></a>
-    <nav class="site-nav" aria-label="主导航"><a href="../projects/">Projects</a><a href="../writing/">Writing</a><a href="../lab/" aria-current="page">Lab</a><a href="../journal/">Journal</a><a href="../about/">About</a></nav>
+    <a class="brand" href="../"><span aria-hidden="true">H</span>侯俊安<small>独立开发者</small></a>
+    <nav class="site-nav" aria-label="主导航"><a href="../projects/">项目</a><a href="../writing/">文章</a><a href="../lab/" aria-current="page">实验</a><a href="../journal/">日志</a><a href="../about/">关于</a></nav>
   </header></div>
 
   <main id="main" class="wide" tabindex="-1">
 
     <header class="page-head">
-      <p class="label"><i>03</i> Lab</p>
+      <p class="label"><i>03</i> 实验</p>
       <h1>我正在探索<em>什么</em></h1>
       <p class="intro">不是正式的项目，也不是文章，而是一个持续实验的地方。每个实验都按同样的格式记录：<b>假设 → 实验 → 观察 → 结论</b>。这里允许实验失败，也允许实验还没做完。</p>
       <div class="head-meta"><span>6 个实验 · 按时间倒序</span></div>
@@ -29,45 +29,45 @@
     <section class="block" aria-label="实验列表">
       <div class="filters" data-filters="#labs" role="group" aria-label="按类型筛选">
         <button type="button" data-f="all" aria-pressed="true">全部<span>6</span></button>
-        <button type="button" data-f="backend-experiments" aria-pressed="false">Backend Experiments<span>4</span></button>
-        <button type="button" data-f="agent-experiments" aria-pressed="false">Agent Experiments<span>1</span></button>
-        <button type="button" data-f="model-evaluation" aria-pressed="false">Model Evaluation<span>1</span></button>
+        <button type="button" data-f="backend-experiments" aria-pressed="false">后端实验<span>4</span></button>
+        <button type="button" data-f="agent-experiments" aria-pressed="false">Agent 实验<span>1</span></button>
+        <button type="button" data-f="model-evaluation" aria-pressed="false">模型评测<span>1</span></button>
       </div>
       <div class="lab" id="labs">
         <article class="exp rv" id="sync-vs-async" data-item="backend-experiments">
-          <div class="exp-head"><span class="kind">Backend Experiments</span><span class="status completed">Completed</span><time>2026.11 · FlashOrder</time></div>
+          <div class="exp-head"><span class="kind">后端实验</span><span class="status completed">已完成</span><time>2026.11 · FlashOrder</time></div>
           <h3>同步还是异步：削峰到底换来了什么？</h3>
-          <dl class="exp-steps"><div><dt>Hypothesis · 假设</dt><dd>把建单交给 Kafka 异步处理，可以降低入口延迟、消除库存行上的锁等待。</dd></div><div><dt>Experiment · 实验</dt><dd>同一台机器、同样的入口保护，100 请求/s 持续写入 1,200 笔，同步和异步各跑一遍；另测 500 笔抢 30 件的售罄洪峰。</dd></div><div><dt>Observation · 观察</dt><dd>入口 P95 <b>624 → 264 ms</b>，行锁等待 <b>502 → 0</b> 次；但客户端看到终态的 P95 从 596 ms 变成 <b>9,538 ms</b>。两种模式的库存差额都是 0。</dd></div><div><dt>Conclusion · 结论</dt><dd>异步换来的是入口稳定，不是更快出结果，单活动吞吐也没有比同步高。笔记本同机数据，不是容量结论。</dd></div></dl>
+          <dl class="exp-steps"><div><dt>假设</dt><dd>把建单交给 Kafka 异步处理，可以降低入口延迟、消除库存行上的锁等待。</dd></div><div><dt>实验</dt><dd>同一台机器、同样的入口保护，100 请求/s 持续写入 1,200 笔，同步和异步各跑一遍；另测 500 笔抢 30 件的售罄洪峰。</dd></div><div><dt>观察</dt><dd>入口 P95 <b>624 → 264 ms</b>，行锁等待 <b>502 → 0</b> 次；但客户端看到终态的 P95 从 596 ms 变成 <b>9,538 ms</b>。两种模式的库存差额都是 0。</dd></div><div><dt>结论</dt><dd>异步换来的是入口稳定，不是更快出结果，单活动吞吐也没有比同步高。笔记本同机数据，不是容量结论。</dd></div></dl>
           <div class="exp-foot"><a href="https://github.com/sjhesjaj/FlashOrder/blob/main/docs/experiments/m4-comparison.md">实验记录与原始数据 ↗</a><a href="../projects/flashorder.html">FlashOrder →</a></div>
         </article>
         <article class="exp rv" id="kafka-down" data-item="backend-experiments">
-          <div class="exp-head"><span class="kind">Backend Experiments</span><span class="status completed">Completed</span><time>2026.11 · FlashOrder</time></div>
+          <div class="exp-head"><span class="kind">后端实验</span><span class="status completed">已完成</span><time>2026.11 · FlashOrder</time></div>
           <h3>Kafka 停机的时候，还能接单吗？</h3>
-          <dl class="exp-steps"><div><dt>Hypothesis · 假设</dt><dd>Transactional Outbox 让 Kafka 停机时仍能受理、恢复后自动补发；在途上限把超放控制在有界范围内。</dd></div><div><dt>Experiment · 实验</dt><dd>在途上限设为 500，压测过程中停掉 Kafka，再把它重启。</dd></div><div><dt>Observation · 观察</dt><dd>继续受理 <b>693</b> 笔，超放 193 笔（理论上界约 220），另有 245 笔返回 503；重启后 4.05 s 发完积压、15.54 s 全部建单，对账差额 <b>0</b>。</dd></div><div><dt>Conclusion · 结论</dt><dd>中间件故障时是有界地降级，不是停服，也没有超卖。</dd></div></dl>
+          <dl class="exp-steps"><div><dt>假设</dt><dd>Transactional Outbox 让 Kafka 停机时仍能受理、恢复后自动补发；在途上限把超放控制在有界范围内。</dd></div><div><dt>实验</dt><dd>在途上限设为 500，压测过程中停掉 Kafka，再把它重启。</dd></div><div><dt>观察</dt><dd>继续受理 <b>693</b> 笔，超放 193 笔（理论上界约 220），另有 245 笔返回 503；重启后 4.05 s 发完积压、15.54 s 全部建单，对账差额 <b>0</b>。</dd></div><div><dt>结论</dt><dd>中间件故障时是有界地降级，不是停服，也没有超卖。</dd></div></dl>
           <div class="exp-foot"><a href="https://github.com/sjhesjaj/FlashOrder/blob/main/docs/reviews/2026-11-20-m4-acceptance.md">M4 验收记录 ↗</a></div>
         </article>
         <article class="exp rv" id="grounding-ab" data-item="agent-experiments">
-          <div class="exp-head"><span class="kind">Agent Experiments</span><span class="status completed">Completed</span><time>2026.10 · GroundedAgent</time></div>
+          <div class="exp-head"><span class="kind">Agent 实验</span><span class="status completed">已完成</span><time>2026.10 · GroundedAgent</time></div>
           <h3>先读再写：能不能消灭“无依据动作”？</h3>
-          <dl class="exp-steps"><div><dt>Hypothesis · 假设</dt><dd>要求订单和商品必须来自本轮的真实读取，可以消除无依据动作，同时不误拒正常请求。</dd></div><div><dt>Experiment · 实验</dt><dd>DEV 开发集 40 条，打开 / 关闭 grounding gate 做对照。</dd></div><div><dt>Observation · 观察</dt><dd>无依据动作 <b>3.33 → 0</b> 次/轮，误拒 0；端到端 <b>37/40 → 36/40</b>。</dd></div><div><dt>Conclusion · 结论</dt><dd>有效，但有代价：一条本该建出来的转人工工单，因为模型没查订单被拦下了。</dd></div></dl>
+          <dl class="exp-steps"><div><dt>假设</dt><dd>要求订单和商品必须来自本轮的真实读取，可以消除无依据动作，同时不误拒正常请求。</dd></div><div><dt>实验</dt><dd>DEV 开发集 40 条，打开 / 关闭 grounding gate 做对照。</dd></div><div><dt>观察</dt><dd>无依据动作 <b>3.33 → 0</b> 次/轮，误拒 0；端到端 <b>37/40 → 36/40</b>。</dd></div><div><dt>结论</dt><dd>有效，但有代价：一条本该建出来的转人工工单，因为模型没查订单被拦下了。</dd></div></dl>
           <div class="exp-foot"><a href="../notes/action-grounding.html">工程笔记：规则、对照实验和代价 →</a></div>
         </article>
         <article class="exp rv" id="kill-process" data-item="backend-experiments">
-          <div class="exp-head"><span class="kind">Backend Experiments</span><span class="status completed">Completed</span><time>2026.10 — 11 · GroundedAgent</time></div>
+          <div class="exp-head"><span class="kind">后端实验</span><span class="status completed">已完成</span><time>2026.10 — 11 · GroundedAgent</time></div>
           <h3>在每一个提交点杀掉进程</h3>
-          <dl class="exp-steps"><div><dt>Hypothesis · 假设</dt><dd>状态持久化 + in-flight marker + 幂等键，可以让任何时刻的崩溃都不产生重复写入。</dd></div><div><dt>Experiment · 实验</dt><dd>设计 <b>9</b> 个真实杀进程的崩溃场景，在每个提交点杀掉进程，再恢复两次比对结果。</dd></div><div><dt>Observation · 观察</dt><dd>9 个场景都没有出现重复写入；业务已写入、会话未记录的窗口里，重启只重跑网关节点。</dd></div><div><dt>Conclusion · 结论</dt><dd>崩溃窗口没法消除，能做的是让“重放”变得无害。</dd></div></dl>
+          <dl class="exp-steps"><div><dt>假设</dt><dd>状态持久化 + in-flight marker + 幂等键，可以让任何时刻的崩溃都不产生重复写入。</dd></div><div><dt>实验</dt><dd>设计 <b>9</b> 个真实杀进程的崩溃场景，在每个提交点杀掉进程，再恢复两次比对结果。</dd></div><div><dt>观察</dt><dd>9 个场景都没有出现重复写入；业务已写入、会话未记录的窗口里，重启只重跑网关节点。</dd></div><div><dt>结论</dt><dd>崩溃窗口没法消除，能做的是让“重放”变得无害。</dd></div></dl>
           <div class="exp-foot"><a href="../notes/state-recovery.html">工程笔记：提交协议与恢复表 →</a><a href="../stories/after-crash.html">故事 02 →</a></div>
         </article>
         <article class="exp rv" id="sealed-holdout" data-item="model-evaluation">
-          <div class="exp-head"><span class="kind">Model Evaluation</span><span class="status completed">Completed</span><time>2026.10 — 11 · GroundedAgent</time></div>
+          <div class="exp-head"><span class="kind">模型评测</span><span class="status completed">已完成</span><time>2026.10 — 11 · GroundedAgent</time></div>
           <h3>一份只开封一次的测试集</h3>
-          <dl class="exp-steps"><div><dt>Hypothesis · 假设</dt><dd>在开发集上调出来的分数不可信，需要一份不参与调参的测试集来说明真实水平。</dd></div><div><dt>Experiment · 实验</dt><dd>holdout 25 条由隔离的上下文编写并封存，技术栈冻结后只开封一次，开封后不调参。</dd></div><div><dt>Observation · 观察</dt><dd>端到端 <b>21/25</b>，六项硬性安全约束 <b>25/25</b>。4 个失败都是模型行为，没有一条突破安全边界。</dd></div><div><dt>Conclusion · 结论</dt><dd>样本小、单轮、单一模型，不能当作统计结论；但它比调过参的分数诚实。</dd></div></dl>
-          <div class="exp-foot"><a href="../projects/groundedagent.html#validation">GroundedAgent · Validation →</a></div>
+          <dl class="exp-steps"><div><dt>假设</dt><dd>在开发集上调出来的分数不可信，需要一份不参与调参的测试集来说明真实水平。</dd></div><div><dt>实验</dt><dd>holdout 25 条由隔离的上下文编写并封存，技术栈冻结后只开封一次，开封后不调参。</dd></div><div><dt>观察</dt><dd>端到端 <b>21/25</b>，六项硬性安全约束 <b>25/25</b>。4 个失败都是模型行为，没有一条突破安全边界。</dd></div><div><dt>结论</dt><dd>样本小、单轮、单一模型，不能当作统计结论；但它比调过参的分数诚实。</dd></div></dl>
+          <div class="exp-foot"><a href="../projects/groundedagent.html#validation">GroundedAgent · 验证 →</a></div>
         </article>
         <article class="exp rv" id="sixteen-threads" data-item="backend-experiments">
-          <div class="exp-head"><span class="kind">Backend Experiments</span><span class="status completed">Completed</span><time>2026.08 · Campus Library</time></div>
+          <div class="exp-head"><span class="kind">后端实验</span><span class="status completed">已完成</span><time>2026.08 · Campus Library</time></div>
           <h3>16 个线程，同时抢同一个座位</h3>
-          <dl class="exp-steps"><div><dt>Hypothesis · 假设</dt><dd>只靠数据库唯一约束（座位 + 时段、学生 + 时段），就能挡住并发超卖。</dd></div><div><dt>Experiment · 实验</dt><dd>16 个线程同时预约同一个座位的同一时段；客户端用相同幂等键重放请求。</dd></div><div><dt>Observation · 观察</dt><dd><b>16 → 1</b>：只有一个成功；重放返回同一条预约，不会重复创建。</dd></div><div><dt>Conclusion · 结论</dt><dd>应用层的“先查再写”有竞争窗口，数据库约束才是最后一道防线。</dd></div></dl>
+          <dl class="exp-steps"><div><dt>假设</dt><dd>只靠数据库唯一约束（座位 + 时段、学生 + 时段），就能挡住并发超卖。</dd></div><div><dt>实验</dt><dd>16 个线程同时预约同一个座位的同一时段；客户端用相同幂等键重放请求。</dd></div><div><dt>观察</dt><dd><b>16 → 1</b>：只有一个成功；重放返回同一条预约，不会重复创建。</dd></div><div><dt>结论</dt><dd>应用层的“先查再写”有竞争窗口，数据库约束才是最后一道防线。</dd></div></dl>
           <div class="exp-foot"><a href="../stories/sixteen-seats.html">故事 03 →</a><a href="../projects/campus-library.html">Campus Library →</a></div>
         </article>
       </div>
@@ -75,8 +75,8 @@
   </main>
 
   <footer class="wide footer">
-    <span>© 2026 侯俊安 · Build things. Explore ideas. Keep learning.</span>
-    <div><a href="../about/">About</a><a href="mailto:h000_1014@qq.com">Email</a><a href="https://github.com/sjhesjaj">GitHub ↗</a></div>
+    <span>© 2026 侯俊安 · 动手去做，探索想法，持续学习。</span>
+    <div><a href="../about/">关于</a><a href="mailto:h000_1014@qq.com">邮件</a><a href="https://github.com/sjhesjaj">GitHub ↗</a></div>
   </footer>
   <script src="../site.js?v=adcfa3ea" defer></script>
 </body>

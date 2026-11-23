@@ -6,55 +6,55 @@
   <meta name="description" content="侯俊安的日志：重要的阶段、开发记录、想法和代码之外的生活。">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#ffffff">
-  <title>Journal · 侯俊安</title>
+  <title>日志 · 侯俊安</title>
   <link rel="icon" href="../favicon.ico" sizes="any">
-  <link rel="stylesheet" href="../styles.css?v=f3c618c7">
+  <link rel="stylesheet" href="../styles.css?v=df2e05af">
   <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
   <a class="skip" href="#main">跳到正文</a>
   <div class="topbar"><header class="wide top">
-    <a class="brand" href="../"><span aria-hidden="true">H</span>侯俊安<small>Independent Developer</small></a>
-    <nav class="site-nav" aria-label="主导航"><a href="../projects/">Projects</a><a href="../writing/">Writing</a><a href="../lab/">Lab</a><a href="../journal/" aria-current="page">Journal</a><a href="../about/">About</a></nav>
+    <a class="brand" href="../"><span aria-hidden="true">H</span>侯俊安<small>独立开发者</small></a>
+    <nav class="site-nav" aria-label="主导航"><a href="../projects/">项目</a><a href="../writing/">文章</a><a href="../lab/">实验</a><a href="../journal/" aria-current="page">日志</a><a href="../about/">关于</a></nav>
   </header></div>
 
   <main id="main" class="wide" tabindex="-1">
 
     <header class="page-head">
-      <p class="label"><i>04</i> Journal</p>
+      <p class="label"><i>04</i> 日志</p>
       <h1>我经历过<em>什么</em></h1>
       <p class="intro">成长、生活和日常记录。不需要把所有做过的事都写进来，只留下值得回看的东西。</p>
     </header>
     <section class="block" aria-label="日志">
       <div class="filters" data-filters="#journal" role="group" aria-label="按类型筛选">
         <button type="button" data-f="all" aria-pressed="true">全部<span>9</span></button>
-        <button type="button" data-f="dev-log" aria-pressed="false">Dev Log<span>4</span></button>
-        <button type="button" data-f="milestone" aria-pressed="false">Milestone<span>3</span></button>
-        <button type="button" data-f="reflection" aria-pressed="false">Reflection<span>1</span></button>
-        <button type="button" data-f="learning" aria-pressed="false">Learning<span>1</span></button>
+        <button type="button" data-f="dev-log" aria-pressed="false">开发记录<span>4</span></button>
+        <button type="button" data-f="milestone" aria-pressed="false">里程碑<span>3</span></button>
+        <button type="button" data-f="reflection" aria-pressed="false">想法<span>1</span></button>
+        <button type="button" data-f="learning" aria-pressed="false">学习<span>1</span></button>
       </div>
       <div class="journal" id="journal">
-        <article class="entry rv" id="ga-frontend" data-item="dev-log"><time>2026.11<small>Dev Log</small></time><div><h3>给 GroundedAgent 换了一套前端</h3><p>顾客页改成以订单为入口的售后服务中心，操作员页改成三栏审批台。四个 PR 依次合并，后端只加了两个只读订单接口，规则校验、审批和写入都没动；前端测试从 45 个增加到 78 个。</p><a class="go" href="../projects/groundedagent.html">项目页 <span class="arrow">→</span></a></div></article>
-        <article class="entry rv" id="flashorder-v1" data-item="dev-log"><time>2026.11<small>Dev Log</small></time><div><h3>FlashOrder V1：四个里程碑通过验收</h3><p>限量抢购后端，从同步基线到 Outbox + Kafka 异步链路，再到限流、降级和同步与异步的对比实验。异步把入口 P95 从 624 ms 降到 264 ms，代价是结果晚出来；所有演练的库存差额都是 0。</p><a class="go" href="../projects/flashorder.html">项目页 <span class="arrow">→</span></a></div></article>
-        <article class="entry rv" id="hangzhou" data-item="milestone"><time>2026.11<small>Milestone</small></time><div><h3>从哈尔滨到杭州：第一次进入企业研发环境</h3><p>11 月 2 日，开始在杭州做 AI 应用开发实习。第一次接触真实的审批流程、外部系统和业务约束。个人项目里，我只需要说服自己；在团队里，我需要拿出别人也能复核的证据。</p><a class="go" href="../stories/school-to-work.html">读完整的故事 <span class="arrow">→</span></a></div></article>
-        <article class="entry rv quote" id="thought" data-item="reflection"><time>2026.11<small>Reflection</small></time><div><h3>一个持续更新的想法</h3><p>我不认为自己已经找到了所有问题的答案。现在更感兴趣的是：如何让 AI 真正进入业务系统，如何让复杂系统在失败时仍然可靠，以及如何用工程方法证明一个系统真的在变好。</p></div></article>
-        <article class="entry rv" id="groundedagent-v2" data-item="dev-log"><time>2026.10<small>Dev Log</small></time><div><h3>一个人把 GroundedAgent 做到 V2</h3><p>封存测试集只开封一次，端到端 21/25、六项安全约束 25/25；9 个真实杀进程的场景下不重复写入。测试集由隔离的上下文编写、封存，开封之后没有再调参。</p><a class="go" href="../projects/groundedagent.html">项目页 <span class="arrow">→</span></a></div></article>
-        <article class="entry rv" id="concurrency" data-item="dev-log"><time>2026.08<small>Dev Log</small></time><div><h3>第一次认真对待并发</h3><p>做校园图书馆的座位预约：数据库唯一约束 + 幂等键，16 个线程抢同一个座位，只有一个成功。</p><a class="go" href="../stories/sixteen-seats.html">16 个人同时抢一张座位 <span class="arrow">→</span></a></div></article>
-        <article class="entry rv" id="demo-to-engineering" data-item="milestone"><time>2026.07<small>Milestone</small></time><div><h3>从 Demo 到工程</h3><p>开始做能执行动作的 Agent。从“让模型直接改数据”，转向“模型只提议、代码来放行”，开始研究幂等、事务、审批和故障恢复。</p></div></article>
-        <article class="entry rv" id="rag" data-item="learning"><time>2024 — 26<small>Learning</small></time><div><h3>从知识库和 RAG 开始</h3><p>最早做的是企业知识库问答，关心的是模型能不能找到正确的资料、给出准确的回答。</p></div></article>
-        <article class="entry rv" id="university" data-item="milestone"><time>2024.09<small>Milestone</small></time><div><h3>进入东北农业大学，人工智能专业</h3><p>在哈尔滨开始大学生活。</p></div></article>
+        <article class="entry rv" id="ga-frontend" data-item="dev-log"><time>2026.11<small>开发记录</small></time><div><h3>给 GroundedAgent 换了一套前端</h3><p>顾客页改成以订单为入口的售后服务中心，操作员页改成三栏审批台。四个 PR 依次合并，后端只加了两个只读订单接口，规则校验、审批和写入都没动；前端测试从 45 个增加到 78 个。</p><a class="go" href="../projects/groundedagent.html">项目页 <span class="arrow">→</span></a></div></article>
+        <article class="entry rv" id="flashorder-v1" data-item="dev-log"><time>2026.11<small>开发记录</small></time><div><h3>FlashOrder V1：四个里程碑通过验收</h3><p>限量抢购后端，从同步基线到 Outbox + Kafka 异步链路，再到限流、降级和同步与异步的对比实验。异步把入口 P95 从 624 ms 降到 264 ms，代价是结果晚出来；所有演练的库存差额都是 0。</p><a class="go" href="../projects/flashorder.html">项目页 <span class="arrow">→</span></a></div></article>
+        <article class="entry rv" id="hangzhou" data-item="milestone"><time>2026.11<small>里程碑</small></time><div><h3>从哈尔滨到杭州：第一次进入企业研发环境</h3><p>11 月 2 日，开始在杭州做 AI 应用开发实习。第一次接触真实的审批流程、外部系统和业务约束。个人项目里，我只需要说服自己；在团队里，我需要拿出别人也能复核的证据。</p><a class="go" href="../stories/school-to-work.html">读完整的故事 <span class="arrow">→</span></a></div></article>
+        <article class="entry rv quote" id="thought" data-item="reflection"><time>2026.11<small>想法</small></time><div><h3>一个持续更新的想法</h3><p>我不认为自己已经找到了所有问题的答案。现在更感兴趣的是：如何让 AI 真正进入业务系统，如何让复杂系统在失败时仍然可靠，以及如何用工程方法证明一个系统真的在变好。</p></div></article>
+        <article class="entry rv" id="groundedagent-v2" data-item="dev-log"><time>2026.10<small>开发记录</small></time><div><h3>一个人把 GroundedAgent 做到 V2</h3><p>封存测试集只开封一次，端到端 21/25、六项安全约束 25/25；9 个真实杀进程的场景下不重复写入。测试集由隔离的上下文编写、封存，开封之后没有再调参。</p><a class="go" href="../projects/groundedagent.html">项目页 <span class="arrow">→</span></a></div></article>
+        <article class="entry rv" id="concurrency" data-item="dev-log"><time>2026.08<small>开发记录</small></time><div><h3>第一次认真对待并发</h3><p>做校园图书馆的座位预约：数据库唯一约束 + 幂等键，16 个线程抢同一个座位，只有一个成功。</p><a class="go" href="../stories/sixteen-seats.html">16 个人同时抢一张座位 <span class="arrow">→</span></a></div></article>
+        <article class="entry rv" id="demo-to-engineering" data-item="milestone"><time>2026.07<small>里程碑</small></time><div><h3>从 Demo 到工程</h3><p>开始做能执行动作的 Agent。从“让模型直接改数据”，转向“模型只提议、代码来放行”，开始研究幂等、事务、审批和故障恢复。</p></div></article>
+        <article class="entry rv" id="rag" data-item="learning"><time>2024 — 26<small>学习</small></time><div><h3>从知识库和 RAG 开始</h3><p>最早做的是企业知识库问答，关心的是模型能不能找到正确的资料、给出准确的回答。</p></div></article>
+        <article class="entry rv" id="university" data-item="milestone"><time>2024.09<small>里程碑</small></time><div><h3>进入东北农业大学，人工智能专业</h3><p>在哈尔滨开始大学生活。</p></div></article>
       </div>
     </section>
     <section class="block" id="life" aria-labelledby="life-h">
-      <div class="block-head rv"><div><p class="label">Beyond Code</p><h2 id="life-h">代码之外</h2></div></div>
+      <div class="block-head rv"><div><p class="label">生活</p><h2 id="life-h">代码之外</h2></div></div>
       <p class="life-text rv">写代码之外，我喜欢打篮球、做力量训练，偶尔去不同的城市走走。我不希望生活只剩下工作和技术。保持好奇心、接触不同的人和事，同样是成长的一部分。</p>
       <div class="life-row rv"><div><span aria-hidden="true">🏀</span><b>篮球</b><small>球场上见</small></div><div><span aria-hidden="true">🏋️</span><b>力量训练</b><small>写代码之外的另一种练习</small></div><div><span aria-hidden="true">🧭</span><b>旅行</b><small>去不同的城市走走</small></div><div><span aria-hidden="true">🌆</span><b>哈尔滨 → 杭州</b><small>2026 年秋天</small></div></div>
     </section>
   </main>
 
   <footer class="wide footer">
-    <span>© 2026 侯俊安 · Build things. Explore ideas. Keep learning.</span>
-    <div><a href="../about/">About</a><a href="mailto:h000_1014@qq.com">Email</a><a href="https://github.com/sjhesjaj">GitHub ↗</a></div>
+    <span>© 2026 侯俊安 · 动手去做，探索想法，持续学习。</span>
+    <div><a href="../about/">关于</a><a href="mailto:h000_1014@qq.com">邮件</a><a href="https://github.com/sjhesjaj">GitHub ↗</a></div>
   </footer>
   <script src="../site.js?v=adcfa3ea" defer></script>
 </body>

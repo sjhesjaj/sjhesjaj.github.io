@@ -8,28 +8,28 @@
   <meta name="theme-color" content="#ffffff">
   <title>Campus Library · 侯俊安</title>
   <link rel="icon" href="../favicon.ico" sizes="any">
-  <link rel="stylesheet" href="../styles.css?v=f3c618c7">
+  <link rel="stylesheet" href="../styles.css?v=df2e05af">
   <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
   <a class="skip" href="#main">跳到正文</a>
   <div class="topbar"><header class="wide top">
-    <a class="brand" href="../"><span aria-hidden="true">H</span>侯俊安<small>Independent Developer</small></a>
-    <nav class="site-nav" aria-label="主导航"><a href="../projects/" aria-current="page">Projects</a><a href="../writing/">Writing</a><a href="../lab/">Lab</a><a href="../journal/">Journal</a><a href="../about/">About</a></nav>
+    <a class="brand" href="../"><span aria-hidden="true">H</span>侯俊安<small>独立开发者</small></a>
+    <nav class="site-nav" aria-label="主导航"><a href="../projects/" aria-current="page">项目</a><a href="../writing/">文章</a><a href="../lab/">实验</a><a href="../journal/">日志</a><a href="../about/">关于</a></nav>
   </header></div>
 
   <main id="main" class="wide" tabindex="-1">
 
     <header class="page-head p-head">
-      <p class="crumb"><a href="./">Projects</a><span aria-hidden="true">/</span>校园智慧图书馆 · 座位预约</p>
+      <p class="crumb"><a href="./">项目</a><span aria-hidden="true">/</span>校园智慧图书馆 · 座位预约</p>
       <h1>Campus Library</h1>
       <p class="intro">校园座位预约系统，探索并发竞争、事务与数据库一致性。</p>
-      <div class="p-meta"><span class="status completed">Completed</span><time>2026.08</time><ul class="tags"><li>Java 17</li><li>Spring Boot</li><li>Vue 3</li><li>TypeScript</li><li>H2 / MySQL</li><li>Flyway</li><li>OIDC / JWT</li></ul></div>
+      <div class="p-meta"><span class="status completed">已完成</span><time>2026.08</time><ul class="tags"><li>Java 17</li><li>Spring Boot</li><li>Vue 3</li><li>TypeScript</li><li>H2 / MySQL</li><li>Flyway</li><li>OIDC / JWT</li></ul></div>
       <div class="actions"><a class="button primary" href="https://github.com/sjhesjaj/campus-library-system">查看源码 ↗</a></div>
     </header>
-    <nav class="ptoc" aria-label="本页目录"><ol class="wide"><li><a href="#overview"><span>01</span>Overview</a></li><li><a href="#motivation"><span>02</span>Motivation</a></li><li><a href="#challenges"><span>03</span>Challenges</a></li><li><a href="#architecture"><span>04</span>Architecture</a></li><li><a href="#decisions"><span>05</span>Engineering Decisions</a></li><li><a href="#validation"><span>06</span>Validation</a></li><li><a href="#lessons"><span>07</span>Lessons</a></li></ol></nav>
+    <nav class="ptoc" aria-label="本页目录"><ol class="wide"><li><a href="#overview"><span>01</span>概览</a></li><li><a href="#motivation"><span>02</span>起因</a></li><li><a href="#challenges"><span>03</span>难点</a></li><li><a href="#architecture"><span>04</span>架构</a></li><li><a href="#decisions"><span>05</span>工程决策</a></li><li><a href="#validation"><span>06</span>验证</a></li><li><a href="#lessons"><span>07</span>收获</a></li></ol></nav>
     <section class="psec" id="overview" aria-labelledby="overview-h">
-      <header><span class="n">01</span><h2 id="overview-h">Overview</h2><p>这个项目是什么</p></header>
+      <header><span class="n">01</span><h2 id="overview-h">概览</h2><p>这个项目是什么</p></header>
       <div class="pbody"><p class="lead-x">一个面向考试周突发流量的座位预约系统。</p>
       <p>第一版只做一件事：把“多人同时抢同一个座位不超卖、客户端重试不重复创建”做成可运行、可测试的最小闭环。学生端预约座位，馆员端管理座位和预约。</p>
       <div class="gallery">
@@ -38,41 +38,41 @@
       </div></div>
     </section>
     <section class="psec" id="motivation" aria-labelledby="motivation-h">
-      <header><span class="n">02</span><h2 id="motivation-h">Motivation</h2><p>为什么要做</p></header>
+      <header><span class="n">02</span><h2 id="motivation-h">起因</h2><p>为什么要做</p></header>
       <div class="pbody"><p>最开始，这只是一个很普通的需求：学生查询座位、选择时间、提交预约，之后可以取消或者签到。</p>
       <p>但考试周集中抢座时，如果两个人同时预约同一个座位，应用程序可能同时检查到“座位可用”，然后分别创建预约。“先检查，再插入”解决不了这个问题。</p></div>
     </section>
     <section class="psec" id="challenges" aria-labelledby="challenges-h">
-      <header><span class="n">03</span><h2 id="challenges-h">Challenges</h2><p>遇到了什么困难</p></header>
+      <header><span class="n">03</span><h2 id="challenges-h">难点</h2><p>遇到了什么困难</p></header>
       <div class="pbody"><ul class="qa"><li><b>同一个座位，被两个人同时抢到</b><span>“先查后写”之间有竞争窗口，两个请求都会看到空位。</span></li><li><b>同一个学生，同一时段占两个座</b><span>只保护座位还不够，还要保护人。</span></li><li><b>客户端超时重试</b><span>网络抖动时，同一次点击可能被提交两次。</span></li><li><b>馆员停用座位时，上面还有预约</b><span>不能静默删掉学生的预约，也不能让管理操作没有记录。</span></li></ul></div>
     </section>
     <section class="psec" id="architecture" aria-labelledby="architecture-h">
-      <header><span class="n">04</span><h2 id="architecture-h">Architecture</h2><p>系统怎么设计</p></header>
+      <header><span class="n">04</span><h2 id="architecture-h">架构</h2><p>系统怎么设计</p></header>
       <div class="pbody"><ol class="flow"><li>Vue 3 学生端 / 馆员端</li><li class="arr" aria-hidden="true">→</li><li>Spring Boot API</li><li class="arr" aria-hidden="true">→</li><li class="hl">唯一约束 · 幂等键</li><li class="arr" aria-hidden="true">→</li><li>MySQL（本地 H2）</li></ol>
       <ul><li>数据库唯一约束同时保护“座位 + 时段”和“学生 + 时段”，可预约 14 天、每天三个时段。</li>
       <li>Flyway 管理表结构；生产走无状态 OIDC / JWT，从已验签令牌里取学号；本地开发的固定身份只绑定回环地址。</li>
       <li>馆员工作台：停用座位 → 看到仍有几条预约 → 一键查出明细 → 逐条代取消。启停与代取消都写审计、必须填原因。</li></ul></div>
     </section>
     <section class="psec" id="decisions" aria-labelledby="decisions-h">
-      <header><span class="n">05</span><h2 id="decisions-h">Engineering Decisions</h2><p>为什么这样设计</p></header>
+      <header><span class="n">05</span><h2 id="decisions-h">工程决策</h2><p>为什么这样设计</p></header>
       <div class="pbody"><ul class="decisions"><li><b>用数据库唯一约束兜底，而不是只靠应用层判断</b><span>应用层的检查总有竞争窗口，约束是最后一道防线。</span></li><li><b>学生级幂等键</b><span>重放时返回同一条预约，而不是报错或者新建一条。</span></li><li><b>取消和释放占用放在同一个事务里</b><span>取消成功、座位却没释放，这种半成功不能出现；取消后可以用新的幂等键重新预约。</span></li><li><b>README 不写“推荐版本”</b><span>会漂的东西不该抄成文本，最新版本交给 GitHub Releases 标注。</span></li></ul></div>
     </section>
     <section class="psec" id="validation" aria-labelledby="validation-h">
-      <header><span class="n">06</span><h2 id="validation-h">Validation</h2><p>如何验证</p></header>
+      <header><span class="n">06</span><h2 id="validation-h">验证</h2><p>如何验证</p></header>
       <div class="pbody"><div class="nums"><div><b>16 → 1</b><span>16 个线程抢同一个座位，只有一个成功</span></div><div><b>14 天</b><span>可预约范围，每天三个时段</span></div></div>
       <p>关键的数据库语义用 Testcontainers 在真实 MySQL 8.4 上验证，核心流程用 Playwright 跑端到端测试。没有 Docker 时这些用例会被跳过，所以 CI 里专门有一步检查它们真的执行了：<b>跳过不等于通过</b>。</p></div>
     </section>
     <section class="psec" id="lessons" aria-labelledby="lessons-h">
-      <header><span class="n">07</span><h2 id="lessons-h">Lessons</h2><p>我学到了什么</p></header>
+      <header><span class="n">07</span><h2 id="lessons-h">收获</h2><p>我学到了什么</p></header>
       <div class="pbody"><div class="lesson-x"><p>数据库不只是存数据的地方，它也是业务一致性的最后一道防线。</p></div>
       <p>继续读：<a href="../stories/sixteen-seats.html">故事 03 · 16 个人同时抢一张座位</a> · <a href="../lab/#sixteen-threads">Lab · 16 个线程的实验</a></p></div>
     </section>
-    <nav class="next-proj" aria-label="其他项目"><a href="enterprise-ai.html"><small>← Previous</small><b>Enterprise AI Practice</b></a><a class="r" href="agent-ticket.html"><small>Next →</small><b>Agent Ticket Platform</b></a></nav>
+    <nav class="next-proj" aria-label="其他项目"><a href="enterprise-ai.html"><small>← 上一个</small><b>Enterprise AI Practice</b></a><a class="r" href="agent-ticket.html"><small>下一个 →</small><b>Agent Ticket Platform</b></a></nav>
   </main>
 
   <footer class="wide footer">
-    <span>© 2026 侯俊安 · Build things. Explore ideas. Keep learning.</span>
-    <div><a href="../about/">About</a><a href="mailto:h000_1014@qq.com">Email</a><a href="https://github.com/sjhesjaj">GitHub ↗</a></div>
+    <span>© 2026 侯俊安 · 动手去做，探索想法，持续学习。</span>
+    <div><a href="../about/">关于</a><a href="mailto:h000_1014@qq.com">邮件</a><a href="https://github.com/sjhesjaj">GitHub ↗</a></div>
   </footer>
   <script src="../site.js?v=adcfa3ea" defer></script>
 </body>

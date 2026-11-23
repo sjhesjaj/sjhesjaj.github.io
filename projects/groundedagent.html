@@ -8,28 +8,28 @@
   <meta name="theme-color" content="#ffffff">
   <title>GroundedAgent · 侯俊安</title>
   <link rel="icon" href="../favicon.ico" sizes="any">
-  <link rel="stylesheet" href="../styles.css?v=f3c618c7">
+  <link rel="stylesheet" href="../styles.css?v=df2e05af">
   <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
   <a class="skip" href="#main">跳到正文</a>
   <div class="topbar"><header class="wide top">
-    <a class="brand" href="../"><span aria-hidden="true">H</span>侯俊安<small>Independent Developer</small></a>
-    <nav class="site-nav" aria-label="主导航"><a href="../projects/" aria-current="page">Projects</a><a href="../writing/">Writing</a><a href="../lab/">Lab</a><a href="../journal/">Journal</a><a href="../about/">About</a></nav>
+    <a class="brand" href="../"><span aria-hidden="true">H</span>侯俊安<small>独立开发者</small></a>
+    <nav class="site-nav" aria-label="主导航"><a href="../projects/" aria-current="page">项目</a><a href="../writing/">文章</a><a href="../lab/">实验</a><a href="../journal/">日志</a><a href="../about/">关于</a></nav>
   </header></div>
 
   <main id="main" class="wide" tabindex="-1">
 
     <header class="page-head p-head">
-      <p class="crumb"><a href="./">Projects</a><span aria-hidden="true">/</span>电商售后智能 Agent</p>
+      <p class="crumb"><a href="./">项目</a><span aria-hidden="true">/</span>电商售后智能 Agent</p>
       <h1>GroundedAgent</h1>
       <p class="intro">电商售后智能 Agent，从工具调用到幂等执行、人工审批与崩溃恢复。</p>
-      <div class="p-meta"><span class="status progress">In Progress</span><time>2026.07 — 至今</time><ul class="tags"><li>Python</li><li>FastAPI</li><li>LangGraph</li><li>DeepSeek Function Calling</li><li>BM25 + bge-m3</li><li>SQLite</li><li>Vue 3</li><li>TypeScript</li><li>Element Plus</li></ul></div>
+      <div class="p-meta"><span class="status progress">进行中</span><time>2026.07 — 至今</time><ul class="tags"><li>Python</li><li>FastAPI</li><li>LangGraph</li><li>DeepSeek Function Calling</li><li>BM25 + bge-m3</li><li>SQLite</li><li>Vue 3</li><li>TypeScript</li><li>Element Plus</li></ul></div>
       <div class="actions"><a class="button primary" href="https://github.com/sjhesjaj/GroundedAgent">查看源码 ↗</a><a class="button" href="https://github.com/sjhesjaj/GroundedAgent#verified-results">评测记录 ↗</a></div>
     </header>
-    <nav class="ptoc" aria-label="本页目录"><ol class="wide"><li><a href="#overview"><span>01</span>Overview</a></li><li><a href="#motivation"><span>02</span>Motivation</a></li><li><a href="#challenges"><span>03</span>Challenges</a></li><li><a href="#architecture"><span>04</span>Architecture</a></li><li><a href="#decisions"><span>05</span>Engineering Decisions</a></li><li><a href="#validation"><span>06</span>Validation</a></li><li><a href="#lessons"><span>07</span>Lessons</a></li></ol></nav>
+    <nav class="ptoc" aria-label="本页目录"><ol class="wide"><li><a href="#overview"><span>01</span>概览</a></li><li><a href="#motivation"><span>02</span>起因</a></li><li><a href="#challenges"><span>03</span>难点</a></li><li><a href="#architecture"><span>04</span>架构</a></li><li><a href="#decisions"><span>05</span>工程决策</a></li><li><a href="#validation"><span>06</span>验证</a></li><li><a href="#lessons"><span>07</span>收获</a></li></ol></nav>
     <section class="psec" id="overview" aria-labelledby="overview-h">
-      <header><span class="n">01</span><h2 id="overview-h">Overview</h2><p>这个项目是什么</p></header>
+      <header><span class="n">01</span><h2 id="overview-h">概览</h2><p>这个项目是什么</p></header>
       <div class="pbody"><p class="lead-x">一个面向电商售后的客服 Agent：顾客可以查询订单、物流和售后规则，也可以发起退换货。</p>
       <p>它的重点不在“能回答”，而在<b>“写入之前，怎么证明这个动作该被放行”</b>。模型只负责提出动作；后端校验参数来源，用确定性规则决定是否放行；退货一律需要人工审批，批准后重新检查业务状态再写入。</p>
       <p>顾客这边是以订单为入口的<b>售后服务中心</b>，操作员那边是三栏的<b>审批台</b>（2026.11 改版）。</p>
@@ -39,17 +39,17 @@
       </div></div>
     </section>
     <section class="psec" id="motivation" aria-labelledby="motivation-h">
-      <header><span class="n">02</span><h2 id="motivation-h">Motivation</h2><p>为什么要做</p></header>
+      <header><span class="n">02</span><h2 id="motivation-h">起因</h2><p>为什么要做</p></header>
       <div class="pbody"><p>最开始做 AI 项目时，我关心的是模型能不能找到正确的资料、给出准确的回答。开始做 Agent 之后，事情变了：模型会查询订单、调用工具、提交申请——它的输出第一次会改变真实的业务数据。</p>
       <p>这时候问题就不只是模型聪不聪明了。它凭什么相信自己拿到的参数？有没有权限执行这个动作？审批期间数据变了怎么办？进程在写入之后崩溃，又怎么保证不重复执行？</p>
       <p>我想试着回答：<b>如果把模型看作一个能提出建议、但不能独自决定业务结果的组件，系统应该怎么设计？</b></p></div>
     </section>
     <section class="psec" id="challenges" aria-labelledby="challenges-h">
-      <header><span class="n">03</span><h2 id="challenges-h">Challenges</h2><p>遇到了什么困难</p></header>
+      <header><span class="n">03</span><h2 id="challenges-h">难点</h2><p>遇到了什么困难</p></header>
       <div class="pbody"><ul class="qa"><li><b>模型猜对了参数，算不算对？</b><span>评测里模型没查订单，按编号规律猜出了明细号，终态也是对的。但系统无法证明它为什么选了这个订单——这次猜对，下次就可能改到另一件真实的商品。</span></li><li><b>审批期间，数据变了怎么办？</b><span>人工批准和真正写入之间有时间差，订单状态可能已经变了。</span></li><li><b>写入之后，进程崩溃了怎么办？</b><span>退货已经写进业务库，会话还没来得及记录，进程就退出了。重启之后，系统可能再建一次单。</span></li><li><b>怎么证明它真的变好了？</b><span>在开发集上反复调出来的分数不可信，需要一份不参与调参的测试集。</span></li></ul></div>
     </section>
     <section class="psec" id="architecture" aria-labelledby="architecture-h">
-      <header><span class="n">04</span><h2 id="architecture-h">Architecture</h2><p>系统怎么设计</p></header>
+      <header><span class="n">04</span><h2 id="architecture-h">架构</h2><p>系统怎么设计</p></header>
       <div class="pbody"><ol class="flow"><li>模型提出动作</li><li class="arr" aria-hidden="true">→</li><li>闭合契约</li><li class="arr" aria-hidden="true">→</li><li class="hl">Grounding Gate</li><li class="arr" aria-hidden="true">→</li><li>Policy Guard</li><li class="arr" aria-hidden="true">→</li><li>人工审批</li><li class="arr" aria-hidden="true">→</li><li>新快照重新判定</li><li class="arr" aria-hidden="true">→</li><li class="hl">写入网关</li></ol>
       <p>动作参数先过闭合契约，再过 <b>grounding gate</b>：订单和商品必须来自本轮的真实读取，否则直接拦下，不调用写入网关。确定性的 <b>Policy Guard</b> 决定放行、拒绝还是需要审批。</p>
       <p>LangGraph 状态持久化 + <b>in-flight marker</b> + 幂等键：业务已写入、会话还没记录时进程退出，重启只重跑网关节点。售后知识库用 BM25 + bge-m3 混合检索，回答附文档出处——但知识库不能作为提交动作的依据。</p>
@@ -69,11 +69,11 @@
       </div></div>
     </section>
     <section class="psec" id="decisions" aria-labelledby="decisions-h">
-      <header><span class="n">05</span><h2 id="decisions-h">Engineering Decisions</h2><p>为什么这样设计</p></header>
+      <header><span class="n">05</span><h2 id="decisions-h">工程决策</h2><p>为什么这样设计</p></header>
       <div class="pbody"><ul class="decisions"><li><b>证据不足就拒绝，不替模型“修正”参数</b><span>替模型修正，等于让系统去猜。拒绝之后回到对话，让模型先去读。</span></li><li><b>批准之后，用新的数据库快照再判一次</b><span>审批是对当时状态的批准，不是对未来任意状态的授权；状态变了就不执行。</span></li><li><b>in-flight marker + 幂等键，而不是“尽量别崩”</b><span>崩溃窗口没法消除，能做的是让重放变得无害。</span></li><li><b>知识库只回答问题，不作为写入依据</b><span>文档说明的是规则，不是这一笔订单的事实。</span></li><li><b>holdout 隔离编写、封存、只开封一次</b><span>开封之后再调参，分数就不再说明任何事。</span></li><li><b>执行成功只显示“申请已提交 · 待处理”，不写“已完成”</b><span>写入成功只代表售后单建好了、等待处理，页面不能比系统说得更多。</span></li><li><b>订单摘要读不到时，照常可以审批</b><span>展示数据是辅助，读失败不能把对话和申请从页面上清掉；审批仍只走原来的接口。</span></li><li><b>“申请售后”只起草，不代发</b><span>草稿放进输入框，由顾客自己点发送，后面仍然走会话、规则校验和审批。</span></li></ul></div>
     </section>
     <section class="psec" id="validation" aria-labelledby="validation-h">
-      <header><span class="n">06</span><h2 id="validation-h">Validation</h2><p>如何验证</p></header>
+      <header><span class="n">06</span><h2 id="validation-h">验证</h2><p>如何验证</p></header>
       <div class="pbody"><div class="nums"><div><b>21/25</b><span>Stage 6 封存测试集端到端通过</span></div><div><b>25/25</b><span>满足六项硬性安全约束</span></div><div><b>9</b><span>真实杀进程的崩溃恢复场景</span></div><div><b>2533</b><span>后端完整测试，4 个跳过，0 失败</span></div><div><b>78</b><span>前端测试，改版前 45 个</span></div></div>
       <p>加 grounding gate 前后的开发集对照：无依据动作从每轮平均 <b>3.33</b> 次降到 <b>0</b>，误拒为 0；代价是端到端从 37/40 降到 36/40——一条本该建出来的转人工工单，因为模型没查订单被拦下了。</p>
       <details class="failures card"><summary>没通过的 4 条是什么？</summary><div class="failures-body">
@@ -89,17 +89,17 @@
       </div></div>
     </section>
     <section class="psec" id="lessons" aria-labelledby="lessons-h">
-      <header><span class="n">07</span><h2 id="lessons-h">Lessons</h2><p>我学到了什么</p></header>
+      <header><span class="n">07</span><h2 id="lessons-h">收获</h2><p>我学到了什么</p></header>
       <div class="pbody"><div class="lesson-x"><p>Agent 的正确，不只是最终结果正确，还包括它是否通过可信的依据抵达这个结果。</p>
       <ul><li>真正可靠的系统，不应该假设每一步都能顺利完成，而应该提前设计好每一步失败之后会发生什么。</li><li>收益和代价要放在一起写，没通过的用例也应该摆出来。</li></ul></div>
       <p>继续读：<a href="../stories/guessed-order.html">故事 01 · 模型猜对了订单号</a> · <a href="../stories/after-crash.html">故事 02 · 写入之后崩溃</a> · <a href="../notes/action-grounding.html">笔记 · 动作校验</a> · <a href="../notes/state-recovery.html">笔记 · 状态恢复</a></p></div>
     </section>
-    <nav class="next-proj" aria-label="其他项目"><a class="r" href="flashorder.html"><small>Next →</small><b>FlashOrder</b></a></nav>
+    <nav class="next-proj" aria-label="其他项目"><a class="r" href="flashorder.html"><small>下一个 →</small><b>FlashOrder</b></a></nav>
   </main>
 
   <footer class="wide footer">
-    <span>© 2026 侯俊安 · Build things. Explore ideas. Keep learning.</span>
-    <div><a href="../about/">About</a><a href="mailto:h000_1014@qq.com">Email</a><a href="https://github.com/sjhesjaj">GitHub ↗</a></div>
+    <span>© 2026 侯俊安 · 动手去做，探索想法，持续学习。</span>
+    <div><a href="../about/">关于</a><a href="mailto:h000_1014@qq.com">邮件</a><a href="https://github.com/sjhesjaj">GitHub ↗</a></div>
   </footer>
   <script src="../site.js?v=adcfa3ea" defer></script>
   <script src="../trace.js?v=08ec1e7a" defer></script>
