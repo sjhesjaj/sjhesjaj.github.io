@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#ffffff">
   <title>Journal · 侯俊安</title>
   <link rel="icon" href="../favicon.ico" sizes="any">
-  <link rel="stylesheet" href="../styles.css?v=c43e7866">
+  <link rel="stylesheet" href="../styles.css?v=c688f15e">
   <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -27,13 +27,14 @@
     </header>
     <section class="block" aria-label="日志">
       <div class="filters" data-filters="#journal" role="group" aria-label="按类型筛选">
-        <button type="button" data-f="all" aria-pressed="true">全部<span>7</span></button>
+        <button type="button" data-f="all" aria-pressed="true">全部<span>8</span></button>
+        <button type="button" data-f="dev-log" aria-pressed="false">Dev Log<span>3</span></button>
         <button type="button" data-f="milestone" aria-pressed="false">Milestone<span>3</span></button>
         <button type="button" data-f="reflection" aria-pressed="false">Reflection<span>1</span></button>
-        <button type="button" data-f="dev-log" aria-pressed="false">Dev Log<span>2</span></button>
         <button type="button" data-f="learning" aria-pressed="false">Learning<span>1</span></button>
       </div>
       <div class="journal" id="journal">
+        <article class="entry rv" id="ga-frontend" data-item="dev-log"><time>2026.11<small>Dev Log</small></time><div><h3>给 GroundedAgent 换了一套前端</h3><p>顾客页改成以订单为入口的售后服务中心，操作员页改成三栏审批台。四个 PR 依次合并，后端只加了两个只读订单接口，规则校验、审批和写入都没动；前端测试从 45 个增加到 78 个。</p><a class="go" href="../projects/groundedagent.html">项目页 <span class="arrow">→</span></a></div></article>
         <article class="entry rv" id="hangzhou" data-item="milestone"><time>2026.11<small>Milestone</small></time><div><h3>从哈尔滨到杭州：第一次进入企业研发环境</h3><p>11 月 2 日，开始在杭州做 AI 应用开发实习。第一次接触真实的审批流程、外部系统和业务约束。个人项目里，我只需要说服自己；在团队里，我需要拿出别人也能复核的证据。</p><a class="go" href="../stories/school-to-work.html">读完整的故事 <span class="arrow">→</span></a></div></article>
         <article class="entry rv quote" id="thought" data-item="reflection"><time>2026.11<small>Reflection</small></time><div><h3>一个持续更新的想法</h3><p>我不认为自己已经找到了所有问题的答案。现在更感兴趣的是：如何让 AI 真正进入业务系统，如何让复杂系统在失败时仍然可靠，以及如何用工程方法证明一个系统真的在变好。</p></div></article>
         <article class="entry rv" id="groundedagent-v2" data-item="dev-log"><time>2026.10<small>Dev Log</small></time><div><h3>一个人把 GroundedAgent 做到 V2</h3><p>封存测试集只开封一次，端到端 21/25、六项安全约束 25/25；9 个真实杀进程的场景下不重复写入。测试集由隔离的上下文编写、封存，开封之后没有再调参。</p><a class="go" href="../projects/groundedagent.html">项目页 <span class="arrow">→</span></a></div></article>

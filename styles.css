@@ -61,16 +61,9 @@ img { display: block; max-width: 100%; height: auto; }
 /* ---------- 首屏 ---------- */
 
 /* ---------- 区块 ---------- */
-.browser:hover { border-color: var(--line-strong); }
 
 /* ---------- 项目卡 ---------- */
 .card { border: 1px solid var(--line); border-radius: 16px; background: #fff; overflow: hidden; }
-.shot { grid-column: 1 / -1; padding: 0 clamp(24px, 4vw, 40px) clamp(24px, 4vw, 40px); }
-.browser { display: block; transition: border-color .15s; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--soft); }
-.browser-bar { display: flex; align-items: center; gap: 6px; padding: 9px 12px; border-bottom: 1px solid var(--line); }
-.browser-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--line-strong); }
-.browser-bar span { margin-left: 8px; color: var(--faint); font: 12px var(--mono); }
-.shot figcaption { margin-top: 10px; color: var(--muted); font-size: 13px; }
 .failures { grid-column: 1 / -1; border-top: 1px solid var(--line); background: var(--soft); }
 .failures summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px clamp(20px, 3vw, 32px); cursor: pointer; list-style: none; font-size: 14px; font-weight: 600; }
 .failures summary::-webkit-details-marker { display: none; }

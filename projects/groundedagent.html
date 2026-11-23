@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#ffffff">
   <title>GroundedAgent · 侯俊安</title>
   <link rel="icon" href="../favicon.ico" sizes="any">
-  <link rel="stylesheet" href="../styles.css?v=c43e7866">
+  <link rel="stylesheet" href="../styles.css?v=c688f15e">
   <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -24,7 +24,7 @@
       <p class="crumb"><a href="./">Projects</a><span aria-hidden="true">/</span>电商售后智能 Agent</p>
       <h1>GroundedAgent</h1>
       <p class="intro">电商售后智能 Agent，从工具调用到幂等执行、人工审批与崩溃恢复。</p>
-      <div class="p-meta"><span class="status progress">In Progress</span><time>2026.07 — 至今</time><ul class="tags"><li>Python</li><li>FastAPI</li><li>LangGraph</li><li>DeepSeek Function Calling</li><li>BM25 + bge-m3</li><li>SQLite</li><li>Vue 3</li></ul></div>
+      <div class="p-meta"><span class="status progress">In Progress</span><time>2026.07 — 至今</time><ul class="tags"><li>Python</li><li>FastAPI</li><li>LangGraph</li><li>DeepSeek Function Calling</li><li>BM25 + bge-m3</li><li>SQLite</li><li>Vue 3</li><li>TypeScript</li><li>Element Plus</li></ul></div>
       <div class="actions"><a class="button primary" href="https://github.com/sjhesjaj/GroundedAgent">查看源码 ↗</a><a class="button" href="https://github.com/sjhesjaj/GroundedAgent#verified-results">评测记录 ↗</a></div>
     </header>
     <nav class="ptoc" aria-label="本页目录"><ol class="wide"><li><a href="#overview"><span>01</span>Overview</a></li><li><a href="#motivation"><span>02</span>Motivation</a></li><li><a href="#challenges"><span>03</span>Challenges</a></li><li><a href="#architecture"><span>04</span>Architecture</a></li><li><a href="#decisions"><span>05</span>Engineering Decisions</a></li><li><a href="#validation"><span>06</span>Validation</a></li><li><a href="#lessons"><span>07</span>Lessons</a></li></ol></nav>
@@ -32,7 +32,11 @@
       <header><span class="n">01</span><h2 id="overview-h">Overview</h2><p>这个项目是什么</p></header>
       <div class="pbody"><p class="lead-x">一个面向电商售后的客服 Agent：顾客可以查询订单、物流和售后规则，也可以发起退换货。</p>
       <p>它的重点不在“能回答”，而在<b>“写入之前，怎么证明这个动作该被放行”</b>。模型只负责提出动作；后端校验参数来源，用确定性规则决定是否放行；退货一律需要人工审批，批准后重新检查业务状态再写入。</p>
-      <figure class="shot" style="padding:0"><a class="browser" href="../assets/groundedagent-demo.webp" aria-label="查看大图：GroundedAgent 待审批界面"><div class="browser-bar"><i></i><i></i><i></i><span>localhost · GroundedAgent</span></div><img src="../assets/groundedagent-demo.webp" width="2160" height="1710" loading="lazy" alt="GroundedAgent 待审批界面截图"></a><figcaption>本地演示：退货申请进入待审批状态，操作员可以批准或拒绝。</figcaption></figure></div>
+      <p>顾客这边是以订单为入口的<b>售后服务中心</b>，操作员那边是三栏的<b>审批台</b>（2026.11 改版）。</p>
+      <div class="gallery">
+        <figure><a href="../assets/ga-v2-customer-1.png"><img src="../assets/ga-v2-customer-1.png" width="1440" height="900" loading="lazy" alt="售后服务中心：左边是订单卡片，右边是智能售后助手"></a><figcaption>售后服务中心：每个订单列出商品、包裹和金额，已付款的商品可以直接申请售后。</figcaption></figure>
+        <figure><a href="../assets/ga-v2-operator-1.png"><img src="../assets/ga-v2-operator-1.png" width="1440" height="900" loading="lazy" alt="审批台：会话队列、对话记录和审批详情"></a><figcaption>审批台：右栏核对订单、展示规则校验结果，批准和拒绝都要先确认。</figcaption></figure>
+      </div></div>
     </section>
     <section class="psec" id="motivation" aria-labelledby="motivation-h">
       <header><span class="n">02</span><h2 id="motivation-h">Motivation</h2><p>为什么要做</p></header>
@@ -49,6 +53,7 @@
       <div class="pbody"><ol class="flow"><li>模型提出动作</li><li class="arr" aria-hidden="true">→</li><li>闭合契约</li><li class="arr" aria-hidden="true">→</li><li class="hl">Grounding Gate</li><li class="arr" aria-hidden="true">→</li><li>Policy Guard</li><li class="arr" aria-hidden="true">→</li><li>人工审批</li><li class="arr" aria-hidden="true">→</li><li>新快照重新判定</li><li class="arr" aria-hidden="true">→</li><li class="hl">写入网关</li></ol>
       <p>动作参数先过闭合契约，再过 <b>grounding gate</b>：订单和商品必须来自本轮的真实读取，否则直接拦下，不调用写入网关。确定性的 <b>Policy Guard</b> 决定放行、拒绝还是需要审批。</p>
       <p>LangGraph 状态持久化 + <b>in-flight marker</b> + 幂等键：业务已写入、会话还没记录时进程退出，重启只重跑网关节点。售后知识库用 BM25 + bge-m3 混合检索，回答附文档出处——但知识库不能作为提交动作的依据。</p>
+      <p>前端在 2026.11 换成了 TypeScript + Element Plus（PR #57–#60）。后端只新增了两个<b>只读</b>订单接口给页面展示数据：会话、Guard 规则校验、人工审批和写入网关都没有改动。会话正在恢复时，订单摘要接口返回 409 <code>recovery_pending</code>，而不是读一份不确定的状态。</p>
       <p>下面是按项目文档里的设计和测试场景整理的<b>示意回放</b>（不是原始日志）。选一个场景，逐步看它经过了哪些检查：</p>
       <div class="card trace" data-trace>
         <div class="trace-tabs" role="tablist" aria-label="回放场景"></div>
@@ -65,18 +70,23 @@
     </section>
     <section class="psec" id="decisions" aria-labelledby="decisions-h">
       <header><span class="n">05</span><h2 id="decisions-h">Engineering Decisions</h2><p>为什么这样设计</p></header>
-      <div class="pbody"><ul class="decisions"><li><b>证据不足就拒绝，不替模型“修正”参数</b><span>替模型修正，等于让系统去猜。拒绝之后回到对话，让模型先去读。</span></li><li><b>批准之后，用新的数据库快照再判一次</b><span>审批是对当时状态的批准，不是对未来任意状态的授权；状态变了就不执行。</span></li><li><b>in-flight marker + 幂等键，而不是“尽量别崩”</b><span>崩溃窗口没法消除，能做的是让重放变得无害。</span></li><li><b>知识库只回答问题，不作为写入依据</b><span>文档说明的是规则，不是这一笔订单的事实。</span></li><li><b>holdout 隔离编写、封存、只开封一次</b><span>开封之后再调参，分数就不再说明任何事。</span></li></ul></div>
+      <div class="pbody"><ul class="decisions"><li><b>证据不足就拒绝，不替模型“修正”参数</b><span>替模型修正，等于让系统去猜。拒绝之后回到对话，让模型先去读。</span></li><li><b>批准之后，用新的数据库快照再判一次</b><span>审批是对当时状态的批准，不是对未来任意状态的授权；状态变了就不执行。</span></li><li><b>in-flight marker + 幂等键，而不是“尽量别崩”</b><span>崩溃窗口没法消除，能做的是让重放变得无害。</span></li><li><b>知识库只回答问题，不作为写入依据</b><span>文档说明的是规则，不是这一笔订单的事实。</span></li><li><b>holdout 隔离编写、封存、只开封一次</b><span>开封之后再调参，分数就不再说明任何事。</span></li><li><b>执行成功只显示“申请已提交 · 待处理”，不写“已完成”</b><span>写入成功只代表售后单建好了、等待处理，页面不能比系统说得更多。</span></li><li><b>订单摘要读不到时，照常可以审批</b><span>展示数据是辅助，读失败不能把对话和申请从页面上清掉；审批仍只走原来的接口。</span></li><li><b>“申请售后”只起草，不代发</b><span>草稿放进输入框，由顾客自己点发送，后面仍然走会话、规则校验和审批。</span></li></ul></div>
     </section>
     <section class="psec" id="validation" aria-labelledby="validation-h">
       <header><span class="n">06</span><h2 id="validation-h">Validation</h2><p>如何验证</p></header>
-      <div class="pbody"><div class="nums"><div><b>21/25</b><span>Stage 6 封存测试集端到端通过</span></div><div><b>25/25</b><span>满足六项硬性安全约束</span></div><div><b>9</b><span>真实杀进程的崩溃恢复场景</span></div><div><b>2515</b><span>后端离线测试，零失败</span></div></div>
+      <div class="pbody"><div class="nums"><div><b>21/25</b><span>Stage 6 封存测试集端到端通过</span></div><div><b>25/25</b><span>满足六项硬性安全约束</span></div><div><b>9</b><span>真实杀进程的崩溃恢复场景</span></div><div><b>2533</b><span>后端完整测试，4 个跳过，0 失败</span></div><div><b>78</b><span>前端测试，改版前 45 个</span></div></div>
       <p>加 grounding gate 前后的开发集对照：无依据动作从每轮平均 <b>3.33</b> 次降到 <b>0</b>，误拒为 0；代价是端到端从 37/40 降到 36/40——一条本该建出来的转人工工单，因为模型没查订单被拦下了。</p>
       <details class="failures card"><summary>没通过的 4 条是什么？</summary><div class="failures-body">
         <p>holdout 由隔离的上下文编写并封存，栈冻结后只开封一次，开封后没有任何调参。4 个失败都属于模型行为，没有一条突破安全边界：</p>
         <ul><li><strong>3 条：没读订单就直接提交动作</strong>（s6h-001 / 004 / 020）。明细号按编号规律猜对了，最终数据库状态仍然正确，只在“必需能力”一项记为失败。这正是后来加 grounding gate 的原因。</li>
         <li><strong>1 条：追问过度</strong>（s6h-012）。模型先用 schema 示例里的编号探查，再同时追问订单号和商品明细，对话没能推进。</li></ul>
       </div></details>
-      <p class="caveat">样本小（DEV 40 条、holdout 25 条，各一轮，单一模型），不能当作统计结论，也不代表生产可用。</p></div>
+      <p class="caveat">样本小（DEV 40 条、holdout 25 条，各一轮，单一模型），不能当作统计结论，也不代表生产可用。</p>
+      <p>前端改版的验收边界都有测试覆盖：如果订单摘要读取失败时清空页面、或者不确认就审批，审批台的 7 个关键测试里有 5 个会失败。</p>
+      <div class="gallery">
+        <figure><a href="../assets/ga-v2-customer-5.png"><img src="../assets/ga-v2-customer-5.png" width="1440" height="900" loading="lazy" alt="顾客页：申请已提交，待处理，显示售后单号"></a><figcaption>操作员批准后，顾客看到的是“申请已提交 · 待处理”和售后单号。</figcaption></figure>
+        <figure><a href="../assets/ga-v2-operator-3.png"><img src="../assets/ga-v2-operator-3.png" width="1440" height="900" loading="lazy" alt="审批台：会话正在恢复，订单信息暂时读不到"></a><figcaption>会话恢复中（409）：订单信息读不到，对话和审批按钮都还在。这张图是在浏览器里拦截请求模拟的。</figcaption></figure>
+      </div></div>
     </section>
     <section class="psec" id="lessons" aria-labelledby="lessons-h">
       <header><span class="n">07</span><h2 id="lessons-h">Lessons</h2><p>我学到了什么</p></header>
