@@ -572,3 +572,9 @@ html { scroll-padding-top: 120px; }
   .mini a { grid-template-columns: 64px minmax(0, 1fr); }
   .next-proj { flex-direction: column; }
 }
+
+/* 架构图：完整显示，不裁切 */
+.pc .pc-media img.contain, .featured .f-media img.contain { object-fit: contain; padding: 16px; background: #fff; }
+.figure-x { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #fff; }
+.figure-x img { width: 100%; height: auto; }
+.figure-x figcaption { padding: 10px 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }

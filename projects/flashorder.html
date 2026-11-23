@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="正在规划的高并发订单系统，重点研究库存扣减、超卖防护、幂等、消息队列与性能优化。">
+  <meta name="description" content="限量抢购后端：在热点库存、重复提交和中间件故障下不超卖、不重复建单，并用同机实验量化异步削峰的收益和代价。">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#ffffff">
   <title>FlashOrder · 侯俊安</title>
   <link rel="icon" href="../favicon.ico" sizes="any">
-  <link rel="stylesheet" href="../styles.css?v=c688f15e">
+  <link rel="stylesheet" href="../styles.css?v=f3c618c7">
   <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -21,46 +21,56 @@
   <main id="main" class="wide" tabindex="-1">
 
     <header class="page-head p-head">
-      <p class="crumb"><a href="./">Projects</a><span aria-hidden="true">/</span>高并发订单系统</p>
+      <p class="crumb"><a href="./">Projects</a><span aria-hidden="true">/</span>限量抢购后端</p>
       <h1>FlashOrder</h1>
-      <p class="intro">正在规划的高并发订单系统，重点研究库存扣减、超卖防护、幂等、消息队列与性能优化。</p>
-      <div class="p-meta"><span class="status planned">Planned</span><time>规划中</time><ul class="tags"><li>Java</li><li>Spring Boot</li></ul></div>
-      
+      <p class="intro">限量抢购后端：在热点库存、重复提交和中间件故障下不超卖、不重复建单，并用同机实验量化异步削峰的收益和代价。</p>
+      <div class="p-meta"><span class="status completed">Completed</span><time>2026.11</time><ul class="tags"><li>Java 21</li><li>Spring Boot 4</li><li>MyBatis</li><li>MySQL 8.4</li><li>Kafka 4.2（KRaft）</li><li>Redis 7.4</li><li>Prometheus</li><li>Testcontainers</li></ul></div>
+      <div class="actions"><a class="button primary" href="https://github.com/sjhesjaj/FlashOrder">查看源码 ↗</a><a class="button" href="https://github.com/sjhesjaj/FlashOrder/blob/main/docs/technical-overview.md">技术文档 ↗</a><a class="button" href="https://github.com/sjhesjaj/FlashOrder/blob/main/docs/experiments/m4-comparison.md">对比实验与原始数据 ↗</a></div>
     </header>
     <nav class="ptoc" aria-label="本页目录"><ol class="wide"><li><a href="#overview"><span>01</span>Overview</a></li><li><a href="#motivation"><span>02</span>Motivation</a></li><li><a href="#challenges"><span>03</span>Challenges</a></li><li><a href="#architecture"><span>04</span>Architecture</a></li><li><a href="#decisions"><span>05</span>Engineering Decisions</a></li><li><a href="#validation"><span>06</span>Validation</a></li><li><a href="#lessons"><span>07</span>Lessons</a></li></ol></nav>
     <section class="psec" id="overview" aria-labelledby="overview-h">
       <header><span class="n">01</span><h2 id="overview-h">Overview</h2><p>这个项目是什么</p></header>
-      <div class="pbody"><p class="lead-x">一个正在规划的高并发订单系统。</p>
-      <p>还没有开始写代码。这一页先记录我想回答的问题；做完一个阶段，就更新一个阶段。</p></div>
+      <div class="pbody"><p class="lead-x">一个限量抢购后端。</p>
+      <p>它跑通了限量抢购的完整链路：<b>提交请求 → 预留库存并建单 → 模拟支付或超时释放 → 查到最终结果</b>。系统支持同步和异步两种受理模式，两者共用同一个建单事务，所以能在同一台机器、同样的负载下直接对比。V1 的四个里程碑都已通过独立验收，代码公开在 GitHub。</p>
+      <figure class="figure-x"><a href="../assets/flashorder-architecture.svg"><img src="../assets/flashorder-architecture.svg" width="1280" height="820" loading="lazy" alt="FlashOrder V1 架构与请求链路"></a><figcaption>异步模式下的完整链路（图来自项目仓库）。</figcaption></figure></div>
     </section>
     <section class="psec" id="motivation" aria-labelledby="motivation-h">
       <header><span class="n">02</span><h2 id="motivation-h">Motivation</h2><p>为什么要做</p></header>
-      <div class="pbody"><p>图书馆项目里，并发问题被“一个座位、一个时段”框住了，数据库唯一约束就能兜底。真实的下单场景难得多：库存是一个会被大量请求同时扣减的数字，流量也远超数据库能直接承受的量级。</p>
-      <p>FlashOrder 想研究的就是这些更难的部分：库存扣减、超卖防护、幂等、消息队列与性能优化。</p></div>
+      <div class="pbody"><p>图书馆项目里，并发问题被“一个座位、一个时段”框住了，数据库唯一约束就能兜底。限量抢购难得多：瞬时请求远多于库存，所有扣减都落在同一行上；用户会重试，中间件也会出故障。</p>
+      <p>FlashOrder 想把这些更难的部分做一遍，并且用同机实验把<b>异步削峰的收益和代价</b>都量出来。</p></div>
     </section>
     <section class="psec" id="challenges" aria-labelledby="challenges-h">
       <header><span class="n">03</span><h2 id="challenges-h">Challenges</h2><p>遇到了什么困难</p></header>
-      <div class="pbody"><ul class="qa"><li><b>库存扣减放在哪里？</b><span>数据库行锁、条件更新、Redis 原子操作，各自的边界在哪里。</span></li><li><b>怎么防超卖，也防少卖？</b><span>扣多了是事故，扣少了也是损失。</span></li><li><b>重复请求与幂等</b><span>用户连点、网关重试，一笔订单只能创建一次。</span></li><li><b>消息队列削峰之后，状态怎么保持一致？</b><span>异步落单意味着中间状态会存在一段时间。</span></li><li><b>怎么测出真实的性能上限？</b><span>压测的数字要能复现，也要说明是在什么条件下测的。</span></li></ul></div>
+      <div class="pbody"><ul class="qa"><li><b>热点库存行</b><span>瞬时请求远多于库存，所有扣减都落在同一行上，怎么不让锁等待拖垮入口？</span></li><li><b>重复提交</b><span>回包丢失后用户重试，怎么既不多扣库存，也不返回与实际不符的结果？</span></li><li><b>占库存不付款</b><span>下单不付的库存，怎么在 15 分钟后自动归还？</span></li><li><b>中间件故障</b><span>Kafka 或 Redis 停机时，怎么继续有界地服务，而不丢请求、不超卖？</span></li></ul></div>
     </section>
     <section class="psec" id="architecture" aria-labelledby="architecture-h">
       <header><span class="n">04</span><h2 id="architecture-h">Architecture</h2><p>系统怎么设计</p></header>
-      <div class="pbody"><p class="caveat">还没有定稿。</p>
-      <p>技术栈初定 Java + Spring Boot。库存扣减、消息队列这些关键选择，会先在 <a href="../lab/">Lab</a> 里做对照实验，再决定要不要进入主线。</p></div>
+      <div class="pbody"><p><b>MySQL 是唯一的事实来源</b>；Kafka 按活动分区，让同一活动的建单命令依次落到库存行上；Redis 只做限流。</p>
+      <ol class="flow"><li>API：六步入口检查</li><li class="arr" aria-hidden="true">→</li><li class="hl">受理事务：请求行 + 建单命令</li><li class="arr" aria-hidden="true">→</li><li>Outbox Relay → Kafka</li><li class="arr" aria-hidden="true">→</li><li>consumer：建单、写结果、扣库存</li><li class="arr" aria-hidden="true">→</li><li>客户端轮询结果</li><li class="arr" aria-hidden="true">→</li><li>15 分钟未付 → 取消并归还</li></ol>
+      <p>同步模式在受理事务里直接建单，不经过 Kafka。同一个工程按 Spring profile 拆成 <code>api</code>、<code>scheduler</code>、<code>consumer</code> 三种角色，可以一体运行，也可以分进程部署。</p></div>
     </section>
     <section class="psec" id="decisions" aria-labelledby="decisions-h">
       <header><span class="n">05</span><h2 id="decisions-h">Engineering Decisions</h2><p>为什么这样设计</p></header>
-      <div class="pbody"><p class="muted">暂无。做出来之后写在这里，连同被放弃的方案一起。</p></div>
+      <div class="pbody"><p>所有一致性都交给 MySQL 的约束和事务来保证，Kafka 和 Redis 只负责削峰和限流，它们出错不会导致超卖。</p><ul class="decisions"><li><b>两层去重：(user_id, 幂等键) 唯一索引 + UNIQUE(request_id)，幂等回查放在快速拒绝之前</b><span>同一个键 40 份并发，只有 1 条请求、最多 1 笔订单，40 个响应完全相同。</span></li><li><b>业务拒绝只回滚到保存点，在同一事务里写 REJECTED</b><span>拒绝结果和请求行一起提交，重试拿到的始终是同一个结果。</span></li><li><b>一人一单用生成列 active_flag + 唯一索引</b><span>不需要单独的资格表，订单取消后资格自动释放。</span></li><li><b>库存行只存 total 和 available，扣库存放在事务最后；异步按 campaign_id 分区</b><span>异步模式下 InnoDB 行锁等待为 0。</span></li><li><b>Transactional Outbox：提交后才返回 202；Relay 租约领取、事务外发送</b><span>Kafka 停机时仍能受理，恢复后自动补发。</span></li><li><b>消费者先锁请求行，已是终态就跳过；重试用尽写 SYSTEM_FAILED 和死信</b><span>三类崩溃点注入后，同一请求最多一单，死信不会丢。</span></li><li><b>Redis 令牌桶限流，停机时降级为进程内令牌桶</b><span>快速拒绝不写任何记录，Redis 故障不影响正确性。</span></li><li><b>FOR UPDATE SKIP LOCKED 领取到期订单</b><span>支付与取消竞争、两个取消任务并发，都只产生合法的状态转换。</span></li></ul><p>对账接口随时核对 <code>total = available + 待支付 + 已支付</code>。</p></div>
     </section>
     <section class="psec" id="validation" aria-labelledby="validation-h">
       <header><span class="n">06</span><h2 id="validation-h">Validation</h2><p>如何验证</p></header>
-      <div class="pbody"><p>第一个计划中的实验：<b>1000 个并发请求争抢 100 件库存</b>，对比数据库条件更新、Redis 锁和 Redis 原子扣减。</p>
-      <p><a href="../lab/#redis-oversell">Lab · Redis 分布式锁，能不能防住超卖？ →</a></p></div>
+      <div class="pbody"><div class="nums"><div><b>264 ms</b><span>异步模式入口 P95（同步为 624 ms）</span></div><div><b>0</b><span>异步模式行锁等待（同步为 502 次）</span></div><div><b>0</b><span>所有演练和实验的库存差额</span></div><div><b>59</b><span>项测试，39 项用真实 MySQL / Kafka / Redis</span></div></div>
+      <p>代价也量出来了：异步模式下客户端看到终态的 P95 从 596 ms 变成 <b>9,538 ms</b>，单活动库存吞吐也不比同步高。</p>
+      <ul><li><b>Kafka 停机</b>（在途上限 500）：继续受理 693 笔，超放 193 笔，在理论上界约 220 以内；重启后 15.54 s 全部建单，对账差额为 0。</li>
+      <li><b>Redis 停机</b>：限流切换到进程内令牌桶，按实例数分摊配额，健康检查保持正常。</li>
+      <li><b>多活动并行</b>：两个活动分到两个消费线程时，合计约 98.5 单/s，是单线程的 1.8 倍。</li></ul>
+      <p>四个里程碑（同步基线 → 订单闭环 → 异步链路 → 保护与实验）都有写在设计稿里的过关条件，独立验收在临时 Docker 环境里复测后才合并；验收共记录 23 条问题或观察，18 条已关闭，其余不影响 V1 的结论。</p>
+      <p class="caveat">这些是笔记本上的同机对比数据（i7-13650HX，Docker Desktop），不是容量结论。同步的吞吐上限还没测出来。</p></div>
     </section>
     <section class="psec" id="lessons" aria-labelledby="lessons-h">
       <header><span class="n">07</span><h2 id="lessons-h">Lessons</h2><p>我学到了什么</p></header>
-      <div class="pbody"><p class="muted">做完再写。</p></div>
+      <div class="pbody"><div class="lesson-x"><p>正确性交给数据库的约束和事务，中间件只负责削峰和限流——它们出错，系统可以变慢，但不能超卖。</p>
+      <ul><li>异步削峰换来的是入口稳定，不是更快出结果；收益和代价要一起量。</li></ul></div>
+      <p><b>还没解决的：</b>单活动的建单由一条消费线程串行完成，本机约 50–70 单/s；只保证近似的先到先得；认证和支付都是模拟的。后续方向（未排期）首选消费者微批扣减，其次是真实认证、库存分桶，以及用 CDC 替代轮询式 Relay。</p>
+      <p>继续读：<a href="https://github.com/sjhesjaj/FlashOrder/blob/main/docs/prd.md">产品需求文档 ↗</a> · <a href="https://github.com/sjhesjaj/FlashOrder/blob/main/docs/design-v1.md">V1 设计稿 ↗</a> · <a href="https://github.com/sjhesjaj/FlashOrder/blob/main/docs/decisions.md">设计决策记录 ↗</a> · <a href="https://github.com/sjhesjaj/FlashOrder/tree/main/docs/reviews">M1–M4 验收记录 ↗</a> · <a href="campus-library.html">Campus Library</a></p></div>
     </section>
-    <nav class="next-proj" aria-label="其他项目"><a href="agent-ticket.html"><small>← Previous</small><b>Agent Ticket Platform</b></a><a class="r" href="./"><small>Back →</small><b>All projects</b></a></nav>
+    <nav class="next-proj" aria-label="其他项目"><a href="groundedagent.html"><small>← Previous</small><b>GroundedAgent</b></a><a class="r" href="enterprise-ai.html"><small>Next →</small><b>Enterprise AI Practice</b></a></nav>
   </main>
 
   <footer class="wide footer">
